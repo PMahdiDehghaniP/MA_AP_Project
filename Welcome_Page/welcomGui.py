@@ -10,12 +10,12 @@ from PyQt5.QtWidgets import QWidget
 class Welcome(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("mainwindow.ui", self)
+        uic.loadUi("Welcome_Page\mainwindow.ui", self)
         self.setWindowTitle("Welcome Page")
         self.setFixedSize(462, 265)
-        self.setWindowIcon(QIcon("welcome_icon.jpg"))
+        self.setWindowIcon(QIcon("Welcome_Page\welcome_icon.jpg"))
         self.setStyleSheet(
-            """background:url('welcome.webp');
+            """background:url(Welcome_Page/welcome.webp);
         """
         )
         self.welcome_page_label.setStyleSheet(
