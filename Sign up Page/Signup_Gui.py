@@ -10,11 +10,12 @@ from PyQt5.QtWidgets import QWidget
 class Welcome(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("mainwindow.ui", self)
+        uic.loadUi("Sign up Page\\mainwindow.ui", self)
         self.setWindowTitle("Sign UP")
+        self.setWindowIcon(QIcon("Sign up Page\\icon_signup.png"))
         self.setStyleSheet(
             """
-background : url('bg_signup.jpg');
+background : url('Sign up Page/bg_signup.jpg');
 background-repeat:no-repeat;                  """
         )
         self.line.setStyleSheet("background:none;")
