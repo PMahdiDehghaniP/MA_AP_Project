@@ -66,7 +66,3 @@ class Cost_Form(QMainWindow):
             );}''')
 
 
-app = QApplication([])
-w = Cost_Form()
-w.show()
-app.exec_()

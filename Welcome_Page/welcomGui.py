@@ -10,10 +10,10 @@ from PyQt5.QtWidgets import QWidget
 class Welcome(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("Welcome_Page\mainwindow.ui", self)
+        uic.loadUi(r"Welcome_Page\mainwindow.ui", self)
         self.setWindowTitle("Welcome Page")
         self.setFixedSize(462, 265)
-        self.setWindowIcon(QIcon("Welcome_Page\welcome_icon.jpg"))
+        self.setWindowIcon(QIcon(r"Welcome_Page\welcome_icon.jpg"))
         self.setStyleSheet(
             """background:url(Welcome_Page/welcome.webp);
         """
@@ -78,8 +78,3 @@ class Welcome(QMainWindow):
         """
         )
 
-
-app = QApplication([])
-w = Welcome()
-w.show()
-app.exec_()

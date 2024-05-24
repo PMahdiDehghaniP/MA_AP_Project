@@ -72,7 +72,4 @@ class Login(QMainWindow):
             }''')
 
 
-app = QApplication([])
-w = Login()
-w.show()
-app.exec_()
+
