@@ -148,7 +148,3 @@ class Main_Page(QMainWindow):
         )
 
 
-app = QApplication([])
-w = Main_Page()
-w.show()
-app.exec_()

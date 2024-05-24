@@ -97,8 +97,3 @@ class Income(QMainWindow):
         """
         )
 
-
-app = QApplication([])
-w = Income()
-w.show()
-app.exec_()

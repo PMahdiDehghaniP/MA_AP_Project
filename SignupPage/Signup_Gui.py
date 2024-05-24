@@ -2,20 +2,18 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
-import sys
-
 from PyQt5.QtWidgets import QWidget
-
+import sys
 
 class Welcome(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("Sign up Page\\mainwindow.ui", self)
+        uic.loadUi(r"SignupPage\mainwindow.ui", self)
         self.setWindowTitle("Sign UP")
-        self.setWindowIcon(QIcon("Sign up Page\\icon_signup.png"))
+        self.setWindowIcon(QIcon(r"SignupPage\icon_signup.png"))
         self.setStyleSheet(
             """
-background : url('Sign up Page/bg_signup.jpg');
+background : url('SignupPage/bg_signup.jpg');
 background-repeat:no-repeat;                  """
         )
         self.line.setStyleSheet("background:none;")
@@ -152,9 +150,3 @@ background-repeat:no-repeat;                  """
                 }
                 """
         )
-
-
-app = QApplication([])
-w = Welcome()
-w.show()
-app.exec_()
