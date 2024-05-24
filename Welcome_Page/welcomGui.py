@@ -24,6 +24,7 @@ class Welcome(QMainWindow):
                                             text-align:center;
                                             font-size:20px"""
         )
+        self.login_btn.setCursor(Qt.PointingHandCursor)
         self.login_btn.setStyleSheet(
             """
     QPushButton {
@@ -50,6 +51,7 @@ class Welcome(QMainWindow):
     }
         """
         )
+        self.signup_btn.setCursor(Qt.PointingHandCursor)
         self.signup_btn.setStyleSheet(
             """
     QPushButton {
@@ -78,3 +80,7 @@ class Welcome(QMainWindow):
         """
         )
 
+app=QApplication([])
+w=Welcome()
+w.show()
+app.exec_()

@@ -9,10 +9,10 @@ from PyQt5.QtWidgets import QWidget
 class Login(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("Login_Page\\mainwindow.ui", self)
+        uic.loadUi(r"Login_Page\mainwindow.ui", self)
         self.setWindowTitle("Welcome Page")
         self.setFixedSize(422, 440)
-        self.setWindowIcon(QIcon("Login_Page\\login_icon.png"))
+        self.setWindowIcon(QIcon(r"Login_Page\login_icon.png"))
         self.login_label.setStyleSheet("background:none;")
         self.forgot_login.setStyleSheet("background:none;")
         self.question.setStyleSheet("background:none;font-size:18px;")
@@ -37,7 +37,9 @@ class Login(QMainWindow):
             font-size:14px;''')
         self.show_pass_login.setStyleSheet('''
             background:none;''')
+        self.sign_in_login_btn.setCursor(Qt.PointingHandCursor)
         self.sign_in_login_btn.setStyleSheet('''
+            QPushButton{                              
             background: qlineargradient(
             spread:pad, x1:0, y1:0, x2:1, y2:0, 
             stop:0 #8EC5FC, 
@@ -45,7 +47,17 @@ class Login(QMainWindow):
             );
             border:none;
             border-radius:5px;
-            font-size:14px;''')
+            font-size:14px;
+            }
+            QPushButton:hover{
+            background: qlineargradient(
+            spread:pad, x1:0, y1:0, x2:1, y2:0, 
+            stop:0 #c31432, 
+            stop:1 #240b36
+            );
+            color:yellow;
+            }
+            ''')
         self.pass_forgot_login.setCursor(Qt.PointingHandCursor)
         self.pass_forgot_login.setStyleSheet('''
             QPushButton{
@@ -69,7 +81,5 @@ class Login(QMainWindow):
             QPushButton:hover{
                 color:#800004;
                 border:1px solid #800004;
-            }''')
-
-
-
+            }'''
+                                            )

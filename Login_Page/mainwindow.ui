@@ -43,7 +43,7 @@
      </rect>
     </property>
     <property name="placeholderText">
-     <string>Email/UserName</string>
+     <string>Email / UserName</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="password_login">
