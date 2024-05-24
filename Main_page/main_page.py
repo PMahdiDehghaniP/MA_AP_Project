@@ -7,7 +7,7 @@ import sys
 from PyQt5.QtWidgets import QWidget
 
 
-class amin(QMainWindow):
+class Main_Page(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(r"Main_page\mainwindow.ui", self)
@@ -149,6 +149,6 @@ class amin(QMainWindow):
 
 
 app = QApplication([])
-w = amin()
+w = Main_Page()
 w.show()
 app.exec_()
