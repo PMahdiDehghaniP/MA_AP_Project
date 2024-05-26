@@ -80,7 +80,3 @@ class Welcome(QMainWindow):
         """
         )
 
-app=QApplication([])
-w=Welcome()
-w.show()
-app.exec_()

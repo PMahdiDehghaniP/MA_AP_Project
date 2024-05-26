@@ -11,6 +11,7 @@ class Signup(QMainWindow):
         super().__init__()
         uic.loadUi(r"SignupPage\mainwindow.ui", self)
         self.setWindowTitle("Sign UP")
+        self.setFixedSize(479,640)
         self.setWindowIcon(QIcon(r"SignupPage\icon_signup.png"))
         self.setStyleSheet(
             """
