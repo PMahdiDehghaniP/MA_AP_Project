@@ -4,6 +4,7 @@ from Main_page.main_page import Main_Page
 from Forgot_page.forgot import *
 from Login_Page.login_form import Login
 import user as uv
+import json
 from Income_page.income_page import Income
 from Cost_Page.cost_page import Cost_Form
 from PyQt5.QtWidgets import *
@@ -18,24 +19,26 @@ signup_page = Signup()
 forgot_page = forgot()
 
 
-def show_warning(message):
-    msg = QMessageBox()
-    msg.setIcon(QMessageBox.Warning)
-    msg.setText("Warning")
-    msg.setInformativeText(message)
-    msg.setWindowTitle("Warning")
-    msg.setStandardButtons(QMessageBox.Ok)
-    msg.exec_()
+class CreateJson:
+    def __init__(self, file_name):
+        self.file_name = file_name
 
+    def load_json_file(self):
+        try:
+            with open(self.file_name, "r") as json_file:
+                data = json.load(json_file)
+        except (FileNotFoundError, json.decoder.JSONDecodeError):
+            data = {}
+        return data
 
-def show_message(message):
-    msg = QMessageBox()
-    msg.setIcon(QMessageBox.Information)
-    msg.setText("Done!")
-    msg.setInformativeText(message)
-    msg.setWindowTitle("Message")
-    msg.setStandardButtons(QMessageBox.Ok)
-    msg.exec_()
+    def save_to_json(self, data):
+        with open(self.file_name, "w") as json_file:
+            json.dump(data, json_file)
+
+    def add_dict_to_json(self, new_dict):
+        existing_data = self.load_json_file()
+        existing_data.update(new_dict)
+        self.save_to_json(existing_data)
 
 
 def welcome_signup_btn_clicked():
@@ -58,63 +61,28 @@ def pass_btn_login_clicked():
     forgot_page.show()
 
 
-def submit_signup_clicked():
-    is_user_valid = True
-    password_text = signup_page.Password_signup.text()
-    first_name_text = signup_page.fname_signup.text()
-    last_name_text = signup_page.lname_signup.text()
-    email_text = signup_page.email_signup.text()
-    birthday_text = signup_page.date_signup.text()
-    phone_number_text = signup_page.phone_signup.text()
-    city_text = signup_page.city_signup.text()
-    username_text = signup_page.username.text()
-    repeat_password_text = signup_page.repeatpasswprd_signup.text()
-    if uv.validate_name(first_name_text) == False:
-        show_warning("You Entered Inavlid First Name!")
-        signup_page.fname_signup.setText("")
-        is_user_valid = False
-    if uv.validate_name(last_name_text) == False:
-        show_warning("You Entered Invalid Last Name!")
-        signup_page.lname_signup.setText("")
-        is_user_valid = False
-    if uv.validate_username(username_text) == False:
-        show_warning("You Entered Invalid Username\nOr Already Taken!")
-        signup_page.username.setText("")
-        is_user_valid = False
-    if uv.validate_password(password_text) == False:
-        show_warning("You Entered Invalid Value\nFor Password!")
-        signup_page.Password_signup.setText("")
-        is_user_valid = False
-    if uv.validate_email(email_text) == False:
-        show_warning("You Entered Invalid Email!")
-        signup_page.email_signup.setText("")
-        is_user_valid = False
-    if uv.validite_birthday(birthday_text) == False:
-        show_warning("You Entered Invalid Birthday Date!")
-        signup_page.date_signup.setText("")
-        is_user_valid = False
-    if uv.validate_phone_number(phone_number_text) == False:
-        show_warning("You Entered Invalid Phone Number!")
-        signup_page.phone_signup.setText("")
-        is_user_valid = False
-    if uv.validate_city(city_text) == False:
-        show_warning("You Entered Invalid City!")
-        signup_page.city_signup.setText("")
-        is_user_valid = False
-    if repeat_password_text != password_text:
-        show_warning("Repeat password does not match the password!")
-        signup_page.repeatpasswprd_signup.setText("")
-        is_user_valid = False
-    if is_user_valid:
+def show_message(message):
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Information)
+    msg.setText("Done!")
+    msg.setInformativeText(message)
+    msg.setWindowTitle("Message")
+    msg.setStandardButtons(QMessageBox.Ok)
+    msg.exec_()
+
+
+def user_object_making():
+    flag = signup_page.submit_signup_clicked()
+    if flag:
         new_user = uv.User(
-            first_name_text,
-            last_name_text,
-            username_text,
-            phone_number_text,
-            password_text,
-            email_text,
-            city_text,
-            birthday_text,
+            signup_page.fname_signup.text(),
+            signup_page.lname_signup.text(),
+            signup_page.username.text(),
+            signup_page.phone_signup.text(),
+            signup_page.Password_signup.text(),
+            signup_page.email_signup.text(),
+            signup_page.city_signup.text(),
+            signup_page.date_signup.text(),
         )
         show_message("user successfully created.")
         signup_page.repeatpasswprd_signup.setText("")
@@ -126,6 +94,20 @@ def submit_signup_clicked():
         signup_page.username.setText("")
         signup_page.lname_signup.setText("")
         signup_page.fname_signup.setText("")
+        signup_page.email_signup.setText("")
+        user_dict = {
+            new_user.username: {
+                "email": new_user.email,
+                "password": new_user.password,
+                "fname": new_user.name,
+                "lname": new_user.lastname,
+                "phone": new_user.phone,
+                "birth": new_user.birthday,
+                "city": new_user.city,
+            }
+        }
+        handler = CreateJson("user.json")
+        handler.add_dict_to_json(user_dict)
 
 
 welcome_window = Welcome()
@@ -134,5 +116,5 @@ welcome_window.signup_btn.clicked.connect(welcome_signup_btn_clicked)
 welcome_window.login_btn.clicked.connect(welcome_login_btn_clicked)
 login_page.pass_forgot_login.clicked.connect(pass_btn_login_clicked)
 login_page.signup_btn_login.clicked.connect(signup_btn_login_clicked)
-signup_page.Submit_signup.clicked.connect(submit_signup_clicked)
+signup_page.Submit_signup.clicked.connect(user_object_making)
 app.exec_()
