@@ -1,5 +1,6 @@
 import json
 
+
 class CreateJson:
     def __init__(self, file_name):
         self.file_name = file_name
@@ -20,3 +21,37 @@ class CreateJson:
         existing_data = self.load_json_file()
         existing_data.update(new_dict)
         self.save_to_json(existing_data)
+    # signup
+
+    def is_uniqe_user(self, username):
+        data = self.load_json_file()
+        for each_user in data:
+            if username == each_user:
+                return False
+        return True
+
+    def is_uniqe_email(self, email):
+        data = self.load_json_file()
+        for each_user in data:
+            if  data[each_user]["email"] == email:
+                return False
+        return True
+
+    def is_uniqe_phone(self, phone):
+        data = self.load_json_file()
+        for each_user in data:
+            if  data[each_user]["phone"] == phone:
+                return False
+        return True
+    # login
+
+    def does_user_exist(self, emuser, password):
+        data = self.load_json_file()
+        for each_user in data:
+            if each_user == emuser or data[each_user]["email"] == emuser:
+                if password == data[each_user]["password"]:
+                    return "Valid"
+                else:
+                    return "invalid password"
+            else:
+                return "not found"

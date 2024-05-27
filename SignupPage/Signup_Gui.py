@@ -1,3 +1,4 @@
+from JJson.jjson import *
 from MessageBox.messagebox import *
 from validates.validate import *
 from PyQt5.QtCore import Qt
@@ -12,6 +13,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 ###################################################
 Message = Message_Box()
 Valid = Validate()
+check_json = CreateJson("user.json")
 
 
 class Signup(QMainWindow):
@@ -177,6 +179,11 @@ background-repeat:no-repeat;                  """
         self.city_signup.setCompleter(completer)
 
     def submit_signup_clicked(self):
+        user_uniqe = check_json.is_uniqe_user(self.username.text())
+        phone_uniqe = check_json.is_uniqe_phone(
+            self.phone_signup.text())
+        email_uniqe = check_json.is_uniqe_email(
+            self.email_signup.text())
         is_user_valid = True
         if Valid.validate_name(self.fname_signup.text()) == False:
             Message.show_warning("You Entered Inavlid First Name!")
@@ -194,7 +201,8 @@ background-repeat:no-repeat;                  """
             is_user_valid = False
             return is_user_valid
         if Valid.validate_username(self.username.text()) == False:
-            Message.show_warning("You Entered Invalid Username\nOr Already Taken!")
+            Message.show_warning(
+                "You Entered Invalid Username\nOr Already Taken!")
             self.username.setText("")
             is_user_valid = False
             return is_user_valid
@@ -204,7 +212,8 @@ background-repeat:no-repeat;                  """
             is_user_valid = False
             return is_user_valid
         if self.repeatpasswprd_signup.text() != self.Password_signup.text():
-            Message.show_warning("Repeat password does not match the password!")
+            Message.show_warning(
+                "Repeat password does not match the password!")
             self.repeatpasswprd_signup.setText("")
             is_user_valid = False
             return is_user_valid
@@ -221,6 +230,22 @@ background-repeat:no-repeat;                  """
         if Valid.validite_birthday(self.date_signup.text()) == False:
             Message.show_warning("You Entered Invalid Birthday Date!")
             self.date_signup.setText("")
+            is_user_valid = False
+            return is_user_valid
+        if phone_uniqe == False:
+            Message.show_warning(
+                "This mobile number has already been used.")
+            self.phone_signup.setText("")
+            is_user_valid = False
+            return is_user_valid
+        if email_uniqe == False:
+            Message.show_warning("This Email has already been used.")
+            self.email_signup.setText("")
+            is_user_valid = False
+            return is_user_valid
+        if user_uniqe == False:
+            Message.show_warning("This Username has already been used.")
+            self.username.setText("")
             is_user_valid = False
             return is_user_valid
         return is_user_valid

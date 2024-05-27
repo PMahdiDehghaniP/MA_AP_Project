@@ -1,15 +1,15 @@
+from JJson.jjson import CreateJson
+import user as uv
+from MessageBox.messagebox import Message_Box
+from Login_Page.login_form import Login
+from Forgot_page.forgot import forgot
+from Welcome_Page.welcomGui import Welcome
+from SignupPage.Signup_Gui import Signup
+from PyQt5.QtWidgets import QApplication
 import os
 import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from PyQt5.QtWidgets import QApplication
-from SignupPage.Signup_Gui import Signup
-from Welcome_Page.welcomGui import Welcome
-from Forgot_page.forgot import forgot
-from Login_Page.login_form import Login
-from MessageBox.messagebox import Message_Box
-import user as uv
-from JJson.jjson import CreateJson
 
 
 class Connector:
@@ -22,10 +22,14 @@ class Connector:
         self.connect_signals()
 
     def connect_signals(self):
-        self.welcome_window.signup_btn.clicked.connect(self.welcome_signup_btn_clicked)
-        self.welcome_window.login_btn.clicked.connect(self.welcome_login_btn_clicked)
-        self.login_page.pass_forgot_login.clicked.connect(self.pass_btn_login_clicked)
-        self.login_page.signup_btn_login.clicked.connect(self.signup_btn_login_clicked)
+        self.welcome_window.signup_btn.clicked.connect(
+            self.welcome_signup_btn_clicked)
+        self.welcome_window.login_btn.clicked.connect(
+            self.welcome_login_btn_clicked)
+        self.login_page.pass_forgot_login.clicked.connect(
+            self.pass_btn_login_clicked)
+        self.login_page.signup_btn_login.clicked.connect(
+            self.signup_btn_login_clicked)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
 
     def welcome_signup_btn_clicked(self):
@@ -48,8 +52,9 @@ class Connector:
         self.welcome_window.show()
 
     def user_object_making(self):
-        flag = self.signup_page.submit_signup_clicked()
-        if flag:
+        handler = CreateJson("user.json")
+        valid_inputs = self.signup_page.submit_signup_clicked()
+        if valid_inputs:
             new_user = uv.User(
                 self.signup_page.fname_signup.text(),
                 self.signup_page.lname_signup.text(),
@@ -82,5 +87,4 @@ class Connector:
                     "city": new_user.city,
                 }
             }
-            handler = CreateJson("user.json")
             handler.add_dict_to_json(user_dict)
