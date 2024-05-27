@@ -3,6 +3,12 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import re
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from MessageBox.messagebox import *
+###################################################
+Message = Message_Box()
 
 
 class Signup(QMainWindow):
@@ -237,49 +243,39 @@ background-repeat:no-repeat;                  """
     def submit_signup_clicked(self):
         is_user_valid = True
         if self.validate_name(self.fname_signup.text()) == False:
-            Signup.show_warning("You Entered Inavlid First Name!")
+            Message.show_warning("You Entered Inavlid First Name!")
             self.fname_signup.setText("")
             is_user_valid = False
         if self.validate_name(self.lname_signup.text()) == False:
-            Signup.show_warning("You Entered Invalid Last Name!")
+            Message.show_warning("You Entered Invalid Last Name!")
             self.lname_signup.setText("")
             is_user_valid = False
         if self.validate_username(self.username.text()) == False:
-            Signup.show_warning("You Entered Invalid Username\nOr Already Taken!")
+            Message.show_warning("You Entered Invalid Username\nOr Already Taken!")
             self.username.setText("")
             is_user_valid = False
         if self.validate_password(self.Password_signup.text()) == False:
-            Signup.show_warning("You Entered Invalid Value\nFor Password!")
+            Message.show_warning("You Entered Invalid Value\nFor Password!")
             self.Password_signup.setText("")
             is_user_valid = False
         if self.validate_email(self.email_signup.text()) == False:
-            Signup.show_warning("You Entered Invalid Email!")
+            Message.show_warning("You Entered Invalid Email!")
             self.email_signup.setText("")
             is_user_valid = False
         if self.validite_birthday(self.date_signup.text()) == False:
-            Signup.show_warning("You Entered Invalid Birthday Date!")
+            Message.show_warning("You Entered Invalid Birthday Date!")
             self.date_signup.setText("")
             is_user_valid = False
         if self.validate_phone_number(self.phone_signup.text()) == False:
-            Signup.show_warning("You Entered Invalid Phone Number!")
+            Message.show_warning("You Entered Invalid Phone Number!")
             self.phone_signup.setText("")
             is_user_valid = False
         if self.validate_city(self.city_signup.text()) == False:
-            Signup.show_warning("You Entered Invalid City!")
+            Message.show_warning("You Entered Invalid City!")
             self.city_signup.setText("")
             is_user_valid = False
         if self.repeatpasswprd_signup.text() != self.Password_signup.text():
-            Signup.show_warning("Repeat password does not match the password!")
+            Message.show_warning("Repeat password does not match the password!")
             self.repeatpasswprd_signup.setText("")
             is_user_valid = False
         return is_user_valid
-
-    @staticmethod
-    def show_warning(message):
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Warning)
-        msg.setText("Warning")
-        msg.setInformativeText(message)
-        msg.setWindowTitle("Warning")
-        msg.setStandardButtons(QMessageBox.Ok)
-        msg.exec_()

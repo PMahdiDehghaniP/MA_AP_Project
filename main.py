@@ -1,14 +1,15 @@
+from PyQt5.QtWidgets import *
 from SignupPage.Signup_Gui import Signup
 from Welcome_Page.welcomGui import Welcome
 from Main_page.main_page import Main_Page
 from Forgot_page.forgot import *
 from Login_Page.login_form import Login
 import user as uv
-import json
 from Income_page.income_page import Income
 from Cost_Page.cost_page import Cost_Form
-from PyQt5.QtWidgets import *
 import re
+from MessageBox.messagebox import *
+from JJson.jjson import *
 
 ###############################################
 users_list_objects = []
@@ -17,28 +18,7 @@ app = QApplication([])
 login_page = Login()
 signup_page = Signup()
 forgot_page = forgot()
-
-
-class CreateJson:
-    def __init__(self, file_name):
-        self.file_name = file_name
-
-    def load_json_file(self):
-        try:
-            with open(self.file_name, "r") as json_file:
-                data = json.load(json_file)
-        except (FileNotFoundError, json.decoder.JSONDecodeError):
-            data = {}
-        return data
-
-    def save_to_json(self, data):
-        with open(self.file_name, "w") as json_file:
-            json.dump(data, json_file)
-
-    def add_dict_to_json(self, new_dict):
-        existing_data = self.load_json_file()
-        existing_data.update(new_dict)
-        self.save_to_json(existing_data)
+message = Message_Box()
 
 
 def welcome_signup_btn_clicked():
@@ -61,16 +41,6 @@ def pass_btn_login_clicked():
     forgot_page.show()
 
 
-def show_message(message):
-    msg = QMessageBox()
-    msg.setIcon(QMessageBox.Information)
-    msg.setText("Done!")
-    msg.setInformativeText(message)
-    msg.setWindowTitle("Message")
-    msg.setStandardButtons(QMessageBox.Ok)
-    msg.exec_()
-
-
 def user_object_making():
     flag = signup_page.submit_signup_clicked()
     if flag:
@@ -84,7 +54,7 @@ def user_object_making():
             signup_page.city_signup.text(),
             signup_page.date_signup.text(),
         )
-        show_message("user successfully created.")
+        message.show_message("user successfully created.")
         signup_page.repeatpasswprd_signup.setText("")
         signup_page.city_signup.setText("")
         signup_page.phone_signup.setText("")

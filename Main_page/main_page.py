@@ -146,5 +146,3 @@ class Main_Page(QMainWindow):
                 stop: 1 #ff6a00);
             }"""
         )
-
-

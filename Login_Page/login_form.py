@@ -83,3 +83,4 @@ class Login(QMainWindow):
                 border:1px solid #800004;
             }'''
                                             )
+

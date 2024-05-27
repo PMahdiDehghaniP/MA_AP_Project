@@ -79,4 +79,3 @@ class Welcome(QMainWindow):
     }
         """
         )
-

@@ -65,4 +65,3 @@ class Cost_Form(QMainWindow):
             stop:1 #fcb045
             );}''')
 
-
