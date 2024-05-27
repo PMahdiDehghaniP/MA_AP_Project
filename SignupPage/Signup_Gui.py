@@ -1,4 +1,5 @@
 from MessageBox.messagebox import *
+from validates.validate import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -6,9 +7,11 @@ from PyQt5 import uic
 import re
 import os
 import sys
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 ###################################################
 Message = Message_Box()
+Valid = Validate()
 
 
 class Signup(QMainWindow):
@@ -173,128 +176,51 @@ background-repeat:no-repeat;                  """
         completer.setCaseSensitivity(Qt.CaseInsensitive)
         self.city_signup.setCompleter(completer)
 
-    def validate_password(self, string):
-        checkStr = ""
-        lowercase_reg = re.compile(r"[a-z]")
-        uppercase_reg = re.compile(r"[A-Z]")
-        digit_reg = re.compile(r"[0-9]")
-        symbol_reg = re.compile(r"[^(\w\d\s)]")
-        if string == "":
-            checkStr = False
-        if not lowercase_reg.search(string):
-            checkStr = False
-        elif not uppercase_reg.search(string):
-            checkStr = False
-        elif not digit_reg.search(string):
-            checkStr = False
-        elif not symbol_reg.search(string):
-            checkStr = False
-        elif len(string) < 6:
-            checkStr = False
-        else:
-            checkStr = True
-        return checkStr
-
-    def validate_name(self, name):
-        checkuser = True
-        if name.isalpha() and 3 < len(name) <= 15:
-            checkuser = True
-        elif len(name) == 0:
-            checkuser = False
-        else:
-            checkuser = False
-        return checkuser
-
-    def validate_email(self, email):
-        pattern = r"^[a-z]+\w*@gmail\.com"
-        pattern2 = r"^[a-z]+\w*@yahoo\.com"
-        checkEmail = (
-            True if re.search(pattern, email) or re.search(
-                pattern2, email) else False
-        )
-        if email == "":
-            checkEmail = False
-        return checkEmail
-
-    def validite_birthday(self, date_string):
-        pattern = r"^(19[2-9]\d|200[0-5])/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01])$"
-        if re.match(pattern, date_string):
-            return True
-        else:
-            return False
-
-    def validate_phone_number(self, mobile_number):
-        regex = r"^09\d{9}$"
-        if re.match(regex, mobile_number):
-            return True
-        else:
-            return False
-
-    def validate_city(self, city):
-        checkCity = False
-        cityOpthoin = [
-            "yazd",
-            "tehran",
-            "shiraz",
-            """mash'had""",
-            "abadan",
-            "kermanshah",
-            "bushehr",
-            "ahvaz",
-            "kordestan",
-            "isfahan",
-        ]
-
-        for i in range(len(cityOpthoin)):
-            if city == cityOpthoin[i]:
-                checkCity = True
-        return checkCity
-
-    def validate_username(self, username):
-        pattern = r"^(?=[a-zA-Z])[a-zA-Z0-9_]{5,}(?=.*\d)[a-zA-Z0-9_]*$"
-        if re.match(pattern, username):
-            return True
-        else:
-            return False
-
     def submit_signup_clicked(self):
         is_user_valid = True
-        if self.validate_name(self.fname_signup.text()) == False:
+        if Valid.validate_name(self.fname_signup.text()) == False:
             Message.show_warning("You Entered Inavlid First Name!")
             self.fname_signup.setText("")
             is_user_valid = False
-        if self.validate_name(self.lname_signup.text()) == False:
+            return is_user_valid
+        if Valid.validate_name(self.lname_signup.text()) == False:
             Message.show_warning("You Entered Invalid Last Name!")
             self.lname_signup.setText("")
             is_user_valid = False
-        if self.validate_username(self.username.text()) == False:
-            Message.show_warning(
-                "You Entered Invalid Username\nOr Already Taken!")
-            self.username.setText("")
-            is_user_valid = False
-        if self.validate_password(self.Password_signup.text()) == False:
-            Message.show_warning("You Entered Invalid Value\nFor Password!")
-            self.Password_signup.setText("")
-            is_user_valid = False
-        if self.validate_email(self.email_signup.text()) == False:
-            Message.show_warning("You Entered Invalid Email!")
-            self.email_signup.setText("")
-            is_user_valid = False
-        if self.validite_birthday(self.date_signup.text()) == False:
-            Message.show_warning("You Entered Invalid Birthday Date!")
-            self.date_signup.setText("")
-            is_user_valid = False
-        if self.validate_phone_number(self.phone_signup.text()) == False:
+            return is_user_valid
+        if Valid.validate_phone_number(self.phone_signup.text()) == False:
             Message.show_warning("You Entered Invalid Phone Number!")
             self.phone_signup.setText("")
             is_user_valid = False
-        if self.validate_city(self.city_signup.text()) == False:
+            return is_user_valid
+        if Valid.validate_username(self.username.text()) == False:
+            Message.show_warning("You Entered Invalid Username\nOr Already Taken!")
+            self.username.setText("")
+            is_user_valid = False
+            return is_user_valid
+        if Valid.validate_password(self.Password_signup.text()) == False:
+            Message.show_warning("You Entered Invalid Value\nFor Password!")
+            self.Password_signup.setText("")
+            is_user_valid = False
+            return is_user_valid
+        if self.repeatpasswprd_signup.text() != self.Password_signup.text():
+            Message.show_warning("Repeat password does not match the password!")
+            self.repeatpasswprd_signup.setText("")
+            is_user_valid = False
+            return is_user_valid
+        if Valid.validate_city(self.city_signup.text()) == False:
             Message.show_warning("You Entered Invalid City!")
             self.city_signup.setText("")
             is_user_valid = False
-        if self.repeatpasswprd_signup.text() != self.Password_signup.text():
-            Message.show_warning(
-                "Repeat password does not match the password!")
-            self.repeatpasswprd_signup.setText("")
+            return is_user_valid
+        if Valid.validate_email(self.email_signup.text()) == False:
+            Message.show_warning("You Entered Invalid Email!")
+            self.email_signup.setText("")
             is_user_valid = False
+            return is_user_valid
+        if Valid.validite_birthday(self.date_signup.text()) == False:
+            Message.show_warning("You Entered Invalid Birthday Date!")
+            self.date_signup.setText("")
+            is_user_valid = False
+            return is_user_valid
         return is_user_valid
