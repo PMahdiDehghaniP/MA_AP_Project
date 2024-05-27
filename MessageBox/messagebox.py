@@ -4,7 +4,7 @@ from PyQt5.QtGui import QPixmap, QIcon
 
 class Message_Box(QMainWindow):
     def __init__(self):
-        super().__init__()
+        pass
 
     def show_message(self, message):
         msg = QMessageBox()
@@ -24,8 +24,6 @@ class Message_Box(QMainWindow):
         layout = msg.layout()
         layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
         msg.setFixedSize(1000, 300)
-
-        msg.exec_()
 
     def show_warning(self, message):
         msg = QMessageBox()
@@ -47,4 +45,3 @@ class Message_Box(QMainWindow):
 
         msg.setFixedSize(1000, 300)
 
-        msg.exec_()
