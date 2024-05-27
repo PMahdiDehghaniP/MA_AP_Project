@@ -1,3 +1,4 @@
+from MessageBox.messagebox import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -6,7 +7,6 @@ import re
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from MessageBox.messagebox import *
 ###################################################
 Message = Message_Box()
 
@@ -157,6 +157,21 @@ background-repeat:no-repeat;                  """
                 }
                 """
         )
+        self.cityOpthoin = [
+            "yazd",
+            "tehran",
+            "shiraz",
+            """mash'had""",
+            "abadan",
+            "kermanshah",
+            "bushehr",
+            "ahvaz",
+            "kordestan",
+            "isfahan",
+        ]
+        completer = QCompleter(self.cityOpthoin, self.city_signup)
+        completer.setCaseSensitivity(Qt.CaseInsensitive)
+        self.city_signup.setCompleter(completer)
 
     def validate_password(self, string):
         checkStr = ""
@@ -194,7 +209,8 @@ background-repeat:no-repeat;                  """
         pattern = r"^[a-z]+\w*@gmail\.com"
         pattern2 = r"^[a-z]+\w*@yahoo\.com"
         checkEmail = (
-            True if re.search(pattern, email) or re.search(pattern2, email) else False
+            True if re.search(pattern, email) or re.search(
+                pattern2, email) else False
         )
         if email == "":
             checkEmail = False
@@ -228,6 +244,7 @@ background-repeat:no-repeat;                  """
             "kordestan",
             "isfahan",
         ]
+
         for i in range(len(cityOpthoin)):
             if city == cityOpthoin[i]:
                 checkCity = True
@@ -251,7 +268,8 @@ background-repeat:no-repeat;                  """
             self.lname_signup.setText("")
             is_user_valid = False
         if self.validate_username(self.username.text()) == False:
-            Message.show_warning("You Entered Invalid Username\nOr Already Taken!")
+            Message.show_warning(
+                "You Entered Invalid Username\nOr Already Taken!")
             self.username.setText("")
             is_user_valid = False
         if self.validate_password(self.Password_signup.text()) == False:
@@ -275,7 +293,8 @@ background-repeat:no-repeat;                  """
             self.city_signup.setText("")
             is_user_valid = False
         if self.repeatpasswprd_signup.text() != self.Password_signup.text():
-            Message.show_warning("Repeat password does not match the password!")
+            Message.show_warning(
+                "Repeat password does not match the password!")
             self.repeatpasswprd_signup.setText("")
             is_user_valid = False
         return is_user_valid
