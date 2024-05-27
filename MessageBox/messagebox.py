@@ -24,6 +24,7 @@ class Message_Box(QMainWindow):
         layout = msg.layout()
         layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
         msg.setFixedSize(1000, 300)
+        msg.exec_()
 
     def show_warning(self, message):
         msg = QMessageBox()
@@ -44,4 +45,4 @@ class Message_Box(QMainWindow):
         layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
 
         msg.setFixedSize(1000, 300)
-
+        msg.exec_()

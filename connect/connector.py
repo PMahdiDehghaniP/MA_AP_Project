@@ -51,7 +51,7 @@ class Connector:
         flag = self.signup_page.submit_signup_clicked()
         if flag:
             new_user = uv.User(
-                self.self.signup_page.fname_signup.text(),
+                self.signup_page.fname_signup.text(),
                 self.signup_page.lname_signup.text(),
                 self.signup_page.username.text(),
                 self.signup_page.phone_signup.text(),
