@@ -10,6 +10,7 @@ import user as uv
 from JJson.jjson import CreateJson
 import os
 import sys
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
@@ -24,19 +25,23 @@ class Connector:
         self.connect_signals()
 
     def connect_signals(self):
-        self.welcome_window.signup_btn.clicked.connect(
-            self.welcome_signup_btn_clicked)
-        self.welcome_window.login_btn.clicked.connect(
-            self.welcome_login_btn_clicked)
-        self.login_page.pass_forgot_login.clicked.connect(
-            self.pass_btn_login_clicked)
+        self.forgot_page.forgot_password_btn.clicked.connect(self.my_pass_btn_clicked)
+        self.welcome_window.signup_btn.clicked.connect(self.welcome_signup_btn_clicked)
+        self.welcome_window.login_btn.clicked.connect(self.welcome_login_btn_clicked)
+        self.login_page.pass_forgot_login.clicked.connect(self.pass_btn_login_clicked)
         self.login_page.sign_in_login_btn.clicked.connect(
-            self.login_sign_in_btn_clicked)
-        self.login_page.signup_btn_login.clicked.connect(
-            self.signup_btn_login_clicked)
+            self.login_sign_in_btn_clicked
+        )
+        self.login_page.signup_btn_login.clicked.connect(self.signup_btn_login_clicked)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         self.login_page.show_pass_login.stateChanged.connect(
-            self.toggle_echo_mode_show_pass)
+            self.toggle_echo_mode_show_pass
+        )
+
+    def my_pass_btn_clicked(self):
+        self.forgot_page.show_password()
+        self.forgot_page.close()
+        self.login_page.show()
 
     def welcome_signup_btn_clicked(self):
         self.signup_page.show()
@@ -59,6 +64,7 @@ class Connector:
     def pass_btn_login_clicked(self):
         self.login_page.close()
         self.forgot_page.show()
+        self.forgot_page.show_captcha()
 
     def login_sign_in_btn_clicked(self):
         if self.login_page.login_user() == "OK":
@@ -84,7 +90,8 @@ class Connector:
                 self.signup_page.date_signup.text(),
             )
             self.message.show_message(
-                "user successfully created.\nPlease Log in To Your Account")
+                "user successfully created.\nPlease Log in To Your Account"
+            )
             self.signup_page.repeatpasswprd_signup.setText("")
             self.signup_page.city_signup.setText("")
             self.signup_page.phone_signup.setText("")

@@ -35,22 +35,22 @@
    <widget class="QLabel" name="welcome_text">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>110</x>
       <y>0</y>
-      <width>121</width>
+      <width>231</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Segoe UI Semibold</family>
-      <pointsize>14</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>خوش آمدید</string>
+     <string>به صفحه اصلی برنامه خوش آمدید</string>
     </property>
    </widget>
    <widget class="QLabel" name="userfullname">

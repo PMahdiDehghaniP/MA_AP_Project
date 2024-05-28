@@ -21,6 +21,7 @@ class CreateJson:
         existing_data = self.load_json_file()
         existing_data.update(new_dict)
         self.save_to_json(existing_data)
+
     # signup
 
     def is_uniqe_user(self, username):
@@ -43,6 +44,7 @@ class CreateJson:
             if data[each_user]["phone"] == phone:
                 return False
         return True
+
     # login
 
     def does_user_exist(self, emuser, password):
@@ -54,6 +56,16 @@ class CreateJson:
                     return "Valid"
                 else:
                     return "invalid password"
+            else:
+                check_result = "not found"
+        return check_result
+
+    def does_user_exist_for_forgotpage(self, emuser):
+        check_result = ""
+        data = self.load_json_file()
+        for each_user in list(data.keys()):
+            if each_user == emuser or data[each_user]["email"] == emuser:
+                return "Valid"
             else:
                 check_result = "not found"
         return check_result

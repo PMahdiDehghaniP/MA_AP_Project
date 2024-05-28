@@ -54,6 +54,12 @@
        <height>41</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Times New Roman</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -126,7 +132,8 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>9</pointsize>
+       <family>Times New Roman</family>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="placeholderText">
