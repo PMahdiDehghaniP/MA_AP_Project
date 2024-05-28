@@ -107,3 +107,4 @@ If you don't have an account, please sign up.''')
         elif check_tool.does_user_exist(self.email_login.text(), self.password_login.text()) == "Valid":
             show_message.show_message(
                 "You have successfully logged in. Welcome!")
+            return "OK"

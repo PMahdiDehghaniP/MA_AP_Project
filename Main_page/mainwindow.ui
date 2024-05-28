@@ -53,7 +53,7 @@
      <string>خوش آمدید</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="userfullname">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -66,6 +66,8 @@
      <font>
       <family>Times New Roman</family>
       <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">

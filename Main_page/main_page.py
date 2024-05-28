@@ -4,8 +4,6 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import sys
 
-from PyQt5.QtWidgets import QWidget
-
 
 class Main_Page(QMainWindow):
     def __init__(self):
@@ -146,3 +144,6 @@ class Main_Page(QMainWindow):
                 stop: 1 #ff6a00);
             }"""
         )
+
+    def set_user_info(self, emuser):
+        self.userfullname.setText(f"User : {emuser}")
