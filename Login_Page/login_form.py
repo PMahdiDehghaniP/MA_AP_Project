@@ -20,7 +20,7 @@ class Login(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi(r"Login_Page\mainwindow.ui", self)
-        self.setWindowTitle("Welcome Page")
+        self.setWindowTitle("Login Page")
         self.setFixedSize(422, 440)
         self.setWindowIcon(QIcon(r"Login_Page\login_icon.png"))
         self.login_label.setStyleSheet("background:none;")
