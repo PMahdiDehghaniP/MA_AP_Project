@@ -98,7 +98,7 @@ class forgot(QMainWindow):
                         Message.show_password(f"Your Password is {data[each_user]["password"]}")
                         self.em_us_forgot_linedit.setText("")
                         self.input_kapch_lineedit.setText("")
-                        return
+                        return True
             elif Json_forgot.does_user_exist_for_forgotpage(self.em_us_forgot_linedit.text()) == "not found":
                 Message.show_warning("There is no such person either.")
                 self.show_captcha()
@@ -108,6 +108,7 @@ class forgot(QMainWindow):
             Message.show_warning("You Didn't Entered Captcha!")
             self.show_captcha()
             self.em_us_forgot_linedit.setText("")
+            return
         if flag_captcha == "incorrect_captcha":
             Message.show_warning("You Entered Incorroct Captcha!")
             self.show_captcha()

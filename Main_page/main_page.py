@@ -14,8 +14,9 @@ class Main_Page(QMainWindow):
         self.style()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_time)
-        self.timer.start(1000)  
+        self.timer.start(1000)
         self.update_time()
+
     def style(self):
         self.setFixedSize(444, 508)
         self.time_label.setStyleSheet("background : none ;")
@@ -23,8 +24,8 @@ class Main_Page(QMainWindow):
         self.setStyleSheet(
             """ background: qlineargradient(
                 spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #2980B9,
-                stop: 1 #6DD5FA
+                stop: 0 #a8ff78,
+                stop: 1 #78ffd6
             );"""
         )
         self.record_income_btn.setCursor(Qt.PointingHandCursor)
@@ -33,6 +34,11 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
                 color : yellow;
@@ -48,6 +54,11 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
                 color : yellow;
@@ -63,6 +74,11 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
                 color : yellow;
@@ -78,6 +94,11 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
                 color : yellow;
@@ -93,8 +114,14 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
+
                 color : yellow;
                 background: qlineargradient(
                 spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
@@ -108,6 +135,11 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
                 color : yellow;
@@ -123,6 +155,11 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
                 color : yellow;
@@ -138,6 +175,11 @@ class Main_Page(QMainWindow):
             QPushButton{
                 border-radius:5px;
                 border :1px solid #ffffff;
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #2980B9,
+                stop: 1 #6DD5FA
+            );
             }
             QPushButton:hover{
                 color : yellow;
@@ -150,7 +192,8 @@ class Main_Page(QMainWindow):
 
     def set_user_info(self, emuser):
         self.userfullname.setText(f"User : {emuser}")
+
     def update_time(self):
         current_time = QTime.currentTime()
-        time_display = current_time.toString('HH:mm:ss')  
+        time_display = current_time.toString("HH:mm:ss")
         self.time_label.setText(time_display)

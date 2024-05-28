@@ -11,7 +11,6 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
 
-
 ###################################################
 Message = Message_Box()
 Valid = Validate()
@@ -251,3 +250,13 @@ background-repeat:no-repeat;                  """
             is_user_valid = False
             return is_user_valid
         return is_user_valid
+    def reset_signup(self):
+        self.fname_signup.setText("")
+        self.lname_signup.setText("")
+        self.phone_signup.setText("")
+        self.username.setText("")
+        self.Password_signup.setText("")
+        self.repeatpasswprd_signup.setText("")
+        self.city_signup.setText("")
+        self.email_signup.setText("")
+        self.date_signup.setText("")

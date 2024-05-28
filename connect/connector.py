@@ -39,9 +39,10 @@ class Connector:
         )
 
     def my_pass_btn_clicked(self):
-        self.forgot_page.show_password()
-        self.forgot_page.close()
-        self.login_page.show()
+        temp = self.forgot_page.show_password()
+        if temp:
+            self.forgot_page.close()
+            self.login_page.show()
 
     def welcome_signup_btn_clicked(self):
         self.signup_page.show()
@@ -62,6 +63,7 @@ class Connector:
         self.signup_page.show()
 
     def pass_btn_login_clicked(self):
+        self.login_page.reset_login()
         self.login_page.close()
         self.forgot_page.show()
         self.forgot_page.show_captcha()
@@ -92,16 +94,7 @@ class Connector:
             self.message.show_message(
                 "user successfully created.\nPlease Log in To Your Account"
             )
-            self.signup_page.repeatpasswprd_signup.setText("")
-            self.signup_page.city_signup.setText("")
-            self.signup_page.phone_signup.setText("")
-            self.signup_page.date_signup.setText("")
-            self.signup_page.date_signup.setText("")
-            self.signup_page.Password_signup.setText("")
-            self.signup_page.username.setText("")
-            self.signup_page.lname_signup.setText("")
-            self.signup_page.fname_signup.setText("")
-            self.signup_page.email_signup.setText("")
+            self.signup_page.reset_signup()
             user_dict = {
                 new_user.username: {
                     "email": new_user.email,
