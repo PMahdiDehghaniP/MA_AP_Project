@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QTimer, QTime, Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -12,7 +12,10 @@ class Main_Page(QMainWindow):
         self.setWindowTitle("Main Page")
         self.setWindowIcon(QIcon(r"Main_page\main_icon.png"))
         self.style()
-
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_time)
+        self.timer.start(1000)  
+        self.update_time()
     def style(self):
         self.setFixedSize(444, 508)
         self.time_label.setStyleSheet("background : none ;")
@@ -147,3 +150,7 @@ class Main_Page(QMainWindow):
 
     def set_user_info(self, emuser):
         self.userfullname.setText(f"User : {emuser}")
+    def update_time(self):
+        current_time = QTime.currentTime()
+        time_display = current_time.toString('HH:mm:ss')  
+        self.time_label.setText(time_display)
