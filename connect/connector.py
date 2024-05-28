@@ -73,7 +73,7 @@ class Connector:
                 self.signup_page.city_signup.text(),
                 self.signup_page.date_signup.text(),
             )
-            self.message.show_message("user successfully created.")
+            self.message.show_message("user successfully created.\nPlease Log in To Your Account")
             self.signup_page.repeatpasswprd_signup.setText("")
             self.signup_page.city_signup.setText("")
             self.signup_page.phone_signup.setText("")
@@ -96,3 +96,5 @@ class Connector:
                 }
             }
             handler.add_dict_to_json(user_dict)
+            self.signup_page.close()
+            self.login_page.show()
