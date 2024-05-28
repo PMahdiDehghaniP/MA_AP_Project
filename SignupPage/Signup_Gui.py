@@ -1,3 +1,7 @@
+import re
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from JJson.jjson import *
 from MessageBox.messagebox import *
 from validates.validate import *
@@ -5,11 +9,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
-import re
-import os
-import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+
 ###################################################
 Message = Message_Box()
 Valid = Validate()

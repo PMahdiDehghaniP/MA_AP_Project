@@ -1,3 +1,6 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from JJson.jjson import CreateJson
 import user as uv
 from MessageBox.messagebox import Message_Box
@@ -5,11 +8,8 @@ from Login_Page.login_form import Login
 from Forgot_page.forgot import forgot
 from Welcome_Page.welcomGui import Welcome
 from SignupPage.Signup_Gui import Signup
-from PyQt5.QtWidgets import QApplication
-import os
-import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from PyQt5.QtWidgets import QLineEdit, QCheckBox
+from PyQt5.QtCore import Qt
 
 
 class Connector:
@@ -28,14 +28,20 @@ class Connector:
             self.welcome_login_btn_clicked)
         self.login_page.pass_forgot_login.clicked.connect(
             self.pass_btn_login_clicked)
+        self.login_page.sign_in_login_btn.clicked.connect(self.login_sign_in_btn_clicked)
         self.login_page.signup_btn_login.clicked.connect(
             self.signup_btn_login_clicked)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
+        self.login_page.show_pass_login.stateChanged.connect(self.toggle_echo_mode_show_pass)
 
     def welcome_signup_btn_clicked(self):
         self.signup_page.show()
         self.welcome_window.close()
-
+    def toggle_echo_mode_show_pass(self, state):
+        if state == Qt.Checked:
+            self.login_page.password_login.setEchoMode(QLineEdit.Normal)
+        else:
+            self.login_page.password_login.setEchoMode(QLineEdit.Password)
     def welcome_login_btn_clicked(self):
         self.login_page.show()
         self.welcome_window.close()
@@ -47,6 +53,8 @@ class Connector:
     def pass_btn_login_clicked(self):
         self.login_page.close()
         self.forgot_page.show()
+    def login_sign_in_btn_clicked(self):
+        self.login_page.login_user()
 
     def run(self):
         self.welcome_window.show()

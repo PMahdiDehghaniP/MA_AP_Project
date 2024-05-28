@@ -1,9 +1,19 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from MessageBox.messagebox import *
+from JJson.jjson import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
-import sys
+
 from PyQt5.QtWidgets import QWidget
+
+
+
+check_tool = CreateJson("user.json")
+show_message = Message_Box()
 
 
 class Login(QMainWindow):
@@ -84,3 +94,16 @@ class Login(QMainWindow):
             }'''
                                             )
 
+    def login_user(self):
+        if check_tool.does_user_exist(self.email_login.text(), self.password_login.text()) == "invalid password":
+            show_message.show_warning("Incorrect Password!\nTry Again!")
+            self.password_login.setText("")
+        elif check_tool.does_user_exist(self.email_login.text(), self.password_login.text()) == "not found":
+            show_message.show_warning('''There is no such user registered in the system.\n
+Please check the details again.\n
+If you don't have an account, please sign up.''')
+            self.email_login.setText("")
+            self.password_login.setText("")
+        elif check_tool.does_user_exist(self.email_login.text(), self.password_login.text()) == "Valid":
+            show_message.show_message(
+                "You have successfully logged in. Welcome!")
