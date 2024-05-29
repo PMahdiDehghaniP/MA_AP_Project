@@ -5,6 +5,7 @@ from Welcome_Page.welcomGui import Welcome
 from Forgot_page.forgot import forgot
 from Login_Page.login_form import Login
 from Main_page.main_page import Main_Page
+from Timer.timer import Timer_Calc
 from MessageBox.messagebox import Message_Box
 from Income_page.income_page import Income
 from Cost_Page.cost_page import Cost_Form
@@ -22,6 +23,7 @@ class Connector:
         self.main_page = Main_Page()
         self.signup_page = Signup()
         self.forgot_page = forgot()
+        self.timer = Timer_Calc()
         self.income_page = Income()
         self.cost_page = Cost_Form()
         self.message = Message_Box()
@@ -31,31 +33,36 @@ class Connector:
     def connect_signals(self):
         self.main_page.exit_mainpage_btn.clicked.connect(self.exit_main_page)
         self.main_page.record_income_btn.clicked.connect(self.show_income_form)
-        self.income_page.exit_btn_income.clicked.connect(self.exit_income_btn_clicked)
-        self.cost_page.exit_btn_cost.clicked.connect(self.exit_cost_btn_clicked)
-        self.forgot_page.forgot_password_btn.clicked.connect(self.my_pass_btn_clicked)
-        self.welcome_window.signup_btn.clicked.connect(self.welcome_signup_btn_clicked)
-        self.welcome_window.login_btn.clicked.connect(self.welcome_login_btn_clicked)
-        self.login_page.pass_forgot_login.clicked.connect(self.pass_btn_login_clicked)
+        self.income_page.exit_btn_income.clicked.connect(
+            self.exit_income_btn_clicked)
+        self.cost_page.exit_btn_cost.clicked.connect(
+            self.exit_cost_btn_clicked)
+        self.forgot_page.forgot_password_btn.clicked.connect(
+            self.my_pass_btn_clicked)
+        self.welcome_window.signup_btn.clicked.connect(
+            self.welcome_signup_btn_clicked)
+        self.welcome_window.login_btn.clicked.connect(
+            self.welcome_login_btn_clicked)
+        self.login_page.pass_forgot_login.clicked.connect(
+            self.pass_btn_login_clicked)
         self.login_page.sign_in_login_btn.clicked.connect(
             self.login_sign_in_btn_clicked
         )
-        self.login_page.signup_btn_login.clicked.connect(self.signup_btn_login_clicked)
+        self.login_page.signup_btn_login.clicked.connect(
+            self.signup_btn_login_clicked)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         self.login_page.show_pass_login.stateChanged.connect(
             self.toggle_echo_mode_show_pass
         )
-        self.forgot_page.send_code_email.clicked.connect(self.send_code_clicked)
+        self.forgot_page.send_code_email.clicked.connect(
+            self.send_code_clicked)
 
     def exit_main_page(self):
-        current_time = QTime.currentTime()
-        spent_time = self.main_page.first_time_login.secsTo(current_time)
-        hours, remainder = divmod(spent_time, 3600)
-        minutes, seconds = divmod(remainder, 60)
+        self.timer.Calculation_until_present(self.main_page.first_time_login)
         self.message.show_message(
-            f'''The spent time is {hours} hours, {minutes} minutes, and {seconds} seconds.
+            f'''The spent time is {self.timer.hours} hours, {self.timer.minutes} minutes, and {self.timer.seconds} seconds.
 Have fun.'''
-            
+
         )
         self.main_page.close()
 
@@ -108,8 +115,8 @@ Have fun.'''
         if self.login_page.login_user() == "OK":
             self.login_page.close()
             self.main_page.show()
+            self.main_page.set_first_login_time()
             self.main_page.set_user_info(self.login_page.email_login.text())
-            self.main_page.get_login_time()
 
     def run(self):
         self.welcome_window.show()

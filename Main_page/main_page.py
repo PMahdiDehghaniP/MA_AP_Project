@@ -1,10 +1,11 @@
 from PyQt5.QtCore import QTimer, QTime, Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from Timer.timer import Timer_Calc
 from PyQt5 import uic
 import sys
 
-
+timer_main=Timer_Calc()
 class Main_Page(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -12,11 +13,11 @@ class Main_Page(QMainWindow):
         self.setWindowTitle("Main Page")
         self.setWindowIcon(QIcon(r"Main_page\main_icon.png"))
         self.style()
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update_time)
-        self.timer.start(1000)
         self.first_time_login = ""
-        self.update_time()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.show_time)
+        self.timer.start(1000)
+        self.show_time()
 
     def style(self):
         self.setFixedSize(444, 508)
@@ -66,10 +67,10 @@ class Main_Page(QMainWindow):
     def set_user_info(self, emuser):
         self.userfullname.setText(f"User : {emuser}")
 
-    def update_time(self):
+    def show_time(self):
         current_time = QTime.currentTime()
         time_display = current_time.toString("HH:mm:ss")
         self.time_label.setText(time_display)
 
-    def get_login_time(self):
-        self.first_time_login = QTime.currentTime()
+    def set_first_login_time(self):
+        self.first_time_login=timer_main.current_time()
