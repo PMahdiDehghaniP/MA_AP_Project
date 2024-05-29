@@ -15,6 +15,7 @@ class Main_Page(QMainWindow):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_time)
         self.timer.start(1000)
+        self.first_time_login = ""
         self.update_time()
 
     def style(self):
@@ -69,3 +70,6 @@ class Main_Page(QMainWindow):
         current_time = QTime.currentTime()
         time_display = current_time.toString("HH:mm:ss")
         self.time_label.setText(time_display)
+
+    def get_login_time(self):
+        self.first_time_login = QTime.currentTime()
