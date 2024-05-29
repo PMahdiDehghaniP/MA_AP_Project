@@ -69,3 +69,10 @@ class CreateJson:
             else:
                 check_result = "not found"
         return check_result
+
+    def finding_email(self, email):
+        data = self.load_json_file()
+        for each_user in data.keys():
+            if data[each_user]["email"] == email:
+                return True
+        return False
