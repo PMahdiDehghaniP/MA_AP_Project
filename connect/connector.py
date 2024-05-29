@@ -25,24 +25,34 @@ class Connector:
         self.connect_signals()
 
     def connect_signals(self):
-        self.forgot_page.forgot_password_btn.clicked.connect(self.my_pass_btn_clicked)
-        self.welcome_window.signup_btn.clicked.connect(self.welcome_signup_btn_clicked)
-        self.welcome_window.login_btn.clicked.connect(self.welcome_login_btn_clicked)
-        self.login_page.pass_forgot_login.clicked.connect(self.pass_btn_login_clicked)
+        self.forgot_page.forgot_password_btn.clicked.connect(
+            self.my_pass_btn_clicked)
+        self.welcome_window.signup_btn.clicked.connect(
+            self.welcome_signup_btn_clicked)
+        self.welcome_window.login_btn.clicked.connect(
+            self.welcome_login_btn_clicked)
+        self.login_page.pass_forgot_login.clicked.connect(
+            self.pass_btn_login_clicked)
         self.login_page.sign_in_login_btn.clicked.connect(
             self.login_sign_in_btn_clicked
         )
-        self.login_page.signup_btn_login.clicked.connect(self.signup_btn_login_clicked)
+        self.login_page.signup_btn_login.clicked.connect(
+            self.signup_btn_login_clicked)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         self.login_page.show_pass_login.stateChanged.connect(
             self.toggle_echo_mode_show_pass
         )
+        self.forgot_page.send_code_email.clicked.connect(
+            self.send_code_clicked)
 
     def my_pass_btn_clicked(self):
         temp = self.forgot_page.show_password()
         if temp:
             self.forgot_page.close()
             self.login_page.show()
+
+    def send_code_clicked(self):
+        self.forgot_page.send_code()
 
     def welcome_signup_btn_clicked(self):
         self.signup_page.show()
