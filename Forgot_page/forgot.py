@@ -95,7 +95,7 @@ class forgot(QMainWindow):
                         each_user == self.em_us_forgot_linedit.text()
                         or data[each_user]["email"] == self.em_us_forgot_linedit.text()
                     ):
-                        Message.show_password(f"Your Password is {data[each_user]["password"]}")
+                        Message.show_password(f"Your Password is {data[each_user]['password']}")
                         self.em_us_forgot_linedit.setText("")
                         self.input_kapch_lineedit.setText("")
                         return True
