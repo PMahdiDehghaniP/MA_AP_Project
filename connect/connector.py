@@ -33,42 +33,38 @@ class Connector:
     def connect_signals(self):
         self.main_page.exit_mainpage_btn.clicked.connect(self.exit_main_page)
         self.main_page.record_income_btn.clicked.connect(self.show_income_form)
-        self.income_page.exit_btn_income.clicked.connect(
-            self.exit_income_btn_clicked)
-        self.cost_page.exit_btn_cost.clicked.connect(
-            self.exit_cost_btn_clicked)
-        self.forgot_page.forgot_password_btn.clicked.connect(
-            self.my_pass_btn_clicked)
-        self.welcome_window.signup_btn.clicked.connect(
-            self.welcome_signup_btn_clicked)
-        self.welcome_window.login_btn.clicked.connect(
-            self.welcome_login_btn_clicked)
-        self.login_page.pass_forgot_login.clicked.connect(
-            self.pass_btn_login_clicked)
+        self.main_page.record_cost_btn.clicked.connect(self.show_cost_form)
+        self.income_page.exit_btn_income.clicked.connect(self.exit_income_btn_clicked)
+        self.cost_page.exit_btn_cost.clicked.connect(self.exit_cost_btn_clicked)
+        self.forgot_page.forgot_password_btn.clicked.connect(self.my_pass_btn_clicked)
+        self.welcome_window.signup_btn.clicked.connect(self.welcome_signup_btn_clicked)
+        self.welcome_window.login_btn.clicked.connect(self.welcome_login_btn_clicked)
+        self.login_page.pass_forgot_login.clicked.connect(self.pass_btn_login_clicked)
         self.login_page.sign_in_login_btn.clicked.connect(
             self.login_sign_in_btn_clicked
         )
-        self.login_page.signup_btn_login.clicked.connect(
-            self.signup_btn_login_clicked)
+        self.login_page.signup_btn_login.clicked.connect(self.signup_btn_login_clicked)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         self.login_page.show_pass_login.stateChanged.connect(
             self.toggle_echo_mode_show_pass
         )
-        self.forgot_page.send_code_email.clicked.connect(
-            self.send_code_clicked)
+        self.forgot_page.send_code_email.clicked.connect(self.send_code_clicked)
 
     def exit_main_page(self):
         self.timer.Calculation_until_present(self.main_page.first_time_login)
         self.message.show_message(
-            f'''The spent time is {self.timer.hours} hours, {self.timer.minutes} minutes, and {self.timer.seconds} seconds.
-Have fun.'''
-
+            f"""The spent time is {self.timer.hours} hours, {self.timer.minutes} minutes, and {self.timer.seconds} seconds.
+Have fun."""
         )
         self.main_page.close()
 
     def show_income_form(self):
         self.main_page.hide()
         self.income_page.show()
+
+    def show_cost_form(self):
+        self.main_page.hide()
+        self.cost_page.show()
 
     def exit_income_btn_clicked(self):
         self.income_page.close()
