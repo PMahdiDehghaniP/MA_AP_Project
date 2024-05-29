@@ -6,6 +6,8 @@ from Forgot_page.forgot import forgot
 from Login_Page.login_form import Login
 from Main_page.main_page import Main_Page
 from MessageBox.messagebox import Message_Box
+from Income_page.income_page import Income
+from Cost_Page.cost_page import Cost_Form
 import user as uv
 from JJson.jjson import CreateJson
 import os
@@ -20,11 +22,17 @@ class Connector:
         self.main_page = Main_Page()
         self.signup_page = Signup()
         self.forgot_page = forgot()
+        self.income_page = Income()
+        self.cost_page = Cost_Form()
         self.message = Message_Box()
         self.welcome_window = Welcome()
         self.connect_signals()
 
     def connect_signals(self):
+        self.income_page.exit_btn_income.clicked.connect(
+            self.exit_income_btn_clicked)
+        self.cost_page.exit_cost_btn_clicked.connect(
+            self.exit_income_btn_clicked)
         self.forgot_page.forgot_password_btn.clicked.connect(
             self.my_pass_btn_clicked)
         self.welcome_window.signup_btn.clicked.connect(
@@ -44,6 +52,14 @@ class Connector:
         )
         self.forgot_page.send_code_email.clicked.connect(
             self.send_code_clicked)
+
+    def exit_income_btn_clicked(self):
+        self.income_page.close()
+        self.main_page.show()
+
+    def exit_cost_btn_clicked(self):
+        self.cost_page.close()
+        self.main_page.show()
 
     def my_pass_btn_clicked(self):
         temp = self.forgot_page.show_password()
