@@ -1,15 +1,14 @@
+from PyQt5.QtWidgets import QWidget
+from PyQt5 import uic
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import QTimer, Qt
+from JJson.jjson import *
+from MessageBox.messagebox import *
 import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from MessageBox.messagebox import *
-from JJson.jjson import *
-from PyQt5.QtCore import QTimer, Qt
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from PyQt5 import uic
-
-from PyQt5.QtWidgets import QWidget
 
 
 check_tool = CreateJson("user.json")
@@ -24,6 +23,23 @@ class Login(QMainWindow):
         self.setWindowTitle("Login Page")
         self.setFixedSize(422, 440)
         self.setWindowIcon(QIcon(r"Login_Page\login_icon.png"))
+        self.lineedit_style = """
+            background:#DFDFDF;
+            border:none;
+            border-radius:5px;
+            padding:0px 0px 0px 5px;
+            font-size:14px;"""
+        self.hotkey_style = """
+            QPushButton{
+            background:none;
+            border:none;
+            border-radius:5px;
+            font-size:18px;
+            }
+            QPushButton:hover{
+                color:#800004;
+                border:1px solid #800004;
+            }"""
         self.login_label.setStyleSheet("background:none;")
         self.forgot_login.setStyleSheet("background:none;")
         self.question.setStyleSheet("background:none;font-size:18px;")
@@ -36,24 +52,9 @@ class Login(QMainWindow):
             spread:pad, x1:0, y1:0, x2:1, y2:0, 
             stop:0 #0093E9, 
             stop:1 #80D0C7
-        );"""
-        )
-        self.email_login.setStyleSheet(
-            """
-            background:#DFDFDF;
-            border:none;
-            border-radius:5px;
-            padding:0px 0px 0px 5px;
-            font-size:14px;"""
-        )
-        self.password_login.setStyleSheet(
-            """
-            background:#DFDFDF;
-            border:none;
-            border-radius:5px;
-            padding:0px 0px 0px 5px;
-            font-size:14px;"""
-        )
+        );""")
+        self.email_login.setStyleSheet(self.lineedit_style)
+        self.password_login.setStyleSheet(self.lineedit_style)
         self.show_pass_login.setStyleSheet(
             """
             background:none;"""
@@ -82,33 +83,9 @@ class Login(QMainWindow):
             """
         )
         self.pass_forgot_login.setCursor(Qt.PointingHandCursor)
-        self.pass_forgot_login.setStyleSheet(
-            """
-            QPushButton{
-            background:none;
-            border:none;
-            border-radius:5px;
-            font-size:18px;
-            }
-            QPushButton:hover{
-                color:#800004;
-                border:1px solid #800004;
-            }"""
-        )
+        self.pass_forgot_login.setStyleSheet(self.hotkey_style)
         self.signup_btn_login.setCursor(Qt.PointingHandCursor)
-        self.signup_btn_login.setStyleSheet(
-            """
-            QPushButton{
-            background:none;
-            border:none;
-            border-radius:5px;
-            font-size:18px;
-            }
-            QPushButton:hover{
-                color:#800004;
-                border:1px solid #800004;
-            }"""
-        )
+        self.signup_btn_login.setStyleSheet(self.hotkey_style)
 
     def login_user(self):
         if self.counter_try_login < 3:
@@ -142,7 +119,8 @@ class Login(QMainWindow):
                 == "Valid"
             ):
                 self.counter_try_login = 0
-                show_message.show_message("You have successfully logged in. Welcome!")
+                show_message.show_message(
+                    "You have successfully logged in. Welcome!")
                 return "OK"
         else:
             self.block_login_button()
@@ -167,14 +145,16 @@ class Login(QMainWindow):
 
     def start_timer(self):
         self.remaining_time = 60
-        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(
+            f"Remaining Time: {self.remaining_time} seconds")
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_timer)
         self.timer.start(900)
 
     def update_timer(self):
         self.remaining_time -= 1
-        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(
+            f"Remaining Time: {self.remaining_time} seconds")
         if self.remaining_time == 0:
             self.timer.stop()
             self.enable_login_elems()

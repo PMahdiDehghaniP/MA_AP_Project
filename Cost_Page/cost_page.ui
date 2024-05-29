@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>370</width>
-    <height>684</height>
+    <height>751</height>
    </rect>
   </property>
   <property name="font">
@@ -143,7 +143,7 @@
     <property name="geometry">
      <rect>
       <x>33</x>
-      <y>552</y>
+      <y>549</y>
       <width>301</width>
       <height>51</height>
      </rect>
@@ -156,6 +156,25 @@
     </property>
     <property name="text">
      <string>Submit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit_btn_cost">
+    <property name="geometry">
+     <rect>
+      <x>33</x>
+      <y>617</y>
+      <width>301</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Exit</string>
     </property>
    </widget>
   </widget>

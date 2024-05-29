@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>404</width>
-    <height>654</height>
+    <height>719</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -145,6 +145,25 @@
     </property>
     <property name="text">
      <string>Submit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit_btn_income">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>621</y>
+      <width>321</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Exit</string>
     </property>
    </widget>
   </widget>

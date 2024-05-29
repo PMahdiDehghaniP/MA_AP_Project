@@ -23,65 +23,39 @@ class forgot(QMainWindow):
         self.verification_code = 0
         self.setWindowTitle("Forgot Password Page")
         self.setFixedSize(499, 448)
+        self.lineedit_padding_style = "background: #E0E0E0;padding-left: 5px;"
+        self.btn_style = """
+            QPushButton { 
+            border-radius:5px;
+            font-size:16px;
+            border:0.5px solid #38ef7d;
+            background: #3399ff;
+            }
+            QPushButton:hover {
+            background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #8E0E00,
+                stop: 1 #1F1C18);
+                border:none;
+                color:Yellow;
+                }"""
         self.style()
 
     def style(self):
         self.setWindowIcon(QIcon(r"Forgot_page\forgot_icon.jpg"))
         self.setStyleSheet("background: #2173FF;")
-        self.groupBox_forgot.setStyleSheet(
-            """
-                    background: white;
-                    border-radius: 7px;
-                                        """
-        )
+        self.groupBox_forgot.setStyleSheet("""background: white;
+border-radius: 7px;""")
         self.em_us_forgot_linedit.setStyleSheet(
-            "border: 0.5px solid black;padding-left: 5px;"
-        )
+            "border: 0.5px solid black;padding-left: 5px;")
         self.forgot_title.setStyleSheet("color: #000099;")
-        self.kapcha.setStyleSheet("background: #E0E0E0;padding-left: 5px;")
-        self.input_kapch_lineedit.setStyleSheet(
-            "background: #E0E0E0;padding-left: 5px;"
-        )
+        self.kapcha.setStyleSheet(self.lineedit_padding_style)
+        self.input_kapch_lineedit.setStyleSheet(self.lineedit_padding_style)
         self.forgot_password_btn.setCursor(Qt.PointingHandCursor)
-        self.forgot_password_btn.setStyleSheet(
-            """
-            QPushButton { 
-            border-radius:5px;
-            font-size:16px;
-            border:0.5px solid #38ef7d;
-            background: #3399ff;
-            }
-            QPushButton:hover {
-            background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #8E0E00,
-                stop: 1 #1F1C18);
-                border:none;
-                color:Yellow;
-                }
-                """
-        )
-        self.code_email_lineedit.setStyleSheet("background: #E0E0E0;padding-left: 5px;")
+        self.forgot_password_btn.setStyleSheet(self.btn_style)
+        self.code_email_lineedit.setStyleSheet(self.lineedit_padding_style)
         self.send_code_email.setCursor(Qt.PointingHandCursor)
-        self.send_code_email.setStyleSheet(
-            """
-            QPushButton { 
-            border-radius:5px;
-            font-size:16px;
-            border:0.5px solid #38ef7d;
-            background: #3399ff;
-            }
-            QPushButton:hover {
-            background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #8E0E00,
-                stop: 1 #1F1C18);
-                border:none;
-                color:Yellow;
-                }
-                                           
-"""
-        )
+        self.send_code_email.setStyleSheet(self.btn_style)
 
     def show_captcha(self):
         captcha = self.make_captcha()
@@ -168,7 +142,8 @@ class forgot(QMainWindow):
                 message = f"Subject: Verification Code\n\nYour verification code is: {self.verification_code}"
                 connection.login(user=my_email, password=password)
                 connection.sendmail(my_email, flag, message)
-            Message.show_message("Code Has Been Sent To Your Email Please Check")
+            Message.show_message(
+                "Code Has Been Sent To Your Email Please Check")
 
     def is_user_or_email(self, us_em_input):
         if "@" in self.em_us_forgot_linedit.text():

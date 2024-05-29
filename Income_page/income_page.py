@@ -13,72 +13,14 @@ class Income(QMainWindow):
         uic.loadUi(r"Income_page\mainwindow.ui", self)
         self.setWindowTitle("Income Page")
         self.setWindowIcon(QIcon(r"Income_page\income-icon.jpg"))
-        self.style()
-
-    def style(self):
-        self.setFixedSize(404,654)
-        self.Income_title_label.setStyleSheet("background: none;")
-        self.income_amount_linedit.setStyleSheet(
-            """
+        self.lineedit_style = """
                 padding:0px 0px 0px 5px;
                 background: qlineargradient(
                 spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
                 stop: 0 #a8c0ff,
                 stop: 1 #3f2b96);
-                border-radius:6px;
-            """
-        )
-        self.income_date_linedit.setStyleSheet(
-            """
-                padding:0px 0px 0px 5px;
-                background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #a8c0ff,
-                stop: 1 #3f2b96);
-                border-radius:6px;
-            """
-        )
-        self.income_resource_linedit.setStyleSheet(
-            """
-                padding:0px 0px 0px 5px;
-                background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #a8c0ff,
-                stop: 1 #3f2b96);
-                border-radius:6px;
-            """
-        )
-        self.income_type_linedit.setStyleSheet(
-            """
-                padding:0px 0px 0px 5px;
-                background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #a8c0ff,
-                stop: 1 #3f2b96);
-                border-radius:6px;
-            """
-        )
-        self.income_discription_linedit.setStyleSheet(
-            """
-                padding:0px 0px 0px 5px;
-                background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #a8c0ff,
-                stop: 1 #3f2b96);
-                border-radius:6px;
-            """
-        )
-        self.setStyleSheet(
-            """
-                background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #134E5E,
-                stop: 1 #71B280);
-            """
-        )
-        self.income_submit_btn.setCursor(Qt.PointingHandCursor)
-        self.income_submit_btn.setStyleSheet(
-            """
+                border-radius:6px;"""
+        self.btn_style = """
             QPushButton{
                 border-radius:6px;
                 background: qlineargradient(
@@ -93,6 +35,26 @@ class Income(QMainWindow):
                 spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
                 stop: 0 #3E5151,
                 stop: 1 #DECBA4);
-            }
-        """
+            }"""
+        self.style()
+
+    def style(self):
+        self.setFixedSize(404, 719)
+        self.Income_title_label.setStyleSheet("background: none;")
+        self.income_amount_linedit.setStyleSheet(self.lineedit_style)
+        self.income_date_linedit.setStyleSheet(self.lineedit_style)
+        self.income_resource_linedit.setStyleSheet(self.lineedit_style)
+        self.income_type_linedit.setStyleSheet(self.lineedit_style)
+        self.income_discription_linedit.setStyleSheet(self.lineedit_style)
+        self.setStyleSheet(
+            """
+                background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #134E5E,
+                stop: 1 #71B280);
+            """
         )
+        self.income_submit_btn.setCursor(Qt.PointingHandCursor)
+        self.exit_btn_income.setCursor(Qt.PointingHandCursor)
+        self.income_submit_btn.setStyleSheet(self.btn_style)
+        self.exit_btn_income.setStyleSheet(self.btn_style)
