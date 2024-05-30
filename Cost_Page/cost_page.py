@@ -52,7 +52,8 @@ class Cost_Form(QMainWindow):
             stop:1 #093637
         );"""
         )
-        self.cost_form_label.setStyleSheet("""background: none;color:#ffffff;""")
+        self.cost_form_label.setStyleSheet(
+            """background: none;color:#ffffff;""")
         self.cost_amount.setStyleSheet(self.lineedit_style)
         self.cost_type_combo.setStyleSheet(self.lineedit_style)
         self.cost_date.setStyleSheet(self.lineedit_style)
@@ -64,9 +65,9 @@ class Cost_Form(QMainWindow):
         self.exit_btn_cost.setStyleSheet(self.btn_style)
 
     def cost_combo_items(self, username):
-            category_list = cost_adder.return_list_of_category(username)
-            for item in category_list:
-                self.cost_resource.addItem(item)
+        category_list = cost_adder.return_list_of_category(username)
+        for item in category_list:
+            self.cost_resource.addItem(item)
 
     def cost_type_items(self):
         if self.cost_type_combo.count() == 0:
@@ -77,7 +78,8 @@ class Cost_Form(QMainWindow):
     def submit_cost_clicked(self):
         amount_cost = Valid.valid_amount(self.cost_amount.text())
         date_cost = Valid.validate_date_income_cost(self.cost_date.text())
-        discription_cost = Valid.valid_description(self.description_cost.toPlainText())
+        discription_cost = Valid.valid_description(
+            self.description_cost.toPlainText())
         is_valid_cost = True
         if amount_cost == False:
             Message.show_warning("Invalid cost amount.")
@@ -90,13 +92,14 @@ class Cost_Form(QMainWindow):
             is_valid_cost = False
             return is_valid_cost
         if discription_cost == False:
-            Message.show_warning("The text here cannot be more than 100 characters.")
+            Message.show_warning(
+                "The text here cannot be more than 100 characters.")
             is_valid_cost = False
             return is_valid_cost
         return is_valid_cost
 
     def add_record_cost(self, user, amount, date, resource, ttype, discription):
-        recent_cost_data = cost_json.return_records_cost(user)
+        recent_cost_data = cost_json.return_records(user)
         recent_cost_data["amount"].append(amount)
         recent_cost_data["date"].append(date)
         recent_cost_data["resource"].append(resource)

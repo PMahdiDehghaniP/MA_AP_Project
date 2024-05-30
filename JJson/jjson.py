@@ -106,7 +106,7 @@ class CreateJson:
         else:
             return []
 
-    def return_records_cost(self, user):
+    def return_records(self, user):
         data = self.load_json_file()
         if user not in data:
             data[user] = {

@@ -2,11 +2,16 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+from MessageBox.messagebox import Message_Box
+from validates.validate import Validate
 import sys
 from JJson.jjson import CreateJson
 from PyQt5.QtWidgets import QWidget
 
 category_adder = CreateJson("category.json")
+income_json = CreateJson("income.json")
+income_message = Message_Box()
+income_validation = Validate()
 
 
 class Income(QMainWindow):
@@ -72,3 +77,45 @@ class Income(QMainWindow):
             income_types = ["Cryptocurrency", "Check", "Cash"]
             for item in income_types:
                 self.income_type_combo.addItem(item)
+
+    def submit_income_clicked(self):
+        amount_income = income_validation.valid_amount(
+            self.income_amount_linedit.text())
+        date_income = income_validation.validate_date_income_cost(
+            self.income_date_linedit.text())
+        discription_income = income_validation.valid_description(
+            self.income_discription_linedit.toPlainText())
+        is_valid_income = True
+        if amount_income == False:
+            income_message.show_warning("Invalid income amount.")
+            self.income_amount_linedit.setText("")
+            is_valid_income = False
+            return is_valid_income
+        if date_income == False:
+            income_message.show_warning("Invalid income date.")
+            self.income_date_linedit.setText("")
+            is_valid_income = False
+            return is_valid_income
+        if discription_income == False:
+            income_message.show_warning(
+                "The text here cannot be more than 100 characters.")
+            is_valid_income = False
+            return is_valid_income
+        return is_valid_income
+
+    def add_record_income(self, user, amount, date, resource, ttype, discription):
+        recent_income_data = income_json.return_records(user)
+        recent_income_data["amount"].append(amount)
+        recent_income_data["date"].append(date)
+        recent_income_data["resource"].append(resource)
+        recent_income_data["type"].append(ttype)
+        recent_income_data["description"].append(discription)
+        data = {user: recent_income_data}
+        income_json.add_dict_to_json(data)
+        return True
+
+    def reset_income(self):
+        self.income_amount_linedit.setText("")
+        self.income_date_linedit.setText("")
+        self.income_discription_linedit.setText("")
+        self.income_resource.clear()

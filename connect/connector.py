@@ -17,7 +17,7 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-
+#############################################################################
 class Connector:
     def __init__(self):
         self.login_page = Login()
@@ -31,24 +31,30 @@ class Connector:
         self.message = Message_Box()
         self.welcome_window = Welcome()
         self.connect_signals()
-
+#############################################################################
+#Signals
     def connect_signals(self):
-        self.main_page.category_btn.clicked.connect(self.show_category_page)
+        self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
+        self.cost_page.exit_btn_cost.clicked.connect(
+            self.exit_cost_btn_clicked)
         self.cost_page.submit_cost_page_btn.clicked.connect(
             self.cost_submit_clicked)
         self.category_page.category_submit.clicked.connect(
             self.category_submit_clicked)
         self.category_page.category_exit.clicked.connect(
             self.category_exit_clicked)
+        self.main_page.category_btn.clicked.connect(self.show_category_page)
         self.main_page.exit_mainpage_btn.clicked.connect(self.exit_main_page)
         self.main_page.record_income_btn.clicked.connect(self.show_income_form)
         self.main_page.record_cost_btn.clicked.connect(self.show_cost_form)
         self.income_page.exit_btn_income.clicked.connect(
             self.exit_income_btn_clicked)
-        self.cost_page.exit_btn_cost.clicked.connect(
-            self.exit_cost_btn_clicked)
+        self.income_page.income_submit_btn.clicked.connect(
+            self.income_submit_clikced)
         self.forgot_page.forgot_password_btn.clicked.connect(
             self.my_pass_btn_clicked)
+        self.forgot_page.send_code_email.clicked.connect(
+            self.send_code_clicked)
         self.welcome_window.signup_btn.clicked.connect(
             self.welcome_signup_btn_clicked)
         self.welcome_window.login_btn.clicked.connect(
@@ -60,13 +66,10 @@ class Connector:
         )
         self.login_page.signup_btn_login.clicked.connect(
             self.signup_btn_login_clicked)
-        self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         self.login_page.show_pass_login.stateChanged.connect(
             self.toggle_echo_mode_show_pass
         )
-        self.forgot_page.send_code_email.clicked.connect(
-            self.send_code_clicked)
-
+#############################################################################
     def exit_main_page(self):
         self.timer.Calculation_until_present(self.main_page.first_time_login)
         self.message.show_message(
@@ -75,17 +78,10 @@ Have fun."""
         )
         self.main_page.close()
 
-    def show_income_form(self):
-        if self.category_page.check_exist_category(self.login_page.username):
-            self.main_page.hide()
-            self.income_page.income_combo_items(self.login_page.username)
-            self.income_page.income_type_items()
-            self.income_page.show()
-        else:
-            self.message.show_warning(
-                """You haven't added any category!
-first add at least 1 category to open income form."""
-            )
+
+#############################################################################
+# category
+
 
     def category_submit_clicked(self):
         if self.category_page.add_category(
@@ -99,6 +95,63 @@ first add at least 1 category to open income form."""
 
     def category_exit_clicked(self):
         self.category_page.close()
+        self.main_page.show()
+
+    def show_category_page(self):
+        self.main_page.hide()
+        self.category_page.show()
+#############################################################################
+# income
+
+    def show_income_form(self):
+        if self.category_page.check_exist_category(self.login_page.username):
+            self.main_page.hide()
+            self.income_page.income_combo_items(self.login_page.username)
+            self.income_page.income_type_items()
+            self.income_page.show()
+        else:
+            self.message.show_warning(
+                """You haven't added any category!
+first add at least 1 category to open income form."""
+            )
+
+    def income_submit_clikced(self):
+        valid_income_page = self.income_page.submit_income_clicked()
+        if valid_income_page:
+            self.income_page.add_record_income(
+                self.login_page.username,
+                self.income_page.income_amount_linedit.text(),
+                self.income_page.income_date_linedit.text(),
+                self.income_page.income_resource.currentText(),
+                self.income_page.income_type_combo.currentText(),
+                self.income_page.income_discription_linedit.toPlainText(),
+            )
+            self.message.show_message("Your Income has been recorded.")
+            self.income_page.reset_income()
+            self.income_page.income_combo_items(self.login_page.username)
+
+    def exit_income_btn_clicked(self):
+        self.income_page.close()
+        self.income_page.reset_income()
+        self.main_page.show()
+#############################################################################
+# cost
+
+    def show_cost_form(self):
+        if self.category_page.check_exist_category(self.login_page.username):
+            self.main_page.hide()
+            self.cost_page.cost_combo_items(self.login_page.username)
+            self.cost_page.cost_type_items()
+            self.cost_page.show()
+        else:
+            self.message.show_warning(
+                """You haven't added any category!
+first add at least 1 category to open cost form."""
+            )
+
+    def exit_cost_btn_clicked(self):
+        self.cost_page.close()
+        self.cost_page.reset_cost()
         self.main_page.show()
 
     def cost_submit_clicked(self):
@@ -115,27 +168,8 @@ first add at least 1 category to open income form."""
             self.message.show_message("Your cost has been recorded.")
             self.cost_page.reset_cost()
             self.cost_page.cost_combo_items(self.login_page.username)
-
-    def show_cost_form(self):
-        if self.category_page.check_exist_category(self.login_page.username):
-            self.main_page.hide()
-            self.cost_page.cost_combo_items(self.login_page.username)
-            self.cost_page.cost_type_items()
-            self.cost_page.show()
-        else:
-            self.message.show_warning(
-                """You haven't added any category!
-first add at least 1 category to open cost form."""
-            )
-
-    def exit_income_btn_clicked(self):
-        self.income_page.close()
-        self.main_page.show()
-
-    def exit_cost_btn_clicked(self):
-        self.cost_page.close()
-        self.cost_page.reset_cost()
-        self.main_page.show()
+#############################################################################
+# forgot
 
     def my_pass_btn_clicked(self):
         temp = self.forgot_page.show_password()
@@ -145,24 +179,18 @@ first add at least 1 category to open cost form."""
 
     def send_code_clicked(self):
         self.forgot_page.send_code()
+#############################################################################
+# welcome
 
     def welcome_signup_btn_clicked(self):
         self.signup_page.show()
         self.welcome_window.close()
 
-    def toggle_echo_mode_show_pass(self, state):
-        if state == Qt.Checked:
-            self.login_page.password_login.setEchoMode(QLineEdit.Normal)
-        else:
-            self.login_page.password_login.setEchoMode(QLineEdit.Password)
-
     def welcome_login_btn_clicked(self):
         self.login_page.show()
         self.welcome_window.close()
-
-    def signup_btn_login_clicked(self):
-        self.login_page.close()
-        self.signup_page.show()
+#############################################################################
+# login
 
     def pass_btn_login_clicked(self):
         self.login_page.reset_login()
@@ -177,9 +205,16 @@ first add at least 1 category to open cost form."""
             self.main_page.set_first_login_time()
             self.main_page.set_user_info(self.login_page.username)
 
-    def show_category_page(self):
-        self.main_page.hide()
-        self.category_page.show()
+    def toggle_echo_mode_show_pass(self, state):
+        if state == Qt.Checked:
+            self.login_page.password_login.setEchoMode(QLineEdit.Normal)
+        else:
+            self.login_page.password_login.setEchoMode(QLineEdit.Password)
+
+    def signup_btn_login_clicked(self):
+        self.login_page.close()
+        self.signup_page.show()
+#############################################################################
 
     def run(self):
         self.welcome_window.show()
