@@ -74,3 +74,10 @@ class Category_Page(QMainWindow):
 
     def reset_category(self):
         self.category_lineedit.setText("")
+        
+    def check_exist_category(self,user):
+        data = category_json.load_json_file()
+        if user in data:
+            return True
+        else:
+            return False
