@@ -100,3 +100,15 @@ class CreateJson:
                 return list(data[user])
         else:
             return []
+
+    def return_records_cost(self, user):
+        data = self.load_json_file()
+        if user not in data:
+            data[user] = {
+                "amount": [],
+                "date": [],
+                "resource": [],
+                "type": [],
+                "description": [],
+            }
+        return data[user]

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>370</width>
-    <height>751</height>
+    <height>734</height>
    </rect>
   </property>
   <property name="font">
@@ -80,7 +80,7 @@
     <property name="geometry">
      <rect>
       <x>32</x>
-      <y>312</y>
+      <y>295</y>
       <width>301</width>
       <height>221</height>
      </rect>
@@ -95,33 +95,11 @@
      <string>Description</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="cost_type">
-    <property name="geometry">
-     <rect>
-      <x>33</x>
-      <y>243</y>
-      <width>301</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>Cost Type</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="submit_cost_page_btn">
     <property name="geometry">
      <rect>
       <x>33</x>
-      <y>549</y>
+      <y>533</y>
       <width>301</width>
       <height>51</height>
      </rect>
@@ -140,7 +118,7 @@
     <property name="geometry">
      <rect>
       <x>33</x>
-      <y>617</y>
+      <y>600</y>
       <width>301</width>
       <height>51</height>
      </rect>
@@ -160,6 +138,22 @@
      <rect>
       <x>34</x>
       <y>189</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cost_type_combo">
+    <property name="geometry">
+     <rect>
+      <x>32</x>
+      <y>237</y>
       <width>301</width>
       <height>31</height>
      </rect>

@@ -46,7 +46,7 @@ class Income(QMainWindow):
         self.income_amount_linedit.setStyleSheet(self.lineedit_style)
         self.income_date_linedit.setStyleSheet(self.lineedit_style)
         self.income_resource.setStyleSheet(self.lineedit_style)
-        self.income_type_linedit.setStyleSheet(self.lineedit_style)
+        self.income_type_combo.setStyleSheet(self.lineedit_style)
         self.income_discription_linedit.setStyleSheet(self.lineedit_style)
         self.setStyleSheet(
             """
@@ -62,6 +62,13 @@ class Income(QMainWindow):
         self.exit_btn_income.setStyleSheet(self.btn_style)
 
     def income_combo_items(self, username):
-        category_list = category_adder.return_list_of_category(username)
-        for item in category_list:
-            self.income_resource.addItem(item)
+        if self.income_resource.count() == 0:
+            category_list = category_adder.return_list_of_category(username)
+            for item in category_list:
+                self.income_resource.addItem(item)
+
+    def income_type_items(self):
+        if self.income_type_combo.count() == 0:
+            income_types = ["Cryptocurrency", "Check", "Cash"]
+            for item in income_types:
+                self.income_type_combo.addItem(item)
