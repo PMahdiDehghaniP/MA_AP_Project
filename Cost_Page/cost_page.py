@@ -64,7 +64,6 @@ class Cost_Form(QMainWindow):
         self.exit_btn_cost.setStyleSheet(self.btn_style)
 
     def cost_combo_items(self, username):
-        if self.cost_resource.count() == 0:
             category_list = cost_adder.return_list_of_category(username)
             for item in category_list:
                 self.cost_resource.addItem(item)
@@ -111,3 +110,4 @@ class Cost_Form(QMainWindow):
         self.cost_amount.setText("")
         self.cost_date.setText("")
         self.description_cost.setText("")
+        self.cost_resource.clear()

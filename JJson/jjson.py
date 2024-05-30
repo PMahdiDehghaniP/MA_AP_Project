@@ -31,12 +31,11 @@ class CreateJson:
                 return False
         return True
 
-    def is_uniqe_category(self, category):
+    def is_uniqe_category(self, category, username):
         data = self.load_json_file()
-        for each_category in data:
-            for category_item in data[each_category]:
-                if category_item == category:
-                    return False
+        for category_item in data[username]:
+            if category_item == category:
+                return False
         return True
 
     def is_uniqe_email(self, email):

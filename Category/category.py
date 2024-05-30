@@ -64,7 +64,7 @@ class Category_Page(QMainWindow):
         self.category_exit.setStyleSheet(self.btn_style)
 
     def add_category(self, category, user):
-        if category_validatation.validate_categoty(category) == True and category_json.is_uniqe_category(category) == True:
+        if category_validatation.validate_categoty(category) == True and category_json.is_uniqe_category(category, user) == True:
             recent_category_list = category_json.return_list_of_category(user)
             recent_category_list.append(category)
             data = {user: recent_category_list}
@@ -75,7 +75,7 @@ class Category_Page(QMainWindow):
     def reset_category(self):
         self.category_lineedit.setText("")
 
-    def check_exist_category(self,user):
+    def check_exist_category(self, user):
         data = category_json.load_json_file()
         if user in data:
             return True
