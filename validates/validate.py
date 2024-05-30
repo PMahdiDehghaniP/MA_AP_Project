@@ -89,14 +89,18 @@ class Validate:
         else:
             return False
 
+    def validate_date_income_cost(self, date):
+        pattern = r"^(?:(?:19|20)\d\d)/(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])$"
+        return bool(re.match(pattern, date))
+
     def validate_categoty(self, category):
         pattern = r'^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{1,15}$'
         return bool(re.match(pattern, category))
-    
+
     def valid_amount(self, amount):
         pattern = r'^[1-9]\d*$|^0$'
         return bool(re.match(pattern, amount))
-    
+
     def valid_description(self, discription):
         if len(discription) <= 100:
             return True

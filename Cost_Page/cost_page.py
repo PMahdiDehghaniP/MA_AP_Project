@@ -76,7 +76,7 @@ class Cost_Form(QMainWindow):
 
     def submit_cost_clicked(self):
         amount_cost = Valid.valid_amount(self.cost_amount.text())
-        date_cost = Valid.validite_birthday(self.cost_date.text())
+        date_cost = Valid.validate_date_income_cost(self.cost_date.text())
         discription_cost = Valid.valid_description(self.description_cost.toPlainText())
         is_valid_cost = True
         if amount_cost == False:

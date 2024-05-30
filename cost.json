@@ -17,5 +17,12 @@
     "resource": ["front end"],
     "type": ["Cryptocurrency"],
     "description": ["front zadim bah bah"]
+  },
+  "Axdgxfh567": {
+    "amount": ["1200"],
+    "date": ["2024/10/02"],
+    "resource": ["back end"],
+    "type": ["Cryptocurrency"],
+    "description": ["cash dar miyaram jahadi"]
   }
 }
