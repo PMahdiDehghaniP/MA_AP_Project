@@ -52,25 +52,6 @@
      <string>Income Amount</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="income_resource_linedit">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>220</y>
-      <width>321</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="placeholderText">
-     <string>Income Resource</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="income_date_linedit">
     <property name="geometry">
      <rect>
@@ -94,7 +75,7 @@
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>280</y>
+      <y>275</y>
       <width>321</width>
       <height>41</height>
      </rect>
@@ -164,6 +145,25 @@
     </property>
     <property name="text">
      <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="income_resource">
+    <property name="geometry">
+     <rect>
+      <x>39</x>
+      <y>213</y>
+      <width>321</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="placeholderText">
+     <string>income Resource</string>
     </property>
    </widget>
   </widget>

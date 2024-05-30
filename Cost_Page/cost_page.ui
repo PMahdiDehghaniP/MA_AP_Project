@@ -76,28 +76,6 @@
      <string>Cost Date (yyyy/mm/dd)</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="cost_resource">
-    <property name="geometry">
-     <rect>
-      <x>33</x>
-      <y>185</y>
-      <width>301</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>Cost Resource</string>
-    </property>
-   </widget>
    <widget class="QTextEdit" name="description_cost">
     <property name="geometry">
      <rect>
@@ -175,6 +153,22 @@
     </property>
     <property name="text">
      <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cost_resource">
+    <property name="geometry">
+     <rect>
+      <x>34</x>
+      <y>189</y>
+      <width>301</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
     </property>
    </widget>
   </widget>

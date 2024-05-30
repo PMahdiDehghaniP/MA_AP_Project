@@ -3,8 +3,10 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 import sys
-
+from JJson.jjson import CreateJson
 from PyQt5.QtWidgets import QWidget
+
+category_adder = CreateJson("category.json")
 
 
 class Income(QMainWindow):
@@ -43,7 +45,7 @@ class Income(QMainWindow):
         self.Income_title_label.setStyleSheet("background: none;")
         self.income_amount_linedit.setStyleSheet(self.lineedit_style)
         self.income_date_linedit.setStyleSheet(self.lineedit_style)
-        self.income_resource_linedit.setStyleSheet(self.lineedit_style)
+        self.income_resource.setStyleSheet(self.lineedit_style)
         self.income_type_linedit.setStyleSheet(self.lineedit_style)
         self.income_discription_linedit.setStyleSheet(self.lineedit_style)
         self.setStyleSheet(
@@ -58,3 +60,8 @@ class Income(QMainWindow):
         self.exit_btn_income.setCursor(Qt.PointingHandCursor)
         self.income_submit_btn.setStyleSheet(self.btn_style)
         self.exit_btn_income.setStyleSheet(self.btn_style)
+
+    def income_combo_items(self, username):
+        category_list = category_adder.return_list_of_category(username)
+        for item in category_list:
+            self.income_resource.addItem(item)

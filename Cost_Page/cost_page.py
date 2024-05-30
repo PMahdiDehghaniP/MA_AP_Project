@@ -2,8 +2,11 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+from JJson.jjson import CreateJson
 import sys
 from PyQt5.QtWidgets import QWidget
+
+cost_adder = CreateJson("category.json")
 
 
 class Cost_Form(QMainWindow):
@@ -38,8 +41,8 @@ class Cost_Form(QMainWindow):
             '''
             background: qlineargradient(
             spread:pad, x1:0, y1:0, x2:1, y2:0,
-            stop:0 #141E30,
-            stop:1 #243B55
+            stop:0 #44A08D,
+            stop:1 #093637
         );''')
         self.cost_form_label.setStyleSheet(
             '''background: none;color:#ffffff;''')
@@ -52,3 +55,8 @@ class Cost_Form(QMainWindow):
         self.submit_cost_page_btn.setStyleSheet(self.btn_style)
         self.exit_btn_cost.setCursor(Qt.PointingHandCursor)
         self.exit_btn_cost.setStyleSheet(self.btn_style)
+
+    def cost_combo_items(self, username):
+        category_list = cost_adder.return_list_of_category(username)
+        for item in category_list:
+            self.cost_resource.addItem(item)
