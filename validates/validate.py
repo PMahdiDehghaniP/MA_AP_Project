@@ -1,8 +1,10 @@
 import re
 
+
 class Validate:
     def __init__(self) -> None:
         pass
+
     def validate_password(self, string):
         checkStr = ""
         lowercase_reg = re.compile(r"[a-z]")
@@ -86,3 +88,7 @@ class Validate:
             return True
         else:
             return False
+
+    def validate_categoty(self, category):
+        pattern = r'^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{1,15}$'
+        return bool(re.match(pattern, category))

@@ -31,6 +31,14 @@ class CreateJson:
                 return False
         return True
 
+    def is_uniqe_category(self, category):
+        data = self.load_json_file()
+        for each_category in data:
+            for category_item in data[each_category]:
+                if category_item == category:
+                    return False
+        return True
+
     def is_uniqe_email(self, email):
         data = self.load_json_file()
         for each_user in data:
@@ -76,3 +84,19 @@ class CreateJson:
             if data[each_user]["email"] == email:
                 return True
         return False
+
+    def get_user_by_email(self, email):
+        data = self.load_json_file()
+        for each_user in data.keys():
+            if email == each_user:
+                return each_user
+            elif email == data[each_user]["email"]:
+                return each_user
+
+    def return_list_of_category(self, user):
+        data = self.load_json_file()
+        if user in data:
+            if len(data[user]) != 0:
+                return list(data[user])
+        else:
+            return []

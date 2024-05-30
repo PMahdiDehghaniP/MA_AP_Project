@@ -19,6 +19,7 @@ class Login(QMainWindow):
     def __init__(self):
         super().__init__()
         self.counter_try_login = 1
+        self.username = ""
         uic.loadUi(r"Login_Page\mainwindow.ui", self)
         self.setWindowTitle("Login Page")
         self.setFixedSize(422, 440)
@@ -121,6 +122,8 @@ class Login(QMainWindow):
                 self.counter_try_login = 0
                 show_message.show_message(
                     "You have successfully logged in. Welcome!")
+                self.username = check_tool.get_user_by_email(
+                    self.email_login.text())
                 return "OK"
         else:
             self.block_login_button()
