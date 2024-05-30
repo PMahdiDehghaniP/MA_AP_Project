@@ -33,6 +33,10 @@ class CreateJson:
 
     def is_uniqe_category(self, category, username):
         data = self.load_json_file()
+        if username not in data.keys():
+            data[username] = []
+            self.save_to_json(data)
+            return True
         for category_item in data[username]:
             if category_item == category:
                 return False
@@ -97,6 +101,8 @@ class CreateJson:
         if user in data:
             if len(data[user]) != 0:
                 return list(data[user])
+            else:
+                return []
         else:
             return []
 
