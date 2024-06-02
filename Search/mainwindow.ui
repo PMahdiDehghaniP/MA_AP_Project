@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>622</width>
-    <height>600</height>
+    <height>496</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -232,7 +232,7 @@
      <string>Enter The Year</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="price_low">
+   <widget class="QLineEdit" name="price_high">
     <property name="geometry">
      <rect>
       <x>339</x>
@@ -248,7 +248,7 @@
      </font>
     </property>
     <property name="placeholderText">
-     <string>Enter Low Price</string>
+     <string>Enter High Price</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="income_lineedit">
@@ -270,7 +270,7 @@
      <string>Enter The Income</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="price_high">
+   <widget class="QLineEdit" name="price_low">
     <property name="geometry">
      <rect>
       <x>176</x>
@@ -286,7 +286,7 @@
      </font>
     </property>
     <property name="placeholderText">
-     <string>Enter High Price</string>
+     <string>Enter Low Price</string>
     </property>
    </widget>
   </widget>

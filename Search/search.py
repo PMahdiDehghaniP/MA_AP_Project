@@ -16,6 +16,7 @@ class Search_Page(QMainWindow):
         background:none;
         '''
         self.style()
+        self.hide_all_lineedits()
 
     def style(self):
         self.search_label.setStyleSheet("background:none")
@@ -60,8 +61,17 @@ class Search_Page(QMainWindow):
         }
                                       ''')
 
+    def hide_all_lineedits(self):
+        self.day_lineedit.hide()
+        self.month_lineedit.hide()
+        self.year_lineedit.hide()
+        self.price_low.hide()
+        self.price_high.hide()
+        self.income_lineedit.hide()
+        self.cost_lineedit.hide()
 
-app = QApplication([])
-w = Search_Page()
-w.show()
-app.exec_()
+    def hide_line_edit(self, lineedit_name):
+        lineedit_name.hide()
+
+    def show_line_edit(self, lineedit_name):
+        lineedit_name.show()

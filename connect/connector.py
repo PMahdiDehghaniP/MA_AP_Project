@@ -7,6 +7,7 @@ from Login_Page.login_form import Login
 from Main_page.main_page import Main_Page
 from Timer.timer import Timer_Calc
 from Category.category import Category_Page
+from Search.search import Search_Page
 from MessageBox.messagebox import Message_Box
 from Income_page.income_page import Income
 from Cost_Page.cost_page import Cost_Form
@@ -24,6 +25,7 @@ class Connector:
     def __init__(self):
         self.login_page = Login()
         self.main_page = Main_Page()
+        self.search_page = Search_Page()
         self.signup_page = Signup()
         self.category_page = Category_Page()
         self.forgot_page = forgot()
@@ -38,30 +40,38 @@ class Connector:
 
     def connect_signals(self):
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
+        ###################
         self.cost_page.exit_btn_cost.clicked.connect(
             self.exit_cost_btn_clicked)
         self.cost_page.submit_cost_page_btn.clicked.connect(
             self.cost_submit_clicked)
+        ###################
         self.category_page.category_submit.clicked.connect(
             self.category_submit_clicked)
         self.category_page.category_exit.clicked.connect(
             self.category_exit_clicked)
+        ###################
         self.main_page.category_btn.clicked.connect(self.show_category_page)
         self.main_page.exit_mainpage_btn.clicked.connect(self.exit_main_page)
         self.main_page.record_income_btn.clicked.connect(self.show_income_form)
         self.main_page.record_cost_btn.clicked.connect(self.show_cost_form)
+        self.main_page.search_btn.clicked.connect(self.show_search_page)
+        ###################
         self.income_page.exit_btn_income.clicked.connect(
             self.exit_income_btn_clicked)
         self.income_page.income_submit_btn.clicked.connect(
             self.income_submit_clikced)
+        ###################
         self.forgot_page.forgot_password_btn.clicked.connect(
             self.my_pass_btn_clicked)
         self.forgot_page.send_code_email.clicked.connect(
             self.send_code_clicked)
+        ###################
         self.welcome_window.signup_btn.clicked.connect(
             self.welcome_signup_btn_clicked)
         self.welcome_window.login_btn.clicked.connect(
             self.welcome_login_btn_clicked)
+        ###################
         self.login_page.pass_forgot_login.clicked.connect(
             self.pass_btn_login_clicked)
         self.login_page.sign_in_login_btn.clicked.connect(
@@ -72,6 +82,19 @@ class Connector:
         self.login_page.show_pass_login.stateChanged.connect(
             self.toggle_echo_mode_show_pass
         )
+        ###################
+        self.search_page.daycheckbox.stateChanged.connect(
+            self.daycheckbox_status)
+        self.search_page.monthcheckbox.stateChanged.connect(
+            self.monthcheckbox_status)
+        self.search_page.yearcheckbox.stateChanged.connect(
+            self.yearcheckbox_status)
+        self.search_page.price_checkbox.stateChanged.connect(
+            self.price_checkbox_status)
+        self.search_page.incomecheckbox.stateChanged.connect(
+            self.incomecheckbox_status)
+        self.search_page.costcheckbox.stateChanged.connect(
+            self.costcheckbox_status)
 #############################################################################
 
     def exit_main_page(self):
@@ -85,7 +108,6 @@ Have fun."""
 
 #############################################################################
 # category
-
 
     def category_submit_clicked(self):
         if self.category_page.add_category(
@@ -219,6 +241,53 @@ first add at least 1 category to open cost form."""
         self.login_page.close()
         self.signup_page.show()
 #############################################################################
+# Search
+
+    def show_search_page(self):
+        self.main_page.hide()
+        self.search_page.show()
+
+    def daycheckbox_status(self, state):
+        if state == Qt.Checked:
+            self.search_page.show_line_edit(self.search_page.day_lineedit)
+        else:
+            self.search_page.hide_line_edit(self.search_page.day_lineedit)
+
+    def monthcheckbox_status(self, state):
+        if state == Qt.Checked:
+            self.search_page.show_line_edit(self.search_page.month_lineedit)
+        else:
+            self.search_page.hide_line_edit(self.search_page.month_lineedit)
+
+    def yearcheckbox_status(self, state):
+        if state == Qt.Checked:
+            self.search_page.show_line_edit(self.search_page.year_lineedit)
+        else:
+            self.search_page.hide_line_edit(self.search_page.year_lineedit)
+
+    def price_checkbox_status(self, state):
+        if state == Qt.Checked:
+            self.search_page.show_line_edit(self.search_page.price_high)
+            self.search_page.show_line_edit(self.search_page.price_low)
+        else:
+            self.search_page.hide_line_edit(self.search_page.price_high)
+            self.search_page.hide_line_edit(self.search_page.price_low)
+
+    def incomecheckbox_status(self, state):
+        if state == Qt.Checked:
+            self.search_page.show_line_edit(self.search_page.income_lineedit)
+        else:
+            self.search_page.hide_line_edit(self.search_page.income_lineedit)
+
+    def costcheckbox_status(self, state):
+        if state == Qt.Checked:
+            self.search_page.show_line_edit(self.search_page.cost_lineedit)
+        else:
+            self.search_page.hide_line_edit(self.search_page.cost_lineedit)
+
+
+#############################################################################
+
 
     def run(self):
         self.welcome_window.show()
