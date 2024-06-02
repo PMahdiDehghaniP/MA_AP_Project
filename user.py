@@ -2,6 +2,7 @@ import re
 
 
 class User:
+    Users=[]
     def __init__(
         self,
         name,

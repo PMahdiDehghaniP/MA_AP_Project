@@ -18,6 +18,8 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 #############################################################################
+
+
 class Connector:
     def __init__(self):
         self.login_page = Login()
@@ -32,7 +34,8 @@ class Connector:
         self.welcome_window = Welcome()
         self.connect_signals()
 #############################################################################
-#Signals
+# Signals
+
     def connect_signals(self):
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         self.cost_page.exit_btn_cost.clicked.connect(
@@ -70,6 +73,7 @@ class Connector:
             self.toggle_echo_mode_show_pass
         )
 #############################################################################
+
     def exit_main_page(self):
         self.timer.Calculation_until_present(self.main_page.first_time_login)
         self.message.show_message(
@@ -233,6 +237,7 @@ first add at least 1 category to open cost form."""
                 self.signup_page.city_signup.text(),
                 self.signup_page.date_signup.text(),
             )
+            uv.User.Users.append(new_user)
             self.message.show_message(
                 "user successfully created.\nPlease Log in To Your Account"
             )
