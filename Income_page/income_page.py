@@ -67,10 +67,9 @@ class Income(QMainWindow):
         self.exit_btn_income.setStyleSheet(self.btn_style)
 
     def income_combo_items(self, username):
-        if self.income_resource.count() == 0:
-            category_list = db_controler.return_list_of_category(username)
-            for item in category_list:
-                self.income_resource.addItem(item)
+        category_list = db_controler.return_list_of_category(username)
+        for item in category_list:
+            self.income_resource.addItem(item)
 
     def income_type_items(self):
         if self.income_type_combo.count() == 0:

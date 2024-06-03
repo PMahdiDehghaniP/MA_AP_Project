@@ -18,7 +18,7 @@ class Category_Page(QMainWindow):
         self.setFixedSize(421, 273)
         self.setWindowTitle("Categories")
         self.setWindowIcon(QIcon(r"Category\icon_category.jpg"))
-        self.btn_style = '''
+        self.btn_style = """
             QPushButton{
             background: qlineargradient(
             spread:pad, x1:0, y1:0, x2:1, y2:0,
@@ -38,7 +38,7 @@ class Category_Page(QMainWindow):
             stop:1 #7AA1D2
             );
             }
-        '''
+        """
         self.style()
 
     def style(self):
@@ -64,8 +64,11 @@ class Category_Page(QMainWindow):
         self.category_exit.setStyleSheet(self.btn_style)
 
     def add_category(self, category, user):
-        if category_validatation.validate_categoty(category) == True and db_control.isunique_category(category, user) == True:
-            db_control.add_category(category)
+        if (
+            category_validatation.validate_categoty(category) == True
+            and db_control.isunique_category(category, user) == True
+        ):
+            db_control.add_category(user, category)
             return True
         return False
 
@@ -73,7 +76,8 @@ class Category_Page(QMainWindow):
         self.category_lineedit.setText("")
 
     def check_exist_category(self, user):
-        if db_control.does_user_exist(user):
+        category_list = db_control.return_list_of_category(user)
+        if len(category_list) > 0:
             return True
         else:
             return False
