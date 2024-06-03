@@ -253,13 +253,23 @@ first add at least 1 category to open cost form."""
             self.search_page.hide_lineedit()
 
     def search_btn_clicked(self):
-        res = self.search_page.search_text(self.search_page.search_lineedit.text())
+        start_date, end_date = self.search_page.format_date_calender()
+        lower_price, higher_price = self.search_page.ischecbox_price()
+        res = self.search_page.search_text(
+            self.search_page.search_lineedit.text(),
+            start_date,
+            end_date,
+            lower_price,
+            higher_price,
+        )
         if len(res) == 0:
             self.message.show_warning(
                 f"We didn't find anything with word '{self.search_page.search_lineedit.text()}'"
             )
         else:
             self.message.show_results(res)
+            self.search_page.price_high.setText("")
+            self.search_page.price_low.setText("")
 
     #############################################################################
     def show_report_page(self):

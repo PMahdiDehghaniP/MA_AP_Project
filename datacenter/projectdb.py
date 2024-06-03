@@ -218,16 +218,37 @@ class PDataBase:
         else:
             return False
 
-    def search_text(self, text, tables, username):
+    def search_text(
+        self,
+        text,
+        tables,
+        username,
+        start_date=None,
+        end_date=None,
+        lower_price=None,
+        higher_price=None,
+    ):
         final = ""
         for table in tables:
             self.command.execute(f"PRAGMA table_info({table})")
             columns = [column[1] for column in self.command.fetchall()]
             for column in columns:
-                self.command.execute(
-                    f"SELECT * FROM {table} WHERE username=? AND {column} LIKE ?",
-                    (username, "%" + text + "%"),
-                )
+                query = f"SELECT * FROM {table} WHERE username=? AND {column} LIKE ?"
+                params = [username, "%" + text + "%"]
+
+                if start_date and end_date and "date" in columns:
+                    query += " AND date BETWEEN ? AND ?"
+                    params.extend([start_date, end_date])
+
+                if (
+                    lower_price is not None
+                    and higher_price is not None
+                    and "amount" in columns
+                ):
+                    query += " AND amount BETWEEN ? AND ?"
+                    params.extend([lower_price, higher_price])
+
+                self.command.execute(query, params)
                 results = self.command.fetchall()
                 if results:
                     for row in results:

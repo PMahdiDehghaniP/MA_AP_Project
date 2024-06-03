@@ -194,46 +194,64 @@ class Search_Page(QMainWindow):
         if self.price_checkbox.isChecked():
             return self.price_low.text(), self.price_high.text()
         else:
-            return "no_input", "no_input"
+            return None, None
 
     def format_date_calender(self):
         if self.custom_period_check.isChecked():
             start_date = self.calender_start.selectedDate()
             end_date = self.calender_end.selectedDate()
             formatted_start_date = start_date.toString("yyyy/MM/dd")
-            self.start_year, self.start_month, self.start_day = map(
-                int, formatted_start_date.split("/")
-            )
             formatted_end_date = end_date.toString("yyyy/MM/dd")
-            self.end_year, self.end_month, self.end_day = map(
-                int, formatted_end_date.split("/")
-            )
-        return (
-            self.start_year,
-            self.start_month,
-            self.start_day,
-            self.end_year,
-            self.end_month,
-            self.end_day,
-        )
+            return formatted_start_date, formatted_end_date
+        else:
+            return None, None
 
-    def search_text(self, text):
+    def search_text(
+        self, text, start_date=None, end_date=None, lower_price=None, higher_price=None
+    ):
         flag = self.search_btn_clicked()
         res = ""
         if flag:
             files = self.ischeckbox_file()
-            lower_price, higher_price = self.ischecbox_price()
             if files == "income":
-                res = dbcontroler.search_text(text, ["UserIncome"], self.username)
+                res = dbcontroler.search_text(
+                    text,
+                    ["UserIncome"],
+                    self.username,
+                    start_date,
+                    end_date,
+                    lower_price,
+                    higher_price,
+                )
             elif files == "cost":
-                res = dbcontroler.search_text(text, ["UserCost"], self.username)
+                res = dbcontroler.search_text(
+                    text,
+                    ["UserCost"],
+                    self.username,
+                    start_date,
+                    end_date,
+                    lower_price,
+                    higher_price,
+                )
             elif files == "both":
                 res = dbcontroler.search_text(
-                    text, ["UserIncome", "UserCost"], self.username
+                    text,
+                    ["UserIncome", "UserCost"],
+                    self.username,
+                    start_date,
+                    end_date,
+                    lower_price,
+                    higher_price,
                 )
             elif files == "every":
                 res = dbcontroler.search_text(
-                    text, ["UserIncome", "UserCost", "UserCategories"], self.username
+                    text,
+                    ["UserIncome", "UserCost", "UserCategories"],
+                    self.username,
+                    start_date,
+                    end_date,
+                    lower_price,
+                    higher_price,
                 )
         return res
 
