@@ -182,7 +182,7 @@ class Search_Page(QMainWindow):
         elif self.costcheckbox_status():
             return "cost"
         else:
-            return "both"
+            return "every"
 
     def ischecbox_price(self):
         if self.price_checkbox.isChecked():
@@ -202,14 +202,14 @@ class Search_Page(QMainWindow):
             self.end_year, self.end_month, self.end_day = map(
                 int, formatted_end_date.split("/")
             )
-            return (
-                self.start_year,
-                self.start_month,
-                self.start_day,
-                self.end_year,
-                self.end_month,
-                self.end_day,
-            )
+        return (
+            self.start_year,
+            self.start_month,
+            self.start_day,
+            self.end_year,
+            self.end_month,
+            self.end_day,
+        )
 
 
 class Report_Page(QMainWindow):

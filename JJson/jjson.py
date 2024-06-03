@@ -117,3 +117,23 @@ class CreateJson:
                 "description": [],
             }
         return data[user]
+
+    def search_files(self, name, text, user):
+        if name == "both":
+            pass
+        elif name == "income":
+            return self.search_uniq_file(text, user)
+        elif name == "cost":
+            return self.search_uniq_file(text, user)
+        elif name == "every":
+            pass
+
+    def search_uniq_file(self, text, user):
+        data = self.load_json_file()
+        res = ""
+        name = self.file_name.split(".")[0]
+        for elem in data[user].keys():
+            for lis in data[user][elem]:
+                if text in lis:
+                    res += f"{name}: {elem}: {lis}\n"
+        return res

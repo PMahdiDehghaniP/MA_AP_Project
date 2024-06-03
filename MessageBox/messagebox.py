@@ -26,6 +26,20 @@ class Message_Box(QMainWindow):
         msg.setFixedSize(1000, 300)
         msg.exec_()
 
+    def show_results(self, result):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Done!")
+        msg.setInformativeText(result)
+        msg.setWindowTitle("Results")
+        msg.setStandardButtons(QMessageBox.Ok)
+        window_icon = QIcon(r"MessageBox\verify_window_icon.png")
+        msg.setWindowIcon(window_icon)
+        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        layout = msg.layout()
+        layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
+        msg.exec_()
+
     def show_warning(self, message):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
@@ -46,7 +60,8 @@ class Message_Box(QMainWindow):
 
         msg.setFixedSize(1000, 300)
         msg.exec_()
-    def show_password(self,message):
+
+    def show_password(self, message):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("Password")

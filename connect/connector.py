@@ -35,6 +35,7 @@ class Connector:
         self.message = Message_Box()
         self.welcome_window = Welcome()
         self.report_page = Report_Page()
+        self.json_file = CreateJson("income.json")
         self.connect_signals()
 
     #############################################################################
@@ -260,6 +261,12 @@ first add at least 1 category to open cost form."""
         )
         lower_price, higher_price = self.search_page.ischecbox_price()
         file_to_search = self.search_page.ischeckbox_file()
+        res = self.json_file.search_files(
+            file_to_search,
+            self.search_page.search_lineedit.text(),
+            self.login_page.username,
+        )
+        self.message.show_results(res)
 
     #############################################################################
     def show_report_page(self):
