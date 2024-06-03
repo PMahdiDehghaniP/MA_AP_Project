@@ -83,6 +83,8 @@ class Connector:
             self.toggle_echo_mode_show_pass
         )
         ###################
+        self.search_page.return_btn.clicked.connect(
+            self.search_return_btn_clicked)
         self.search_page.daycheckbox.stateChanged.connect(
             self.daycheckbox_status)
         self.search_page.monthcheckbox.stateChanged.connect(
@@ -108,6 +110,7 @@ Have fun."""
 
 #############################################################################
 # category
+
 
     def category_submit_clicked(self):
         if self.category_page.add_category(
@@ -243,6 +246,11 @@ first add at least 1 category to open cost form."""
 #############################################################################
 # Search
 
+    def search_return_btn_clicked(self):
+        self.search_page.close()
+        self.search_page.reset_form()
+        self.main_page.show()
+
     def show_search_page(self):
         self.main_page.hide()
         self.search_page.show()
@@ -287,7 +295,6 @@ first add at least 1 category to open cost form."""
 
 
 #############################################################################
-
 
     def run(self):
         self.welcome_window.show()
