@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+from datacenter.projectdb import PDataBase
 from MessageBox.messagebox import Message_Box
 from validates.validate import Validate
 import sys
@@ -10,6 +11,7 @@ from PyQt5.QtWidgets import QWidget
 
 income_message = Message_Box()
 income_validation = Validate()
+db_controler = PDataBase()
 
 
 class Income(QMainWindow):
@@ -65,11 +67,10 @@ class Income(QMainWindow):
         self.exit_btn_income.setStyleSheet(self.btn_style)
 
     def income_combo_items(self, username):
-        pass
-        # if self.income_resource.count() == 0:
-        #     category_list = category_adder.return_list_of_category(username)
-        #     for item in category_list:
-        #         self.income_resource.addItem(item)
+        if self.income_resource.count() == 0:
+            category_list = db_controler.return_list_of_category(username)
+            for item in category_list:
+                self.income_resource.addItem(item)
 
     def income_type_items(self):
         if self.income_type_combo.count() == 0:
@@ -103,14 +104,8 @@ class Income(QMainWindow):
         return is_valid_income
 
     def add_record_income(self, user, amount, date, resource, ttype, discription):
-        # recent_income_data = income_json.return_records(user)
-        # recent_income_data["amount"].append(amount)
-        # recent_income_data["date"].append(date)
-        # recent_income_data["resource"].append(resource)
-        # recent_income_data["type"].append(ttype)
-        # recent_income_data["description"].append(discription)
-        # data = {user: recent_income_data}
-        # income_json.add_dict_to_json(data)
+        db_controler.add_new_IC(
+            "UserIncome", user, amount, date, resource, ttype, discription)
         return True
 
     def reset_income(self):

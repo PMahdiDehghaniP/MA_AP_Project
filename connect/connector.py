@@ -309,3 +309,5 @@ first add at least 1 category to open cost form."""
             self.database.add_new_user(
                 fname, lname, phonenumber, username, password, city, email, date_birthday)
             self.signup_page.reset_signup()
+            self.signup_page.close()
+            self.login_page.show()

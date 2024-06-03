@@ -95,3 +95,37 @@ class PDataBase():
             'SELECT COUNT(*) FROM UserCategories WHERE username=? AND category=?', (username, category_name))
         count = self.command.fetchone()[0]
         return count == 0
+
+    def does_user_exist(self, username):
+        self.command.execute(
+            'SELECT COUNT(*) FROM UserInfo WHERE username=?', (username,))
+        count = self.command.fetchone()[0]
+        return count > 0
+
+    def return_list_of_category(self, username):
+        self.command.execute(
+            'SELECT category FROM UserCategories WHERE username=?', (username,))
+        categories = self.command.fetchall()
+        return [category[0] for category in categories]
+
+    def get_password(self, input_data):
+        if "@" in input_data:
+            self.command.execute(
+                'SELECT password FROM UserInfo WHERE email=?', (input_data,))
+        else:
+            self.command.execute(
+                'SELECT password FROM UserInfo WHERE username=?', (input_data,))
+        password = self.command.fetchone()
+        if password:
+            return password[0]
+        else:
+            return None
+
+    def get_email_or_username(self, input_data):
+        self.command.execute(
+            'SELECT username FROM UserInfo WHERE email=? OR username=?', (input_data, input_data,))
+        username = self.command.fetchone()
+        if username:
+            return username[0]
+        else:
+            return False

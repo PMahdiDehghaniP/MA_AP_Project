@@ -3,6 +3,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import QTimer, Qt
+from datacenter.projectdb import PDataBase
 from MessageBox.messagebox import *
 import sys
 import os
@@ -11,6 +12,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 show_message = Message_Box()
+db_controler = PDataBase()
 
 
 class Login(QMainWindow):
@@ -48,8 +50,8 @@ class Login(QMainWindow):
         self.setStyleSheet(
             """
             background: qlineargradient(
-            spread:pad, x1:0, y1:0, x2:1, y2:0, 
-            stop:0 #0093E9, 
+            spread:pad, x1:0, y1:0, x2:1, y2:0,
+            stop:0 #0093E9,
             stop:1 #80D0C7
         );""")
         self.email_login.setStyleSheet(self.lineedit_style)
@@ -61,10 +63,10 @@ class Login(QMainWindow):
         self.sign_in_login_btn.setCursor(Qt.PointingHandCursor)
         self.sign_in_login_btn.setStyleSheet(
             """
-            QPushButton{                              
+            QPushButton{
             background: qlineargradient(
-            spread:pad, x1:0, y1:0, x2:1, y2:0, 
-            stop:0 #8EC5FC, 
+            spread:pad, x1:0, y1:0, x2:1, y2:0,
+            stop:0 #8EC5FC,
             stop:1 #E0C3FC
             );
             border:none;
@@ -73,8 +75,8 @@ class Login(QMainWindow):
             }
             QPushButton:hover{
             background: qlineargradient(
-            spread:pad, x1:0, y1:0, x2:1, y2:0, 
-            stop:0 #c31432, 
+            spread:pad, x1:0, y1:0, x2:1, y2:0,
+            stop:0 #c31432,
             stop:1 #240b36
             );
             color:yellow;
@@ -87,45 +89,38 @@ class Login(QMainWindow):
         self.signup_btn_login.setStyleSheet(self.hotkey_style)
 
     def login_user(self):
-        pass
-    #     if self.counter_try_login < 3:
-    #         if (
-    #             check_tool.does_user_exist(
-    #                 self.email_login.text(), self.password_login.text()
-    #             )
-    #             == "invalid password"
-    #         ):
-    #             self.counter_try_login += 1
-    #             show_message.show_warning("Incorrect Password!\nTry Again!")
-    #             self.password_login.setText("")
-    #         elif (
-    #             check_tool.does_user_exist(
-    #                 self.email_login.text(), self.password_login.text()
-    #             )
-    #             == "not found"
-    #         ):
-    #             self.counter_try_login += 1
-    #             show_message.show_warning(
-    #                 """There is no such user registered in the system.\n
-    # Please check the details again.\n
-    # If you don't have an account, please sign up."""
-    #             )
-    #             self.email_login.setText("")
-    #             self.password_login.setText("")
-    #         elif (
-    #             check_tool.does_user_exist(
-    #                 self.email_login.text(), self.password_login.text()
-    #             )
-    #             == "Valid"
-    #         ):
-    #             self.counter_try_login = 0
-    #             show_message.show_message(
-    #                 "You have successfully logged in. Welcome!")
-    #             self.username = check_tool.get_user_by_email(
-    #                 self.email_login.text())
-    #             return "OK"
-    #     else:
-    #         self.block_login_button()
+        flag_user = False
+        flag_pass = False
+        input_user = self.email_login.text()
+        if self.counter_try_login < 3:
+            if (db_controler.get_email_or_username(input_user) == False):
+                self.counter_try_login += 1
+                show_message.show_warning(
+                    """There is no such user registered in the system.\n
+    Please check the details again.\n
+    If you don't have an account, please sign up."""
+                )
+                self.email_login.setText("")
+                self.password_login.setText("")
+                return
+            else:
+                flag_user = True
+
+            if (db_controler.get_password(input_user) == None):
+                self.counter_try_login += 1
+                show_message.show_warning("Incorrect Password!\nTry Again!")
+                self.password_login.setText("")
+                return
+            else:
+                flag_pass = True
+            if flag_user == True and flag_pass == True:
+                self.counter_try_login = 0
+                show_message.show_message(
+                    "You have successfully logged in. Welcome!")
+                self.username = db_controler.get_email_or_username(input_user)
+                return "OK"
+        else:
+            self.block_login_button()
 
     def reset_login(self):
         self.email_login.setText("")
