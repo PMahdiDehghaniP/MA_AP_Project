@@ -28,8 +28,7 @@ class Message_Box(QMainWindow):
 
     def show_results(self, result):
         msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText("Done!")
+        msg.setText("Results")
         msg.setInformativeText(result)
         msg.setWindowTitle("Results")
         msg.setStandardButtons(QMessageBox.Ok)

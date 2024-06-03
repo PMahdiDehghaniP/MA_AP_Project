@@ -4,15 +4,18 @@ from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from validates.validate import *
 from MessageBox.messagebox import *
+from datacenter.projectdb import PDataBase
 
 
 Valid = Validate()
 Message = Message_Box()
+dbcontroler = PDataBase()
 
 
 class Search_Page(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.username = ""
         self.end_year = ""
         self.end_month = ""
         self.end_day = ""
@@ -20,7 +23,7 @@ class Search_Page(QMainWindow):
         self.start_month = ""
         self.start_day = ""
         self.setFixedSize(813, 684)
-        uic.loadUi(r"Search\mainwindow_search.ui", self)
+        uic.loadUi(r"Search_Report\mainwindow_search.ui", self)
         self.lineedit_style = """
         border-bottom:1px solid black;
         border-radius:3px;
@@ -48,9 +51,12 @@ class Search_Page(QMainWindow):
         """
         self.Geometry_without_calender()
         self.setWindowTitle("Search Form")
-        self.setWindowIcon(QIcon(r"Search_icon.png"))
+        self.setWindowIcon(QIcon(r"Search_Report\Search_icon.png"))
         self.hide_lineedit()
         self.style()
+
+    def getusername(self, user_input):
+        self.username = user_input
 
     def show_lineedit(self):
         self.price_low.show()
@@ -147,7 +153,7 @@ class Search_Page(QMainWindow):
         if len(self.search_lineedit.text()) == 0:
             Message.show_warning("Please Enter something to search!")
             checkstr = False
-            return False
+            return checkstr
         if self.price_checkbox.isChecked():
             if Valid.valid_amount(self.price_low.text()) == False:
                 Message.show_warning("Invalid input for lower price!")
@@ -156,7 +162,7 @@ class Search_Page(QMainWindow):
             if Valid.valid_amount(self.price_high.text()) == False:
                 Message.show_warning("Invalid input for higher price!")
                 checkstr = False
-                return False
+                return checkstr
             if (
                 Valid.validate_limit_price(
                     self.price_high.text(), self.price_low.text()
@@ -165,7 +171,7 @@ class Search_Page(QMainWindow):
             ):
                 Message.show_warning("higher price must be grater than lower price!")
                 checkstr = False
-                return False
+                return checkstr
         return checkstr
 
     def incomecheckbox_status(self):
@@ -211,11 +217,31 @@ class Search_Page(QMainWindow):
             self.end_day,
         )
 
+    def search_text(self, text):
+        flag = self.search_btn_clicked()
+        res = ""
+        if flag:
+            files = self.ischeckbox_file()
+            lower_price, higher_price = self.ischecbox_price()
+            if files == "income":
+                res = dbcontroler.search_text(text, ["UserIncome"], self.username)
+            elif files == "cost":
+                res = dbcontroler.search_text(text, ["UserCost"], self.username)
+            elif files == "both":
+                res = dbcontroler.search_text(
+                    text, ["UserIncome", "UserCost"], self.username
+                )
+            elif files == "every":
+                res = dbcontroler.search_text(
+                    text, ["UserIncome", "UserCost", "UserCategories"], self.username
+                )
+        return res
+
 
 class Report_Page(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi(r"Search\mainwindow_report.ui", self)
+        uic.loadUi(r"Search_Report\mainwindow_report.ui", self)
         self.setFixedSize(872, 600)
         self.setWindowIcon(QIcon(r"Search\Search_icon.png"))
         self.setWindowTitle("Search Box")

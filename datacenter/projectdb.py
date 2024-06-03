@@ -217,3 +217,19 @@ class PDataBase:
             return email[0]
         else:
             return False
+
+    def search_text(self, text, tables, username):
+        final = ""
+        for table in tables:
+            self.command.execute(f"PRAGMA table_info({table})")
+            columns = [column[1] for column in self.command.fetchall()]
+            for column in columns:
+                self.command.execute(
+                    f"SELECT * FROM {table} WHERE username=? AND {column} LIKE ?",
+                    (username, "%" + text + "%"),
+                )
+                results = self.command.fetchall()
+                if results:
+                    for row in results:
+                        final += f"Results from {table} {column}\n{row}\n"
+        return final
