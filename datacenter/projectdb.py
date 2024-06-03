@@ -10,6 +10,8 @@ class PDataBase:
         self.create_cost_user_table()
         self.create_category_table()
         self.migrate_category_table()
+        self.migrate_income_table()
+        self.migrate_cost_table()
 
     def create_userinfo_table(self):
         self.command.execute(
@@ -29,12 +31,12 @@ class PDataBase:
     def create_income_user_table(self):
         self.command.execute(
             """CREATE TABLE IF NOT EXISTS UserIncome(
-            username TEXT NOT NULL UNIQUE,
+            username TEXT NOT NULL,
             amount FLOAT NOT NULL,
             date TEXT NOT NULL,
             resource TEXT NOT NULL,
             type TEXT NOT NULL,
-            description TEXT NOT NULL UNIQUE,
+            description TEXT NOT NULL,
             CHECK (length(description) <= 100)
         )"""
         )
@@ -43,12 +45,12 @@ class PDataBase:
     def create_cost_user_table(self):
         self.command.execute(
             """CREATE TABLE IF NOT EXISTS UserCost(
-            username TEXT NOT NULL UNIQUE,
+            username TEXT NOT NULL,
             amount FLOAT NOT NULL,
             date TEXT NOT NULL,
             resource TEXT NOT NULL,
             type TEXT NOT NULL,
-            description TEXT NOT NULL UNIQUE,
+            description TEXT NOT NULL,
             CHECK (length(description) <= 100)
         )"""
         )
@@ -74,6 +76,30 @@ class PDataBase:
         """
         )
         self.command.execute("DROP TABLE UserCategories_old")
+        self.Connector.commit()
+
+    def migrate_income_table(self):
+        self.command.execute("ALTER TABLE UserIncome RENAME TO UserIncome_old")
+        self.create_income_user_table()
+        self.command.execute(
+            """
+            INSERT INTO UserIncome (username, amount, date, resource, type, description)
+            SELECT username, amount, date, resource, type, description FROM UserIncome_old
+        """
+        )
+        self.command.execute("DROP TABLE UserIncome_old")
+        self.Connector.commit()
+
+    def migrate_cost_table(self):
+        self.command.execute("ALTER TABLE UserCost RENAME TO UserCost_old")
+        self.create_cost_user_table()
+        self.command.execute(
+            """
+            INSERT INTO UserCost (username, amount, date, resource, type, description)
+            SELECT username, amount, date, resource, type, description FROM UserCost_old
+        """
+        )
+        self.command.execute("DROP TABLE UserCost_old")
         self.Connector.commit()
 
     def add_new_user(

@@ -53,7 +53,8 @@ class Login(QMainWindow):
             spread:pad, x1:0, y1:0, x2:1, y2:0,
             stop:0 #0093E9,
             stop:1 #80D0C7
-        );""")
+        );"""
+        )
         self.email_login.setStyleSheet(self.lineedit_style)
         self.password_login.setStyleSheet(self.lineedit_style)
         self.show_pass_login.setStyleSheet(
@@ -93,7 +94,7 @@ class Login(QMainWindow):
         flag_pass = False
         input_user = self.email_login.text()
         if self.counter_try_login < 3:
-            if (db_controler.get_email_or_username(input_user) == False):
+            if db_controler.return_username(input_user) == False:
                 self.counter_try_login += 1
                 show_message.show_warning(
                     """There is no such user registered in the system.\n
@@ -106,7 +107,7 @@ class Login(QMainWindow):
             else:
                 flag_user = True
 
-            if (db_controler.get_password(input_user) == None):
+            if db_controler.get_password(input_user) == None:
                 self.counter_try_login += 1
                 show_message.show_warning("Incorrect Password!\nTry Again!")
                 self.password_login.setText("")
@@ -115,9 +116,8 @@ class Login(QMainWindow):
                 flag_pass = True
             if flag_user == True and flag_pass == True:
                 self.counter_try_login = 0
-                show_message.show_message(
-                    "You have successfully logged in. Welcome!")
-                self.username = db_controler.get_email_or_username(input_user)
+                show_message.show_message("You have successfully logged in. Welcome!")
+                self.username = db_controler.return_username(input_user)
                 return "OK"
         else:
             self.block_login_button()
@@ -142,16 +142,14 @@ class Login(QMainWindow):
 
     def start_timer(self):
         self.remaining_time = 60
-        self.time_rem_label.setText(
-            f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_timer)
         self.timer.start(900)
 
     def update_timer(self):
         self.remaining_time -= 1
-        self.time_rem_label.setText(
-            f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
         if self.remaining_time == 0:
             self.timer.stop()
             self.enable_login_elems()
