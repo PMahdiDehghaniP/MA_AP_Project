@@ -85,7 +85,7 @@ border-radius: 7px;""")
     def show_password(self):
         flag_captcha = self.check_captcha()
         if flag_captcha == "Valid_captcha":
-            if db_controler.get_email_or_username(self.em_us_forgot_linedit.text()):
+            if db_controler.return_username(self.em_us_forgot_linedit.text()):
                 if str(self.verification_code) == self.code_email_lineedit.text():
                     password = db_controler.get_password(
                         self.em_us_forgot_linedit.text())
@@ -113,7 +113,8 @@ border-radius: 7px;""")
             return
 
     def send_code(self):
-        flag = self.is_user_or_email(self.em_us_forgot_linedit.text())
+        flag = db_controler.return_username(self.em_us_forgot_linedit.text())
+        user_email = db_controler.return_email(self.em_us_forgot_linedit.text())
         if flag != False:
             my_email = "mahdi14dehghani@gmail.com"
             self.verification_code = random.randint(100000, 999999)
@@ -123,7 +124,7 @@ border-radius: 7px;""")
                 connection.starttls()
                 message = f"Subject: Verification Code\n\nYour verification code is: {self.verification_code}"
                 connection.login(user=my_email, password=password)
-                connection.sendmail(my_email, flag, message)
+                connection.sendmail(my_email, user_email, message)
             Message.show_message(
                 "Code Has Been Sent To Your Email Please Check")
 

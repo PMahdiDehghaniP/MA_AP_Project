@@ -9,7 +9,7 @@ class PDataBase:
         self.create_income_user_table()
         self.create_cost_user_table()
         self.create_category_table()
-        self.migrate_category_table()  
+        self.migrate_category_table()
 
     def create_userinfo_table(self):
         self.command.execute(
@@ -167,7 +167,7 @@ class PDataBase:
         else:
             return None
 
-    def get_email_or_username(self, input_data):
+    def return_username(self, input_data):
         self.command.execute(
             "SELECT username FROM UserInfo WHERE email=? OR username=?",
             (
@@ -178,5 +178,16 @@ class PDataBase:
         username = self.command.fetchone()
         if username:
             return username[0]
+        else:
+            return False
+
+    def return_email(self, input_data):
+        self.command.execute(
+            "SELECT email FROM UserInfo WHERE email=? OR username=?",
+            (input_data, input_data),
+        )
+        email = self.command.fetchone()
+        if email:
+            return email[0]
         else:
             return False
