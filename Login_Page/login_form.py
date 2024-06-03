@@ -3,7 +3,6 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import QTimer, Qt
-from JJson.jjson import *
 from MessageBox.messagebox import *
 import sys
 import os
@@ -11,7 +10,6 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
-check_tool = CreateJson("user.json")
 show_message = Message_Box()
 
 
@@ -89,44 +87,45 @@ class Login(QMainWindow):
         self.signup_btn_login.setStyleSheet(self.hotkey_style)
 
     def login_user(self):
-        if self.counter_try_login < 3:
-            if (
-                check_tool.does_user_exist(
-                    self.email_login.text(), self.password_login.text()
-                )
-                == "invalid password"
-            ):
-                self.counter_try_login += 1
-                show_message.show_warning("Incorrect Password!\nTry Again!")
-                self.password_login.setText("")
-            elif (
-                check_tool.does_user_exist(
-                    self.email_login.text(), self.password_login.text()
-                )
-                == "not found"
-            ):
-                self.counter_try_login += 1
-                show_message.show_warning(
-                    """There is no such user registered in the system.\n
-    Please check the details again.\n
-    If you don't have an account, please sign up."""
-                )
-                self.email_login.setText("")
-                self.password_login.setText("")
-            elif (
-                check_tool.does_user_exist(
-                    self.email_login.text(), self.password_login.text()
-                )
-                == "Valid"
-            ):
-                self.counter_try_login = 0
-                show_message.show_message(
-                    "You have successfully logged in. Welcome!")
-                self.username = check_tool.get_user_by_email(
-                    self.email_login.text())
-                return "OK"
-        else:
-            self.block_login_button()
+        pass
+    #     if self.counter_try_login < 3:
+    #         if (
+    #             check_tool.does_user_exist(
+    #                 self.email_login.text(), self.password_login.text()
+    #             )
+    #             == "invalid password"
+    #         ):
+    #             self.counter_try_login += 1
+    #             show_message.show_warning("Incorrect Password!\nTry Again!")
+    #             self.password_login.setText("")
+    #         elif (
+    #             check_tool.does_user_exist(
+    #                 self.email_login.text(), self.password_login.text()
+    #             )
+    #             == "not found"
+    #         ):
+    #             self.counter_try_login += 1
+    #             show_message.show_warning(
+    #                 """There is no such user registered in the system.\n
+    # Please check the details again.\n
+    # If you don't have an account, please sign up."""
+    #             )
+    #             self.email_login.setText("")
+    #             self.password_login.setText("")
+    #         elif (
+    #             check_tool.does_user_exist(
+    #                 self.email_login.text(), self.password_login.text()
+    #             )
+    #             == "Valid"
+    #         ):
+    #             self.counter_try_login = 0
+    #             show_message.show_message(
+    #                 "You have successfully logged in. Welcome!")
+    #             self.username = check_tool.get_user_by_email(
+    #                 self.email_login.text())
+    #             return "OK"
+    #     else:
+    #         self.block_login_button()
 
     def reset_login(self):
         self.email_login.setText("")

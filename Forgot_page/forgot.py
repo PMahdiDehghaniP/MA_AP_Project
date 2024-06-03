@@ -1,5 +1,4 @@
 from MessageBox.messagebox import Message_Box
-from JJson.jjson import CreateJson
 import random
 import smtplib
 from PyQt5 import uic
@@ -13,7 +12,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 Message = Message_Box()
-Json_forgot = CreateJson("user.json")
 
 
 class forgot(QMainWindow):
@@ -85,40 +83,41 @@ border-radius: 7px;""")
     def show_password(self):
         flag_captcha = self.check_captcha()
         if flag_captcha == "Valid_captcha":
-            if (
-                Json_forgot.does_user_exist_for_forgotpage(
-                    self.em_us_forgot_linedit.text()
-                )
-                == "Valid"
-            ):
-                if str(self.verification_code) == self.code_email_lineedit.text():
-                    data = Json_forgot.load_json_file()
-                    for each_user in list(data.keys()):
-                        if (
-                            each_user == self.em_us_forgot_linedit.text()
-                            or data[each_user]["email"]
-                            == self.em_us_forgot_linedit.text()
-                        ):
-                            Message.show_password(
-                                f"Your Password is {data[each_user]['password']}"
-                            )
-                            self.reset_forgot_page()
-                            return True
-                else:
-                    Message.show_warning("You Entered Invalid Code Try Again")
-                    self.reset_forgot_page()
-                    return
+            pass
+            # if (
+            #     Json_forgot.does_user_exist_for_forgotpage(
+            #         self.em_us_forgot_linedit.text()
+            #     )
+            #     == "Valid"
+            # ):
+            #     if str(self.verification_code) == self.code_email_lineedit.text():
+            #         data = Json_forgot.load_json_file()
+            #         for each_user in list(data.keys()):
+            #             if (
+            #                 each_user == self.em_us_forgot_linedit.text()
+            #                 or data[each_user]["email"]
+            #                 == self.em_us_forgot_linedit.text()
+            #             ):
+            #                 Message.show_password(
+            #                     f"Your Password is {data[each_user]['password']}"
+            #                 )
+            #                 self.reset_forgot_page()
+            #                 return True
+            #     else:
+            #         Message.show_warning("You Entered Invalid Code Try Again")
+            #         self.reset_forgot_page()
+            #         return
 
-            elif (
-                Json_forgot.does_user_exist_for_forgotpage(
-                    self.em_us_forgot_linedit.text()
-                )
-                == "not found"
-            ):
-                Message.show_warning("There is no such person either.")
-                self.reset_forgot_page()
-                self.show_captcha()
-                return
+            # elif (
+            #     Json_forgot.does_user_exist_for_forgotpage(
+            #         self.em_us_forgot_linedit.text()
+            #     )
+            #     == "not found"
+            # ):
+            #     Message.show_warning("There is no such person either.")
+            #     self.reset_forgot_page()
+            #     self.show_captcha()
+            #     return
         if flag_captcha == "no_input_captcha":
             Message.show_warning("You Didn't Entered Captcha!")
             self.show_captcha()
@@ -146,26 +145,27 @@ border-radius: 7px;""")
                 "Code Has Been Sent To Your Email Please Check")
 
     def is_user_or_email(self, us_em_input):
-        if "@" in self.em_us_forgot_linedit.text():
-            if Json_forgot.finding_email(self.em_us_forgot_linedit.text()):
-                return self.em_us_forgot_linedit.text()
-            else:
-                Message.show_warning("There is no such person either.")
-                self.reset_forgot_page()
-                return False
-        else:
-            data = Json_forgot.load_json_file()
-            if (
-                Json_forgot.does_user_exist_for_forgotpage(
-                    self.em_us_forgot_linedit.text()
-                )
-                == "Valid"
-            ):
-                return data[self.em_us_forgot_linedit.text()]["email"]
-            else:
-                Message.show_warning("There is no such person either.")
-                self.reset_forgot_page()
-                return False
+        pass
+        # if "@" in self.em_us_forgot_linedit.text():
+        #     if Json_forgot.finding_email(self.em_us_forgot_linedit.text()):
+        #         return self.em_us_forgot_linedit.text()
+        #     else:
+        #         Message.show_warning("There is no such person either.")
+        #         self.reset_forgot_page()
+        #         return False
+        # else:
+        #     data = Json_forgot.load_json_file()
+        #     if (
+        #         Json_forgot.does_user_exist_for_forgotpage(
+        #             self.em_us_forgot_linedit.text()
+        #         )
+        #         == "Valid"
+        #     ):
+        #         return data[self.em_us_forgot_linedit.text()]["email"]
+        #     else:
+        #         Message.show_warning("There is no such person either.")
+        #         self.reset_forgot_page()
+        #         return False
 
     def reset_forgot_page(self):
         self.em_us_forgot_linedit.setText("")

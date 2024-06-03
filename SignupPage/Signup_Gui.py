@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt
 from validates.validate import *
 from MessageBox.messagebox import *
-from JJson.jjson import *
+from datacenter.projectdb import PDataBase
 import re
 import os
 import sys
@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 ###################################################
 Message = Message_Box()
 Valid = Validate()
-check_json = CreateJson("user.json")
+db_controler = PDataBase()
 
 
 class Signup(QMainWindow):
@@ -90,10 +90,10 @@ background-repeat:no-repeat;                  """
         self.city_signup.setCompleter(completer)
 
     def submit_signup_clicked(self):
-        user_uniqe = check_json.is_uniqe_user(self.username.text())
-        phone_uniqe = check_json.is_uniqe_phone(
+        user_uniqe = db_controler.isunique_username(self.username.text())
+        phone_uniqe = db_controler.isunique_phonenumber(
             self.phone_signup.text())
-        email_uniqe = check_json.is_uniqe_email(
+        email_uniqe = db_controler.isunique_email(
             self.email_signup.text())
         is_user_valid = True
         if Valid.validate_name(self.fname_signup.text()) == False:

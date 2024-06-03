@@ -2,18 +2,15 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
-from JJson.jjson import CreateJson
 import sys
 from PyQt5.QtWidgets import QWidget
 from validates.validate import *
 from MessageBox.messagebox import *
 
-cost_adder = CreateJson("category.json")
 
 Valid = Validate()
 Message = Message_Box()
 
-cost_json = CreateJson("cost.json")
 
 
 class Cost_Form(QMainWindow):
@@ -65,9 +62,10 @@ class Cost_Form(QMainWindow):
         self.exit_btn_cost.setStyleSheet(self.btn_style)
 
     def cost_combo_items(self, username):
-        category_list = cost_adder.return_list_of_category(username)
-        for item in category_list:
-            self.cost_resource.addItem(item)
+        pass
+        # category_list = cost_adder.return_list_of_category(username)
+        # for item in category_list:
+        #     self.cost_resource.addItem(item)
 
     def cost_type_items(self):
         if self.cost_type_combo.count() == 0:
@@ -99,14 +97,14 @@ class Cost_Form(QMainWindow):
         return is_valid_cost
 
     def add_record_cost(self, user, amount, date, resource, ttype, discription):
-        recent_cost_data = cost_json.return_records(user)
-        recent_cost_data["amount"].append(amount)
-        recent_cost_data["date"].append(date)
-        recent_cost_data["resource"].append(resource)
-        recent_cost_data["type"].append(ttype)
-        recent_cost_data["description"].append(discription)
-        data = {user: recent_cost_data}
-        cost_json.add_dict_to_json(data)
+        # recent_cost_data = cost_json.return_records(user)
+        # recent_cost_data["amount"].append(amount)
+        # recent_cost_data["date"].append(date)
+        # recent_cost_data["resource"].append(resource)
+        # recent_cost_data["type"].append(ttype)
+        # recent_cost_data["description"].append(discription)
+        # data = {user: recent_cost_data}
+        # cost_json.add_dict_to_json(data)
         return True
 
     def reset_cost(self):

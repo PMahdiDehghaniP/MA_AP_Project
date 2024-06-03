@@ -2,12 +2,10 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
-from JJson.jjson import CreateJson
 from validates.validate import Validate
 import sys
 from PyQt5.QtWidgets import QWidget
 
-category_json = CreateJson("category.json")
 category_validatation = Validate()
 
 
@@ -64,20 +62,22 @@ class Category_Page(QMainWindow):
         self.category_exit.setStyleSheet(self.btn_style)
 
     def add_category(self, category, user):
-        if category_validatation.validate_categoty(category) == True and category_json.is_uniqe_category(category, user) == True:
-            recent_category_list = category_json.return_list_of_category(user)
-            recent_category_list.append(category)
-            data = {user: recent_category_list}
-            category_json.add_dict_to_json(data)
-            return True
-        return False
+        pass
+        # if category_validatation.validate_categoty(category) == True and category_json.is_uniqe_category(category, user) == True:
+        #     recent_category_list = category_json.return_list_of_category(user)
+        #     recent_category_list.append(category)
+        #     data = {user: recent_category_list}
+        #     category_json.add_dict_to_json(data)
+        #     return True
+        # return False
 
     def reset_category(self):
         self.category_lineedit.setText("")
 
     def check_exist_category(self, user):
-        data = category_json.load_json_file()
-        if user in data:
-            return True
-        else:
-            return False
+        pass
+        # data = category_json.load_json_file()
+        # if user in data:
+        #     return True
+        # else:
+        #     return False
