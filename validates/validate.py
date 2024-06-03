@@ -41,8 +41,7 @@ class Validate:
         pattern = r"^[a-z]+\w*@gmail\.com"
         pattern2 = r"^[a-z]+\w*@yahoo\.com"
         checkEmail = (
-            True if re.search(pattern, email) or re.search(
-                pattern2, email) else False
+            True if re.search(pattern, email) or re.search(pattern2, email) else False
         )
         if email == "":
             checkEmail = False
@@ -94,15 +93,34 @@ class Validate:
         return bool(re.match(pattern, date))
 
     def validate_categoty(self, category):
-        pattern = r'^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{1,15}$'
+        pattern = r"^(?=.*[a-zA-Z])[a-zA-Z0-9 ]{1,15}$"
         return bool(re.match(pattern, category))
 
     def valid_amount(self, amount):
-        pattern = r'^[1-9]\d*$|^0$'
+        pattern = r"^(\d+(\.\d+)?|\.\d+)$"
         return bool(re.match(pattern, amount))
 
     def valid_description(self, discription):
         if len(discription) <= 100:
+            return True
+        else:
+            return False
+
+    def validate_day(self, day):
+        pattern = r"^(?:[1-9]|[12][0-9]|3[01])$"
+        return bool(re.match(pattern, day))
+
+    def validate_month(self, month):
+        pattern = r"^(?:[1-9]|1[0-2])$"
+        return bool(re.match(pattern, month))
+
+    def validate_yaer(self, year):
+        pattern = r"^(?:19[5-9][1-9]|19[6-9][0-9]|20[0-9]{2}|21[0-4][0-9]|2150)$"
+        return bool(re.match(pattern, year))
+
+    @staticmethod
+    def validate_limit_price(upnumber, lownumber):
+        if float(upnumber) > float(lownumber):
             return True
         else:
             return False
