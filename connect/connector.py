@@ -7,7 +7,7 @@ from Login_Page.login_form import Login
 from Main_page.main_page import Main_Page
 from Timer.timer import Timer_Calc
 from Category.category import Category_Page
-from Search.search import Search_Page
+from Search.search import Search_Page, Report_Page
 from MessageBox.messagebox import Message_Box
 from Income_page.income_page import Income
 from Cost_Page.cost_page import Cost_Form
@@ -34,6 +34,7 @@ class Connector:
         self.cost_page = Cost_Form()
         self.message = Message_Box()
         self.welcome_window = Welcome()
+        self.report_page = Report_Page()
         self.connect_signals()
 
     #############################################################################
@@ -53,6 +54,7 @@ class Connector:
         self.main_page.record_income_btn.clicked.connect(self.show_income_form)
         self.main_page.record_cost_btn.clicked.connect(self.show_cost_form)
         self.main_page.search_btn.clicked.connect(self.show_search_page)
+        self.main_page.report_btn.clicked.connect(self.show_report_page)
         ###################
         self.income_page.exit_btn_income.clicked.connect(self.exit_income_btn_clicked)
         self.income_page.income_submit_btn.clicked.connect(self.income_submit_clikced)
@@ -73,11 +75,11 @@ class Connector:
         )
         ###################
         self.search_page.return_btn.clicked.connect(self.search_return_btn_clicked)
-        self.search_page.daycheckbox.stateChanged.connect(self.daycheckbox_status)
-        self.search_page.monthcheckbox.stateChanged.connect(self.monthcheckbox_status)
-        self.search_page.yearcheckbox.stateChanged.connect(self.yearcheckbox_status)
         self.search_page.price_checkbox.stateChanged.connect(self.price_checkbox_status)
         self.search_page.search_btn.clicked.connect(self.search_btn_clicked)
+        self.search_page.custom_period_check.stateChanged.connect(
+            self.search_page.change_Geometry
+        )
 
     #############################################################################
 
@@ -241,52 +243,28 @@ first add at least 1 category to open cost form."""
         self.main_page.hide()
         self.search_page.show()
 
-    def daycheckbox_status(self, state):
-        if state == Qt.Checked:
-            self.search_page.show_line_edit(self.search_page.day_lineedit)
+    def price_checkbox_status(self):
+        if self.search_page.price_checkbox.isChecked():
+            self.search_page.show_lineedit()
         else:
-            self.search_page.hide_line_edit(self.search_page.day_lineedit)
-
-    def monthcheckbox_status(self, state):
-        if state == Qt.Checked:
-            self.search_page.show_line_edit(self.search_page.month_lineedit)
-        else:
-            self.search_page.hide_line_edit(self.search_page.month_lineedit)
-
-    def yearcheckbox_status(self, state):
-        if state == Qt.Checked:
-            self.search_page.show_line_edit(self.search_page.year_lineedit)
-        else:
-            self.search_page.hide_line_edit(self.search_page.year_lineedit)
-
-    def price_checkbox_status(self, state):
-        if state == Qt.Checked:
-            self.search_page.show_line_edit(self.search_page.price_high)
-            self.search_page.show_line_edit(self.search_page.price_low)
-        else:
-            self.search_page.hide_line_edit(self.search_page.price_high)
-            self.search_page.hide_line_edit(self.search_page.price_low)
-
-    def incomecheckbox_status(self):
-        return self.search_page.incomecheckbox.isChecked()
-
-    def costcheckbox_status(self):
-        return self.search_page.costcheckbox.isChecked()
+            self.search_page.hide_lineedit()
 
     def search_btn_clicked(self):
-        valid_inputs = self.search_page.serach_btn_clicked()
-        if valid_inputs:
-            if (
-                self.incomecheckbox_status() == True
-                and self.costcheckbox_status() == True
-            ):
-                pass
-            elif self.incomecheckbox_status() == True:
-                pass
-            elif self.costcheckbox_status() == True:
-                pass
-            else:
-                pass
+        valid_input = self.search_page.search_btn_clicked()
+        if valid_input:
+            self.search_in_files()
+
+    def search_in_files(self):
+        start_year, start_month, start_day, end_yaer, end_month, end_day = (
+            self.search_page.format_date_calender()
+        )
+        lower_price, higher_price = self.search_page.ischecbox_price()
+        file_to_search = self.search_page.ischeckbox_file()
+
+    #############################################################################
+    def show_report_page(self):
+        self.main_page.hide()
+        self.report_page.show()
 
     #############################################################################
 
