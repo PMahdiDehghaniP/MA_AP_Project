@@ -110,8 +110,6 @@ class PDataBase:
                 (username, category_name),
             )
             self.Connector.commit()
-        else:
-            print(f"Category '{category_name}' already exists for user '{username}'")
 
     def isunique_username(self, username):
         self.command.execute(
