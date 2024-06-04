@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt, QTime
+from PyQt5.QtCore import Qt, QTime, QUrl
 from PyQt5.QtWidgets import QLineEdit, QCheckBox
 from SignupPage.Signup_Gui import Signup
 from Welcome_Page.welcomGui import Welcome
@@ -13,6 +13,7 @@ from Income_page.income_page import Income
 from Cost_Page.cost_page import Cost_Form
 import user as uv
 from datacenter.projectdb import PDataBase
+from Sound.back_sound import Sound
 import os
 import sys
 
@@ -24,6 +25,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 class Connector:
     def __init__(self):
+        self.music = Sound()
+        self.music.play_background_music()
         self.database = PDataBase()
         self.login_page = Login()
         self.main_page = Main_Page()
@@ -106,6 +109,7 @@ class Connector:
             f"""The spent time is {self.timer.hours} hours, {self.timer.minutes} minutes, and {self.timer.seconds} seconds.
 Have fun."""
         )
+        self.music.stop_background_music()
         self.main_page.close()
 
     #############################################################################
