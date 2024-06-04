@@ -67,7 +67,8 @@ class PDataBase:
         self.Connector.commit()
 
     def migrate_category_table(self):
-        self.command.execute("ALTER TABLE UserCategories RENAME TO UserCategories_old")
+        self.command.execute(
+            "ALTER TABLE UserCategories RENAME TO UserCategories_old")
         self.create_category_table()
         self.command.execute(
             """
@@ -152,7 +153,8 @@ class PDataBase:
         return count == 0
 
     def isunique_email(self, email):
-        self.command.execute("SELECT COUNT(*) FROM UserInfo WHERE email=?", (email,))
+        self.command.execute(
+            "SELECT COUNT(*) FROM UserInfo WHERE email=?", (email,))
         count = self.command.fetchone()[0]
         return count == 0
 
@@ -265,3 +267,47 @@ class PDataBase:
                 if temp not in final:
                     final += temp
         return final
+
+    def delete_user_data(self, tables, username):
+        for table in tables:
+            self.command.execute(
+                f"DELETE FROM {table} WHERE username=?", (username,)
+            )
+        if any(self.command.rowcount == 0 for _ in tables):
+            return False
+
+        self.Connector.commit()
+        return True
+
+    def update_user_data(self, table, username, fname="", lname="", email="", phonenumber="", password="", city="", birthday=""):
+        fields = []
+        values = []
+
+        if email:
+            fields.append("email=?")
+            values.append(email)
+        if fname:
+            fields.append("firstname=?")
+            values.append(fname)
+        if lname:
+            fields.append("lastname=?")
+            values.append(lname)
+        if phonenumber:
+            fields.append("phonenumber=?")
+            values.append(phonenumber)
+        if password:
+            fields.append("password=?")
+            values.append(password)
+        if city:
+            fields.append("city=?")
+            values.append(city)
+        if birthday:
+            fields.append("birthday=?")
+            values.append(birthday)
+
+        set_clause = ", ".join(fields)
+        query = f"UPDATE {table} SET {set_clause} WHERE username=?"
+        values.append(username)
+
+        self.command.execute(query, values)
+        self.Connector.commit()
