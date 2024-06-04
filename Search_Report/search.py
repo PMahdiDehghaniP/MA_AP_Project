@@ -169,7 +169,8 @@ class Search_Page(QMainWindow):
                 )
                 == False
             ):
-                Message.show_warning("higher price must be grater than lower price!")
+                Message.show_warning(
+                    "higher price must be grater than lower price!")
                 checkstr = False
                 return checkstr
         return checkstr
@@ -259,7 +260,171 @@ class Search_Page(QMainWindow):
 class Report_Page(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setFixedSize(849, 660)
         uic.loadUi(r"Search_Report\mainwindow_report.ui", self)
-        self.setFixedSize(872, 600)
-        self.setWindowIcon(QIcon(r"Search\Search_icon.png"))
-        self.setWindowTitle("Search Box")
+        self.lineedit_style = """
+        border-bottom:1px solid black;
+        border-radius:3px;
+        padding-left:3px;
+        background:none;
+        """
+        self.btn_style = """
+        QPushButton{
+        background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #f12711,
+        stop:1 #f5af19
+        );
+        border:none;
+        border-radius:5px;
+        color:#ffffff
+        }
+        QPushButton:hover{
+        background: qlineargradient(
+        spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 #200122,
+        stop:1 #6f0000
+        );
+        }
+        """
+        self.Geometry_without_calender()
+        self.setWindowTitle("Report Form")
+        self.setWindowIcon(QIcon(r"Search_Report\report_icon.png"))
+        self.hide_price_lineedit()
+        self.hide_resource_lineedit()
+        self.hide_type_lineedit()
+        self.style()
+
+    def style(self):
+        self.yesterday_radio.setStyleSheet("background:none")
+        self.lastweek_radio.setStyleSheet("background:none")
+        self.lastmonth_radio.setStyleSheet("background:none")
+        self.last3month_radio.setStyleSheet("background:none")
+        self.custom_period_radio.setStyleSheet("background:none")
+        self.filter_label.setStyleSheet("background:none")
+        self.report_label.setStyleSheet("background:none")
+        self.cost_checkbox.setStyleSheet("background:none")
+        self.income_checkbox.setStyleSheet("background:none")
+        self.price_checkbox.setStyleSheet("background:none")
+        self.type_checkbox.setStyleSheet("background:none")
+        self.resource_checkbox.setStyleSheet("background:none")
+        self.start_label.setStyleSheet("background:none")
+        self.end_label.setStyleSheet("background:none")
+        self.calender_start.setStyleSheet("background:none")
+        self.calender_end.setStyleSheet("background:none")
+        self.price_low.setStyleSheet(self.lineedit_style)
+        self.price_high.setStyleSheet(self.lineedit_style)
+        self.resource_lineedit.setStyleSheet(self.lineedit_style)
+        self.type_lineedit.setStyleSheet(self.lineedit_style)
+        self.return_btn.setCursor(Qt.PointingHandCursor)
+        self.report_btn.setCursor(Qt.PointingHandCursor)
+        self.setStyleSheet(
+            """
+            background: qlineargradient(
+            spread:pad, x1:0, y1:0, x2:1, y2:0,
+            stop:0 #00B4DB,
+            stop:1 #0083B0
+        );"""
+        )
+        self.report_btn.setStyleSheet(self.btn_style)
+        self.return_btn.setStyleSheet(self.btn_style)
+
+    def Geometry_without_calender(self):
+        self.setFixedSize(849, 415)
+        self.start_label.hide()
+        self.end_label.hide()
+        self.calender_start.hide()
+        self.calender_end.hide()
+        self.price_checkbox.setGeometry(40, 170, 131, 22)
+        self.price_high.setGeometry(350, 170, 151, 27)
+        self.price_low.setGeometry(190, 170, 151, 27)
+        self.type_checkbox.setGeometry(43, 261, 151, 27)
+        self.type_lineedit.setGeometry(189, 259, 151, 27)
+        self.resource_checkbox.setGeometry(360, 262, 131, 22)
+        self.resource_lineedit.setGeometry(490, 258, 181, 27)
+        self.return_btn.setGeometry(699, 256, 111, 31)
+        self.report_btn.setGeometry(270, 310, 321, 51)
+
+    def Geometry_with_calender(self):
+        self.setFixedSize(813, 684)
+        self.report_label.setGeometry(370, 12, 111, 41)
+        self.calender_start.setGeometry(40, 220, 344, 195)
+        self.calender_end.setGeometry(431, 220, 344, 195)
+        self.income_checkbox.setGeometry(39, 62, 83, 22)
+        self.cost_checkbox.setGeometry(144, 62, 83, 22)
+        self.end_label.setGeometry(577, 196, 55, 16)
+        self.start_label.setGeometry(190, 197, 41, 16)
+        self.price_checkbox.setGeometry(46, 449, 131, 22)
+        self.price_low.setGeometry(209, 446, 151, 27)
+        self.price_high.setGeometry(386, 446, 151, 27)
+        self.return_btn.setGeometry(622, 444, 111, 31)
+        self.type_checkbox.setGeometry(49, 508, 111, 22)
+        self.resource_checkbox.setGeometry(389, 505, 131, 22)
+        self.type_lineedit.setGeometry(208, 502, 151, 27)
+        self.resource_lineedit.setGeometry(528, 502, 181, 27)
+        self.report_btn.setGeometry(270, 559, 321, 51)
+        self.start_label.show()
+        self.end_label.show()
+        self.calender_start.show()
+        self.calender_end.show()
+
+    def reset_form(self):
+        self.Geometry_without_calender()
+        self.yesterday_radio.setChecked(True)
+        self.lastweek_radio.setChecked(False)
+        self.lastmonth_radio.setChecked(False)
+        self.last3month_radio.setChecked(False)
+        self.custom_period_radio.setChecked(False)
+        self.price_checkbox.setChecked(False)
+        self.income_checkbox.setChecked(False)
+        self.cost_checkbox.setChecked(False)
+        self.type_checkbox.setChecked(False)
+        self.resource_checkbox.setChecked(False)
+        self.price_low.setText("")
+        self.price_high.setText("")
+        self.type_lineedit.setText("")
+        self.resource_lineedit.setText("")
+
+    def change_Geometry(self):
+        if self.custom_period_radio.isChecked():
+            self.Geometry_with_calender()
+        else:
+            self.Geometry_without_calender()
+
+    def price_status(self):
+        if self.price_checkbox.isChecked():
+            self.show_price_lineedit()
+        else:
+            self.hide_price_lineedit()
+
+    def show_price_lineedit(self):
+        self.price_low.show()
+        self.price_high.show()
+
+    def hide_price_lineedit(self):
+        self.price_low.hide()
+        self.price_high.hide()
+
+    def type_status(self):
+        if self.type_checkbox.isChecked():
+            self.show_type_lineedit()
+        else:
+            self.hide_type_lineedit()
+
+    def show_type_lineedit(self):
+        self.type_lineedit.show()
+
+    def hide_type_lineedit(self):
+        self.type_lineedit.hide()
+
+    def resource_status(self):
+        if self.resource_checkbox.isChecked():
+            self.show_resource_lineedit()
+        else:
+            self.hide_resource_lineedit()
+
+    def show_resource_lineedit(self):
+        self.resource_lineedit.show()
+
+    def hide_resource_lineedit(self):
+        self.resource_lineedit.hide()

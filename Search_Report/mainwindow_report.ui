@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>872</width>
-    <height>600</height>
+    <width>849</width>
+    <height>415</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QLabel" name="report_label">
     <property name="geometry">
      <rect>
-      <x>373</x>
+      <x>370</x>
       <y>12</y>
       <width>111</width>
       <height>41</height>
@@ -33,13 +33,51 @@
      <string>Report</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="income_checkbox">
+   <widget class="QLabel" name="filter_label">
     <property name="geometry">
      <rect>
-      <x>19</x>
-      <y>90</y>
-      <width>83</width>
+      <x>38</x>
+      <y>130</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Filters</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="price_checkbox">
+    <property name="geometry">
+     <rect>
+      <x>41</x>
+      <y>215</y>
+      <width>131</width>
       <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Price Limit Range</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="price_high">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>215</y>
+      <width>151</width>
+      <height>27</height>
      </rect>
     </property>
     <property name="font">
@@ -48,34 +86,122 @@
       <pointsize>10</pointsize>
      </font>
     </property>
-    <property name="text">
-     <string>Income</string>
+    <property name="placeholderText">
+     <string>Enter High Price</string>
     </property>
    </widget>
-   <widget class="QCalendarWidget" name="start_calender">
+   <widget class="QLineEdit" name="price_low">
     <property name="geometry">
      <rect>
-      <x>13</x>
-      <y>236</y>
-      <width>311</width>
-      <height>151</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="yesterday_radio">
-    <property name="geometry">
-     <rect>
-      <x>19</x>
-      <y>130</y>
-      <width>97</width>
-      <height>22</height>
+      <x>190</x>
+      <y>215</y>
+      <width>151</width>
+      <height>27</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Times New Roman</family>
-      <pointsize>8</pointsize>
+      <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="placeholderText">
+     <string>Enter Low Price</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="return_btn">
+    <property name="geometry">
+     <rect>
+      <x>699</x>
+      <y>256</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Return MainPage</string>
+    </property>
+   </widget>
+   <widget class="QCalendarWidget" name="calender_start">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>20</y>
+      <width>344</width>
+      <height>195</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="start_label">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>60</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QCalendarWidget" name="calender_end">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>20</y>
+      <width>344</width>
+      <height>195</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="end_label">
+    <property name="geometry">
+     <rect>
+      <x>577</x>
+      <y>196</y>
+      <width>55</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>End</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="income_checkbox">
+    <property name="geometry">
+     <rect>
+      <x>39</x>
+      <y>62</y>
+      <width>83</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Income</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="cost_checkbox">
+    <property name="geometry">
+     <rect>
+      <x>144</x>
+      <y>62</y>
+      <width>83</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cost</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="yesterday_radio">
+    <property name="geometry">
+     <rect>
+      <x>36</x>
+      <y>100</y>
+      <width>97</width>
+      <height>22</height>
+     </rect>
     </property>
     <property name="text">
      <string>Yesterday</string>
@@ -84,17 +210,11 @@
    <widget class="QRadioButton" name="lastweek_radio">
     <property name="geometry">
      <rect>
-      <x>125</x>
-      <y>130</y>
+      <x>143</x>
+      <y>100</y>
       <width>97</width>
       <height>22</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-      <pointsize>8</pointsize>
-     </font>
     </property>
     <property name="text">
      <string>LastWeek</string>
@@ -103,18 +223,11 @@
    <widget class="QRadioButton" name="lastmonth_radio">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>130</y>
+      <x>252</x>
+      <y>101</y>
       <width>97</width>
       <height>22</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
     </property>
     <property name="text">
      <string>LastMonth</string>
@@ -123,26 +236,34 @@
    <widget class="QRadioButton" name="last3month_radio">
     <property name="geometry">
      <rect>
-      <x>359</x>
-      <y>130</y>
-      <width>101</width>
+      <x>362</x>
+      <y>101</y>
+      <width>97</width>
       <height>22</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-     </font>
     </property>
     <property name="text">
      <string>Last 3 Month</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="custom_radio">
+   <widget class="QRadioButton" name="custom_period_radio">
     <property name="geometry">
      <rect>
       <x>488</x>
-      <y>131</y>
+      <y>101</y>
+      <width>111</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Custom Period</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="type_checkbox">
+    <property name="geometry">
+     <rect>
+      <x>43</x>
+      <y>261</y>
       <width>111</width>
       <height>22</height>
      </rect>
@@ -150,55 +271,39 @@
     <property name="font">
      <font>
       <family>Times New Roman</family>
+      <pointsize>9</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Custom period</string>
+     <string>Money Type</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QCheckBox" name="resource_checkbox">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>206</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Start</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>606</x>
-      <y>204</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>End</string>
-    </property>
-   </widget>
-   <widget class="QCalendarWidget" name="end_calender">
-    <property name="geometry">
-     <rect>
-      <x>464</x>
-      <y>234</y>
-      <width>311</width>
-      <height>151</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="cost_check_box">
-    <property name="geometry">
-     <rect>
-      <x>126</x>
-      <y>90</y>
-      <width>83</width>
+      <x>360</x>
+      <y>262</y>
+      <width>131</width>
       <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Resource Type</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="type_lineedit">
+    <property name="geometry">
+     <rect>
+      <x>189</x>
+      <y>259</y>
+      <width>151</width>
+      <height>27</height>
      </rect>
     </property>
     <property name="font">
@@ -207,145 +312,36 @@
       <pointsize>10</pointsize>
      </font>
     </property>
-    <property name="text">
-     <string>Cost</string>
+    <property name="placeholderText">
+     <string>Enter Money Type</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="resoruce_checkbox">
+   <widget class="QLineEdit" name="resource_lineedit">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>410</y>
-      <width>131</width>
-      <height>22</height>
+      <x>490</x>
+      <y>258</y>
+      <width>181</width>
+      <height>27</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Times New Roman</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Money Resource</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_2">
-    <property name="geometry">
-     <rect>
-      <x>477</x>
-      <y>409</y>
-      <width>101</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Money Type </string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>162</x>
-      <y>409</y>
-      <width>161</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-      <pointsize>9</pointsize>
+      <pointsize>10</pointsize>
      </font>
     </property>
     <property name="placeholderText">
      <string>Enter Money Resource</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="type_checkbox">
-    <property name="geometry">
-     <rect>
-      <x>601</x>
-      <y>408</y>
-      <width>171</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="placeholderText">
-     <string>Enter Money Type</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>450</y>
-      <width>131</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Price Limit Range</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>450</y>
-      <width>101</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-     </font>
-    </property>
-    <property name="placeholderText">
-     <string>Low Price</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>450</y>
-      <width>101</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Times New Roman</family>
-     </font>
-    </property>
-    <property name="placeholderText">
-     <string>High Price</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="report_btn">
     <property name="geometry">
      <rect>
-      <x>289</x>
-      <y>494</y>
-      <width>291</width>
-      <height>41</height>
+      <x>270</x>
+      <y>310</y>
+      <width>321</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -358,7 +354,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>872</width>
+     <width>849</width>
      <height>25</height>
     </rect>
    </property>
