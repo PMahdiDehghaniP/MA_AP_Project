@@ -2,6 +2,14 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt
+from validates.validate import Validate
+from MessageBox.messagebox import Message_Box
+from Sound.back_sound import Sound
+from datacenter.projectdb import PDataBase
+checker = Validate()
+show_message = Message_Box()
+media_player = Sound()
+db_controler = PDataBase()
 
 
 class Edit_profile(QMainWindow):
@@ -13,6 +21,21 @@ class Edit_profile(QMainWindow):
         self.setWindowIcon(QIcon(r"edit_profile\editprofile_icon.png"))
         self.style()
         self.hide_all()
+        self.cityOpthoin = [
+            "yazd",
+            "tehran",
+            "shiraz",
+            """mash'had""",
+            "Gheshm",
+            "kermanshah",
+            "bushehr",
+            "ahvaz",
+            "kordestan",
+            "isfahan",
+        ]
+        completer = QCompleter(self.cityOpthoin, self.city)
+        completer.setCaseSensitivity(Qt.CaseInsensitive)
+        self.city.setCompleter(completer)
 
     def hide_all(self):
         self.firstname.hide()
@@ -81,8 +104,6 @@ class Edit_profile(QMainWindow):
         self.phonenumber_checkbox.setChecked(False)
         self.birthday_checkbox.setChecked(False)
         self.email_checkbox.setChecked(False)
-        self.edit_profile_label.setText("")
-        self.info_label.setText("")
         self.firstname.setText("")
         self.lastname.setText("")
         self.city.setText("")
@@ -138,3 +159,68 @@ class Edit_profile(QMainWindow):
             self.show_lineedit(self.email)
         else:
             self.hide_lineedit(self.email)
+
+    def sumbit_clicked(self, username):
+        flag_check = False
+        fname = lname = city = password = phonenumber = birthday = email = ""
+        if self.firstname.text():
+            if checker.validate_name(self.firstname.text()):
+                fname = self.firstname.text()
+                flag_check = True
+            else:
+                media_player.play_warn_music()
+                show_message.show_warning("Invalid Firstname")
+                return
+        if self.lastname.text():
+            if checker.validate_name(self.lastname.text()):
+                lname = self.lastname.text()
+                flag_check = True
+            else:
+                media_player.play_warn_music()
+                show_message.show_warning("Invalid Lastname")
+                return
+        if self.city.text():
+            if checker.validate_city(self.city.text()):
+                city = self.city.text()
+                flag_check = True
+            else:
+                media_player.play_warn_music()
+                show_message.show_warning("Invalid City Name")
+                return
+        if self.password.text():
+            if checker.validate_password(self.password.text()):
+                password = self.password.text()
+                flag_check = True
+            else:
+                media_player.play_warn_music()
+                show_message.show_warning("Invalid Password")
+                return
+        if self.phonenumber.text():
+            if checker.validate_phone_number(self.phonenumber.text()):
+                phonenumber = self.phonenumber.text()
+                flag_check = True
+            else:
+                media_player.play_warn_music()
+                show_message.show_warning("Invalid Phonenumber")
+                return
+        if self.birthday.text():
+            if checker.validite_birthday(self.birthday.text()):
+                birthday = self.birthday.text()
+                flag_check = True
+            else:
+                media_player.play_warn_music()
+                show_message.show_warning("Invalid birthday Date")
+                return
+        if self.email.text():
+            if checker.validate_email(self.email.text()):
+                email = self.email.text()
+                flag_check = True
+            else:
+                media_player.play_warn_music()
+                show_message.show_warning("Invalid email")
+                return
+        if flag_check:
+            db_controler.update_user_data(
+                username, fname, lname, email, phonenumber, password, city, birthday)
+            return True
+        return False

@@ -279,7 +279,7 @@ class PDataBase:
         self.Connector.commit()
         return True
 
-    def update_user_data(self, table, username, fname="", lname="", email="", phonenumber="", password="", city="", birthday=""):
+    def update_user_data(self,username, fname="", lname="", email="", phonenumber="", password="", city="", birthday=""):
         fields = []
         values = []
 
@@ -306,7 +306,7 @@ class PDataBase:
             values.append(birthday)
 
         set_clause = ", ".join(fields)
-        query = f"UPDATE {table} SET {set_clause} WHERE username=?"
+        query = f"UPDATE UserInfo SET {set_clause} WHERE username=?"
         values.append(username)
 
         self.command.execute(query, values)

@@ -20,7 +20,7 @@ music = Sound()
 class Login(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.counter_try_login = 1
+        self.counter_try_login = 0
         self.username = ""
         uic.loadUi(r"Login_Page\mainwindow.ui", self)
         self.setWindowTitle("Login Page")
@@ -116,12 +116,19 @@ class Login(QMainWindow):
                 show_message.show_warning("Incorrect Password!\nTry Again!")
                 self.password_login.setText("")
                 return
-            else:
+            if self.password_login.text() == db_controler.get_password(input_user):
                 flag_pass = True
+            else:
+                self.counter_try_login += 1
+                music.play_warn_music()
+                show_message.show_warning("Incorrect Password!\nTry Again!")
+                self.password_login.setText("")
+                return
             if flag_user == True and flag_pass == True:
                 self.counter_try_login = 0
                 music.play_message_music()
-                show_message.show_message("You have successfully logged in. Welcome!")
+                show_message.show_message(
+                    "You have successfully logged in. Welcome!")
                 self.username = db_controler.return_username(input_user)
                 return "OK"
         else:
@@ -139,7 +146,7 @@ class Login(QMainWindow):
         self.show_pass_login.setEnabled(False)
         self.sign_in_login_btn.setEnabled(False)
         QTimer.singleShot(60999, self.enable_login_elems)
-        self.counter_try_login = 1
+        self.counter_try_login = 0
         music.play_warn_music()
         show_message.show_warning(
             "You have exceeded the maximum number of attempts. You are blocked for 1 minute."
@@ -148,14 +155,16 @@ class Login(QMainWindow):
 
     def start_timer(self):
         self.remaining_time = 60
-        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(
+            f"Remaining Time: {self.remaining_time} seconds")
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_timer)
         self.timer.start(900)
 
     def update_timer(self):
         self.remaining_time -= 1
-        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(
+            f"Remaining Time: {self.remaining_time} seconds")
         if self.remaining_time == 0:
             self.timer.stop()
             self.enable_login_elems()

@@ -38,10 +38,9 @@ class Validate:
         return checkuser
 
     def validate_email(self, email):
-        pattern = r"^[a-z]+\w*@gmail\.com"
-        pattern2 = r"^[a-z]+\w*@yahoo\.com"
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|net|org|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)$"
         checkEmail = (
-            True if re.search(pattern, email) or re.search(pattern2, email) else False
+            True if re.search(pattern, email) else False
         )
         if email == "":
             checkEmail = False
@@ -68,7 +67,7 @@ class Validate:
             "tehran",
             "shiraz",
             """mash'had""",
-            "abadan",
+            "Gheshm",
             "kermanshah",
             "bushehr",
             "ahvaz",

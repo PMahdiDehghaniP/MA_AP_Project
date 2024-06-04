@@ -18,6 +18,7 @@ Valid = Validate()
 db_controler = PDataBase()
 music = Sound()
 
+
 class Signup(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -79,7 +80,7 @@ background-repeat:no-repeat;                  """
             "tehran",
             "shiraz",
             """mash'had""",
-            "abadan",
+            "Gheshm",
             "kermanshah",
             "bushehr",
             "ahvaz",

@@ -275,7 +275,8 @@ class Connector:
             self.edit_form.email_status)
 
         self.edit_form.submit_btn.clicked.connect(self.music.play_click_music)
-        # self.edit_form.submit_btn.clicked.connect()   # we'll completed later
+        self.edit_form.submit_btn.clicked.connect(
+            self.submit_edit_form_btn_clciked)   # we'll completed later
 
         self.edit_form.return_btn_editform.clicked.connect(
             self.music.play_click_music)
@@ -622,3 +623,14 @@ first add at least 1 category to open cost form."""
         self.edit_form.reset_form()
         self.edit_form.hide()
         self.setting_page.show()
+
+    def submit_edit_form_btn_clciked(self):
+        flag = self.edit_form.sumbit_clicked(self.login_page.username)
+        if flag:
+            self.music.play_message_music()
+            self.message.show_message("Your Informations Updated")
+            self.edit_form.reset_form()
+        else:
+            self.music.play_warn_music()
+            self.message.show_warning("Cant Update Anything")
+            self.edit_form.reset_form()
