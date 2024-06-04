@@ -5,6 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import QTimer, Qt
 from datacenter.projectdb import PDataBase
 from MessageBox.messagebox import *
+from Sound.back_sound import Sound
 import sys
 import os
 
@@ -13,6 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 show_message = Message_Box()
 db_controler = PDataBase()
+music = Sound()
 
 
 class Login(QMainWindow):
@@ -96,6 +98,7 @@ class Login(QMainWindow):
         if self.counter_try_login < 3:
             if db_controler.return_username(input_user) == False:
                 self.counter_try_login += 1
+                music.play_warn_music()
                 show_message.show_warning(
                     """There is no such user registered in the system.\n
     Please check the details again.\n
@@ -109,6 +112,7 @@ class Login(QMainWindow):
 
             if db_controler.get_password(input_user) == None:
                 self.counter_try_login += 1
+                music.play_warn_music()
                 show_message.show_warning("Incorrect Password!\nTry Again!")
                 self.password_login.setText("")
                 return
@@ -116,6 +120,7 @@ class Login(QMainWindow):
                 flag_pass = True
             if flag_user == True and flag_pass == True:
                 self.counter_try_login = 0
+                music.play_message_music()
                 show_message.show_message("You have successfully logged in. Welcome!")
                 self.username = db_controler.return_username(input_user)
                 return "OK"
@@ -135,6 +140,7 @@ class Login(QMainWindow):
         self.sign_in_login_btn.setEnabled(False)
         QTimer.singleShot(60999, self.enable_login_elems)
         self.counter_try_login = 1
+        music.play_warn_music()
         show_message.show_warning(
             "You have exceeded the maximum number of attempts. You are blocked for 1 minute."
         )

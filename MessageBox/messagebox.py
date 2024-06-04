@@ -20,8 +20,7 @@ class Message_Box(QMainWindow):
         pixmap = QPixmap(r"MessageBox\verify_icon.png")
         msg.setIconPixmap(pixmap.scaled(64, 64))
 
-        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum,
-                             QSizePolicy.Expanding)
+        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum, QSizePolicy.Expanding)
         layout = msg.layout()
         layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
         msg.setFixedSize(1000, 300)
@@ -47,8 +46,7 @@ class Message_Box(QMainWindow):
         }
     """
         )
-        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum,
-                             QSizePolicy.Expanding)
+        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum, QSizePolicy.Expanding)
         layout = msg.layout()
         layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
         msg.exec_()
@@ -67,8 +65,7 @@ class Message_Box(QMainWindow):
         pixmap = QPixmap(r"MessageBox\warning_icon.png")
         msg.setIconPixmap(pixmap.scaled(64, 64))
 
-        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum,
-                             QSizePolicy.Expanding)
+        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum, QSizePolicy.Expanding)
         layout = msg.layout()
         layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
 
@@ -89,10 +86,25 @@ class Message_Box(QMainWindow):
         pixmap = QPixmap(r"MessageBox\pass_icon.png")
         msg.setIconPixmap(pixmap.scaled(64, 64))
 
-        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum,
-                             QSizePolicy.Expanding)
+        spacer = QSpacerItem(300, 10, QSizePolicy.Minimum, QSizePolicy.Expanding)
         layout = msg.layout()
         layout.addItem(spacer, layout.rowCount(), 0, 5, layout.columnCount())
 
         msg.setFixedSize(1000, 300)
         msg.exec_()
+
+    def areyou_sure_message(self, message):
+        msg = QMessageBox()
+        pixmap = QPixmap(r"MessageBox\are_you_icon.png")
+        msg.setIconPixmap(pixmap.scaled(64, 64))
+        msg.setWindowIcon(QIcon(r"MessageBox\are_you_window_icon.png"))
+        msg.setWindowTitle("Confirm")
+        msg.setText(message)
+        # msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        # msg.setDefaultButton(QMessageBox.No)
+        msg.exec_()
+        # reply = msg.exec_()
+        # if reply == QMessageBox.Yes:
+        #     return True
+        # else:
+        #     return False

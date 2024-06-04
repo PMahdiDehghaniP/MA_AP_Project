@@ -15,6 +15,7 @@ import user as uv
 from datacenter.projectdb import PDataBase
 from Sound.back_sound import Sound
 from Setting_Page.setting_p import Setting_Page
+from edit_profile.EditProfile import Edit_profile
 import os
 import sys
 
@@ -29,6 +30,7 @@ class Connector:
         self.music = Sound()
         self.music.play_background_music()
         self.setting_page = Setting_Page()
+        self.edit_form = Edit_profile()
         self.database = PDataBase()
         self.login_page = Login()
         self.main_page = Main_Page()
@@ -49,47 +51,34 @@ class Connector:
 
     def connect_signals(self):
 
-        self.signup_page.Submit_signup.clicked.connect(
-            self.music.play_click_music)
+        self.signup_page.Submit_signup.clicked.connect(self.music.play_click_music)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         ###################
 
-        self.cost_page.exit_btn_cost.clicked.connect(
-            self.music.play_click_music)
-        self.cost_page.exit_btn_cost.clicked.connect(
-            self.exit_cost_btn_clicked)
+        self.cost_page.exit_btn_cost.clicked.connect(self.music.play_click_music)
+        self.cost_page.exit_btn_cost.clicked.connect(self.exit_cost_btn_clicked)
 
-        self.cost_page.submit_cost_page_btn.clicked.connect(
-            self.music.play_click_music)
-        self.cost_page.submit_cost_page_btn.clicked.connect(
-            self.cost_submit_clicked)
+        self.cost_page.submit_cost_page_btn.clicked.connect(self.music.play_click_music)
+        self.cost_page.submit_cost_page_btn.clicked.connect(self.cost_submit_clicked)
         # ###################
 
-        self.category_page.category_submit.clicked.connect(
-            self.music.play_click_music)
-        self.category_page.category_submit.clicked.connect(
-            self.category_submit_clicked)
+        self.category_page.category_submit.clicked.connect(self.music.play_click_music)
+        self.category_page.category_submit.clicked.connect(self.category_submit_clicked)
 
-        self.category_page.category_exit.clicked.connect(
-            self.music.play_click_music)
-        self.category_page.category_exit.clicked.connect(
-            self.category_exit_clicked)
+        self.category_page.category_exit.clicked.connect(self.music.play_click_music)
+        self.category_page.category_exit.clicked.connect(self.category_exit_clicked)
         ###################
 
-        self.main_page.category_btn.clicked.connect(
-            self.music.play_click_music)
+        self.main_page.category_btn.clicked.connect(self.music.play_click_music)
         self.main_page.category_btn.clicked.connect(self.show_category_page)
 
-        self.main_page.exit_mainpage_btn.clicked.connect(
-            self.music.play_click_music)
+        self.main_page.exit_mainpage_btn.clicked.connect(self.music.play_click_music)
         self.main_page.exit_mainpage_btn.clicked.connect(self.exit_main_page)
 
-        self.main_page.record_income_btn.clicked.connect(
-            self.music.play_click_music)
+        self.main_page.record_income_btn.clicked.connect(self.music.play_click_music)
         self.main_page.record_income_btn.clicked.connect(self.show_income_form)
 
-        self.main_page.record_cost_btn.clicked.connect(
-            self.music.play_click_music)
+        self.main_page.record_cost_btn.clicked.connect(self.music.play_click_music)
         self.main_page.record_cost_btn.clicked.connect(self.show_cost_form)
 
         self.main_page.search_btn.clicked.connect(self.music.play_click_music)
@@ -105,69 +94,49 @@ class Connector:
         self.main_page.setting_btn.clicked.connect(self.show_setting_form)
         ###################
 
-        self.income_page.exit_btn_income.clicked.connect(
-            self.music.play_click_music)
-        self.income_page.exit_btn_income.clicked.connect(
-            self.exit_income_btn_clicked)
+        self.income_page.exit_btn_income.clicked.connect(self.music.play_click_music)
+        self.income_page.exit_btn_income.clicked.connect(self.exit_income_btn_clicked)
 
-        self.income_page.income_submit_btn.clicked.connect(
-            self.music.play_click_music)
-        self.income_page.income_submit_btn.clicked.connect(
-            self.income_submit_clikced)
+        self.income_page.income_submit_btn.clicked.connect(self.music.play_click_music)
+        self.income_page.income_submit_btn.clicked.connect(self.income_submit_clikced)
         ###################
 
         self.forgot_page.forgot_password_btn.clicked.connect(
-            self.music.play_click_music)
-        self.forgot_page.forgot_password_btn.clicked.connect(
-            self.my_pass_btn_clicked)
-
-        self.forgot_page.send_code_email.clicked.connect(
-            self.music.play_click_music)
-        self.forgot_page.send_code_email.clicked.connect(
-            self.send_code_clicked)
-        ###################
-
-        self.welcome_window.signup_btn.clicked.connect(
-            self.music.play_click_music)
-        self.welcome_window.signup_btn.clicked.connect(
-            self.welcome_signup_btn_clicked)
-
-        self.welcome_window.login_btn.clicked.connect(
-            self.music.play_click_music)
-        self.welcome_window.login_btn.clicked.connect(
-            self.welcome_login_btn_clicked)
-        ###################
-        self.login_page.pass_forgot_login.clicked.connect(
-            self.music.play_click_music)
-        self.login_page.pass_forgot_login.clicked.connect(
-            self.pass_btn_login_clicked)
-
-        self.login_page.sign_in_login_btn.clicked.connect(
             self.music.play_click_music
         )
+        self.forgot_page.forgot_password_btn.clicked.connect(self.my_pass_btn_clicked)
+
+        self.forgot_page.send_code_email.clicked.connect(self.music.play_click_music)
+        self.forgot_page.send_code_email.clicked.connect(self.send_code_clicked)
+        ###################
+
+        self.welcome_window.signup_btn.clicked.connect(self.music.play_click_music)
+        self.welcome_window.signup_btn.clicked.connect(self.welcome_signup_btn_clicked)
+
+        self.welcome_window.login_btn.clicked.connect(self.music.play_click_music)
+        self.welcome_window.login_btn.clicked.connect(self.welcome_login_btn_clicked)
+        ###################
+        self.login_page.pass_forgot_login.clicked.connect(self.music.play_click_music)
+        self.login_page.pass_forgot_login.clicked.connect(self.pass_btn_login_clicked)
+
+        self.login_page.sign_in_login_btn.clicked.connect(self.music.play_click_music)
         self.login_page.sign_in_login_btn.clicked.connect(
             self.login_sign_in_btn_clicked
         )
 
-        self.login_page.signup_btn_login.clicked.connect(
-            self.music.play_click_music)
-        self.login_page.signup_btn_login.clicked.connect(
-            self.signup_btn_login_clicked)
+        self.login_page.signup_btn_login.clicked.connect(self.music.play_click_music)
+        self.login_page.signup_btn_login.clicked.connect(self.signup_btn_login_clicked)
 
         self.login_page.show_pass_login.stateChanged.connect(
             self.toggle_echo_mode_show_pass
         )
         ###################
-        self.search_page.return_btn.clicked.connect(
-            self.music.play_click_music)
-        self.search_page.return_btn.clicked.connect(
-            self.search_return_btn_clicked)
+        self.search_page.return_btn.clicked.connect(self.music.play_click_music)
+        self.search_page.return_btn.clicked.connect(self.search_return_btn_clicked)
 
-        self.search_page.price_checkbox.stateChanged.connect(
-            self.price_checkbox_status)
+        self.search_page.price_checkbox.stateChanged.connect(self.price_checkbox_status)
 
-        self.search_page.search_btn.clicked.connect(
-            self.music.play_click_music)
+        self.search_page.search_btn.clicked.connect(self.music.play_click_music)
         self.search_page.search_btn.clicked.connect(self.search_btn_clicked)
 
         self.search_page.custom_period_check.stateChanged.connect(
@@ -190,56 +159,82 @@ class Connector:
             self.report_page.resource_status
         )
 
-        self.report_page.return_btn.clicked.connect(
-            self.music.play_click_music)
-        self.report_page.return_btn.clicked.connect(
-            self.report_return_btn_clicked)
+        self.report_page.return_btn.clicked.connect(self.music.play_click_music)
+        self.report_page.return_btn.clicked.connect(self.report_return_btn_clicked)
 
-        self.report_page.report_btn.clicked.connect(
-            self.music.play_click_music)
-        self.report_page.report_btn.clicked.connect(
-            self.get_report_btn_clicked)
+        self.report_page.report_btn.clicked.connect(self.music.play_click_music)
+        self.report_page.report_btn.clicked.connect(self.get_report_btn_clicked)
 
         ################################
 
         self.setting_page.return_setting_btn.clicked.connect(
-            self.music.play_click_music)
+            self.music.play_click_music
+        )
         self.setting_page.return_setting_btn.clicked.connect(
-            self.return_setting_clicked)
-
-        self.setting_page.edit_profile_btn.clicked.connect(
-            self.music.play_click_music)
+            self.return_setting_clicked
+        )
 
         self.setting_page.delete_all_transaction.clicked.connect(
-            self.music.play_click_music)
+            self.music.play_click_music
+        )
 
-        self.setting_page.delete_user.clicked.connect(
-            self.music.play_click_music)
+        self.setting_page.delete_user.clicked.connect(self.music.play_click_music)
 
         self.setting_page.delete_income_transaction.clicked.connect(
-            self.music.play_click_music)
+            self.music.play_click_music
+        )
 
         self.setting_page.delete_cost_transaction.clicked.connect(
-            self.music.play_click_music)
+            self.music.play_click_music
+        )
 
-        self.setting_page.export_csv_btn.clicked.connect(
-            self.music.play_click_music)
+        self.setting_page.export_csv_btn.clicked.connect(self.music.play_click_music)
 
-        self.setting_page.bg_off_radio.toggled.connect(
-            self.music.stop_background_music)
-        self.setting_page.bg_on_radio.toggled.connect(
-            self.music.play_background_music)
+        self.setting_page.bg_off_radio.toggled.connect(self.music.stop_background_music)
+        self.setting_page.bg_on_radio.toggled.connect(self.music.play_background_music)
 
-        self.setting_page.btn_radio_on.toggled.connect(
-            self.music.on_click_music)
+        self.setting_page.btn_radio_on.toggled.connect(self.music.on_click_music)
+        self.setting_page.btn_radio_off.toggled.connect(self.music.off_click_music)
 
-        self.setting_page.btn_radio_off.toggled.connect(
-            self.music.off_click_music)
+        self.setting_page.edit_profile_btn.clicked.connect(self.music.play_click_music)
+        self.setting_page.edit_profile_btn.clicked.connect(self.show_edit_form)
+
+        self.setting_page.delete_all_transaction.clicked.connect(self.delete_trans)
+
+        self.setting_page.delete_user.clicked.connect(self.delete_user)
+
+        self.setting_page.delete_income_transaction.clicked.connect(self.delete_income)
+
+        self.setting_page.delete_cost_transaction.clicked.connect(self.delete_cost)
+
+        #############################################################################
+        self.edit_form.fanme_checkbox.stateChanged.connect(self.edit_form.fname_status)
+        self.edit_form.lastname_checkbox.stateChanged.connect(
+            self.edit_form.lname_status
+        )
+        self.edit_form.city_checkbox.stateChanged.connect(self.edit_form.city_status)
+        self.edit_form.password_checkbox.stateChanged.connect(
+            self.edit_form.pass_status
+        )
+        self.edit_form.phonenumber_checkbox.stateChanged.connect(
+            self.edit_form.phonenumber_status
+        )
+        self.edit_form.birthday_checkbox.stateChanged.connect(
+            self.edit_form.birthday_status
+        )
+        self.edit_form.email_checkbox.stateChanged.connect(self.edit_form.email_status)
+
+        self.edit_form.submit_btn.clicked.connect(self.music.play_click_music)
+        # self.edit_form.submit_btn.clicked.connect()   # we'll completed later
+
+        self.edit_form.return_btn_editform.clicked.connect(self.music.play_click_music)
+        self.edit_form.return_btn_editform.clicked.connect(self.return_edit_form)
 
     #############################################################################
 
     def exit_main_page(self):
         self.timer.Calculation_until_present(self.main_page.first_time_login)
+        self.music.play_message_music()
         self.message.show_message(
             f"""The spent time is {self.timer.hours} hours, {self.timer.minutes} minutes, and {self.timer.seconds} seconds.
 Have fun."""
@@ -254,9 +249,11 @@ Have fun."""
         if self.category_page.add_category(
             self.category_page.category_lineedit.text(), self.login_page.username
         ):
+            self.music.play_message_music()
             self.message.show_message("Category Successfully Added!")
             self.category_page.reset_category()
         else:
+            self.music.play_warn_music()
             self.message.show_warning("Invalid Category Or Its Already Added!")
             self.category_page.reset_category()
 
@@ -278,6 +275,7 @@ Have fun."""
             self.income_page.income_type_items()
             self.income_page.show()
         else:
+            self.music.play_warn_music()
             self.message.show_warning(
                 """You haven't added any category!
 first add at least 1 category to open income form."""
@@ -294,6 +292,7 @@ first add at least 1 category to open income form."""
                 self.income_page.income_type_combo.currentText(),
                 self.income_page.income_discription_linedit.toPlainText(),
             )
+            self.music.play_message_music()
             self.message.show_message("Your Income has been recorded.")
             self.income_page.reset_income()
             self.income_page.income_combo_items(self.login_page.username)
@@ -313,6 +312,7 @@ first add at least 1 category to open income form."""
             self.cost_page.cost_type_items()
             self.cost_page.show()
         else:
+            self.music.play_warn_music()
             self.message.show_warning(
                 """You haven't added any category!
 first add at least 1 category to open cost form."""
@@ -334,6 +334,7 @@ first add at least 1 category to open cost form."""
                 self.cost_page.cost_type_combo.currentText(),
                 self.cost_page.description_cost.toPlainText(),
             )
+            self.music.play_message_music()
             self.message.show_message("Your cost has been recorded.")
             self.cost_page.reset_cost()
             self.cost_page.cost_combo_items(self.login_page.username)
@@ -418,14 +419,17 @@ first add at least 1 category to open cost form."""
                 higher_price,
             )
             if len(res) == 0:
+                self.music.play_warn_music()
                 self.message.show_warning(
                     f"We didn't find anything with word '{self.search_page.search_lineedit.text()}'"
                 )
             else:
+                self.music.play_message_music()
                 self.message.show_results(res)
                 self.search_page.price_high.setText("")
                 self.search_page.price_low.setText("")
         else:
+            self.music.play_warn_music()
             self.message.show_warning("Please Enter something to search!")
             return
 
@@ -446,8 +450,10 @@ first add at least 1 category to open cost form."""
             start_date, end_date, lower_price, higher_price, source, item_type
         )
         if len(res) == 0:
+            self.music.play_warn_music()
             self.message.show_warning(f"We didn't find anything!")
         else:
+            self.music.play_message_music()
             self.message.show_results(res)
             self.report_page.price_high.setText("")
             self.report_page.price_low.setText("")
@@ -475,6 +481,7 @@ first add at least 1 category to open cost form."""
             email = self.signup_page.email_signup.text()
             city = self.signup_page.city_signup.text()
             date_birthday = self.signup_page.date_signup.text()
+            self.music.play_message_music()
             self.message.show_message(
                 "user successfully created.\nPlease Log in To Your Account"
             )
@@ -492,8 +499,8 @@ first add at least 1 category to open cost form."""
             self.signup_page.close()
             self.login_page.show()
 
-        ########################################################################################
-        # Setting
+    ########################################################################################
+    # Setting
 
     def show_setting_form(self):
         self.main_page.hide()
@@ -502,3 +509,36 @@ first add at least 1 category to open cost form."""
     def return_setting_clicked(self):
         self.setting_page.close()
         self.main_page.show()
+
+    def show_edit_form(self):
+        self.setting_page.hide()
+        self.edit_form.show()
+
+    def delete_trans(self):
+        self.music.play_warn_music()
+        self.message.show_warning(
+            "Are you sure you want to delete all of your transactions ?"
+        )
+
+    def delete_user(self):
+        self.music.play_warn_music()
+        self.message.show_warning("Are you sure you want to delete yourself ?")
+
+    def delete_income(self):
+        self.music.play_warn_music()
+        self.message.show_warning(
+            "Are you sure you want to delete all of your income transactions ?"
+        )
+
+    def delete_cost(self):
+        self.music.play_warn_music()
+        self.message.show_warning(
+            "Are you sure you want to delete all of your cost transactions ?"
+        )
+
+    #######################################################################################
+    # edit form
+    def return_edit_form(self):
+        self.edit_form.reset_form()
+        self.edit_form.hide()
+        self.setting_page.show()

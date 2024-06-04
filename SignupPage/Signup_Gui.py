@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt
 from validates.validate import *
 from MessageBox.messagebox import *
 from datacenter.projectdb import PDataBase
+from Sound.back_sound import Sound
 import re
 import os
 import sys
@@ -15,7 +16,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 Message = Message_Box()
 Valid = Validate()
 db_controler = PDataBase()
-
+music = Sound()
 
 class Signup(QMainWindow):
     def __init__(self):
@@ -97,64 +98,76 @@ background-repeat:no-repeat;                  """
             self.email_signup.text())
         is_user_valid = True
         if Valid.validate_name(self.fname_signup.text()) == False:
+            music.play_warn_music()
             Message.show_warning("You Entered Inavlid First Name!")
             self.fname_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if Valid.validate_name(self.lname_signup.text()) == False:
+            music.play_warn_music()
             Message.show_warning("You Entered Invalid Last Name!")
             self.lname_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if Valid.validate_phone_number(self.phone_signup.text()) == False:
+            music.play_warn_music()
             Message.show_warning("You Entered Invalid Phone Number!")
             self.phone_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if Valid.validate_username(self.username.text()) == False:
+            music.play_warn_music()
             Message.show_warning(
                 "You Entered Invalid Username\nOr Already Taken!")
             self.username.setText("")
             is_user_valid = False
             return is_user_valid
         if Valid.validate_password(self.Password_signup.text()) == False:
+            music.play_warn_music()
             Message.show_warning("You Entered Invalid Value\nFor Password!")
             self.Password_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if self.repeatpasswprd_signup.text() != self.Password_signup.text():
+            music.play_warn_music()
             Message.show_warning(
                 "Repeat password does not match the password!")
             self.repeatpasswprd_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if Valid.validate_city(self.city_signup.text()) == False:
+            music.play_warn_music()
             Message.show_warning("You Entered Invalid City!")
             self.city_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if Valid.validate_email(self.email_signup.text()) == False:
+            music.play_warn_music()
             Message.show_warning("You Entered Invalid Email!")
             self.email_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if Valid.validite_birthday(self.date_signup.text()) == False:
+            music.play_warn_music()
             Message.show_warning("You Entered Invalid Birthday Date!")
             self.date_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if phone_uniqe == False:
+            music.play_warn_music()
             Message.show_warning(
                 "This mobile number has already been used.")
             self.phone_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if email_uniqe == False:
+            music.play_warn_music()
             Message.show_warning("This Email has already been used.")
             self.email_signup.setText("")
             is_user_valid = False
             return is_user_valid
         if user_uniqe == False:
+            music.play_warn_music()
             Message.show_warning("This Username has already been used.")
             self.username.setText("")
             is_user_valid = False

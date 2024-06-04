@@ -7,11 +7,13 @@ from MessageBox.messagebox import Message_Box
 from validates.validate import Validate
 import sys
 from PyQt5.QtWidgets import QWidget
+from Sound.back_sound import Sound
 
 
 income_message = Message_Box()
 income_validation = Validate()
 db_controler = PDataBase()
+music = Sound()
 
 
 class Income(QMainWindow):
@@ -79,32 +81,40 @@ class Income(QMainWindow):
 
     def submit_income_clicked(self):
         amount_income = income_validation.valid_amount(
-            self.income_amount_linedit.text())
+            self.income_amount_linedit.text()
+        )
         date_income = income_validation.validate_date_income_cost(
-            self.income_date_linedit.text())
+            self.income_date_linedit.text()
+        )
         discription_income = income_validation.valid_description(
-            self.income_discription_linedit.toPlainText())
+            self.income_discription_linedit.toPlainText()
+        )
         is_valid_income = True
         if amount_income == False:
+            music.play_warn_music()
             income_message.show_warning("Invalid income amount.")
             self.income_amount_linedit.setText("")
             is_valid_income = False
             return is_valid_income
         if date_income == False:
+            music.play_warn_music()
             income_message.show_warning("Invalid income date.")
             self.income_date_linedit.setText("")
             is_valid_income = False
             return is_valid_income
         if discription_income == False:
+            music.play_warn_music()
             income_message.show_warning(
-                "The text here cannot be more than 100 characters.")
+                "The text here cannot be more than 100 characters."
+            )
             is_valid_income = False
             return is_valid_income
         return is_valid_income
 
     def add_record_income(self, user, amount, date, resource, ttype, discription):
         db_controler.add_new_IC(
-            "UserIncome", user, amount, date, resource, ttype, discription)
+            "UserIncome", user, amount, date, resource, ttype, discription
+        )
         return True
 
     def reset_income(self):

@@ -7,11 +7,12 @@ import sys
 from PyQt5.QtWidgets import QWidget
 from validates.validate import *
 from MessageBox.messagebox import *
-
+from Sound.back_sound import Sound
 
 Valid = Validate()
 Message = Message_Box()
 db_controler = PDataBase()
+music = Sound()
 
 
 class Cost_Form(QMainWindow):
@@ -50,8 +51,7 @@ class Cost_Form(QMainWindow):
             stop:1 #093637
         );"""
         )
-        self.cost_form_label.setStyleSheet(
-            """background: none;color:#ffffff;""")
+        self.cost_form_label.setStyleSheet("""background: none;color:#ffffff;""")
         self.cost_amount.setStyleSheet(self.lineedit_style)
         self.cost_type_combo.setStyleSheet(self.lineedit_style)
         self.cost_date.setStyleSheet(self.lineedit_style)
@@ -76,29 +76,31 @@ class Cost_Form(QMainWindow):
     def submit_cost_clicked(self):
         amount_cost = Valid.valid_amount(self.cost_amount.text())
         date_cost = Valid.validate_date_income_cost(self.cost_date.text())
-        discription_cost = Valid.valid_description(
-            self.description_cost.toPlainText())
+        discription_cost = Valid.valid_description(self.description_cost.toPlainText())
         is_valid_cost = True
         if amount_cost == False:
+            music.play_warn_music()
             Message.show_warning("Invalid cost amount.")
             self.cost_amount.setText("")
             is_valid_cost = False
             return is_valid_cost
         if date_cost == False:
+            music.play_warn_music()
             Message.show_warning("Invalid cost date.")
             self.cost_date.setText("")
             is_valid_cost = False
             return is_valid_cost
         if discription_cost == False:
-            Message.show_warning(
-                "The text here cannot be more than 100 characters.")
+            music.play_warn_music()
+            Message.show_warning("The text here cannot be more than 100 characters.")
             is_valid_cost = False
             return is_valid_cost
         return is_valid_cost
 
     def add_record_cost(self, user, amount, date, resource, ttype, discription):
-        db_controler.add_new_IC("UserCost", user, amount,
-                                date, resource, ttype, discription)
+        db_controler.add_new_IC(
+            "UserCost", user, amount, date, resource, ttype, discription
+        )
         return True
 
     def reset_cost(self):

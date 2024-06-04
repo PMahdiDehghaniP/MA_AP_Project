@@ -6,10 +6,12 @@ from validates.validate import *
 from MessageBox.messagebox import *
 from datacenter.projectdb import PDataBase
 from datetime import datetime, timedelta
+from Sound.back_sound import Sound
 
 Valid = Validate()
 Message = Message_Box()
 dbcontroler = PDataBase()
+music = Sound()
 
 
 class Search_Page(QMainWindow):
@@ -151,15 +153,18 @@ class Search_Page(QMainWindow):
     def search_btn_clicked(self):
         checkstr = True
         if len(self.search_lineedit.text()) == 0:
+            music.play_warn_music()
             Message.show_warning("Please Enter something to search!")
             checkstr = False
             return
         if self.price_checkbox.isChecked():
             if Valid.valid_amount(self.price_low.text()) == False:
+                music.play_warn_music()
                 Message.show_warning("Invalid input for lower price!")
                 checkstr = False
                 return
             if Valid.valid_amount(self.price_high.text()) == False:
+                music.play_warn_music()
                 Message.show_warning("Invalid input for higher price!")
                 checkstr = False
                 return
@@ -169,8 +174,8 @@ class Search_Page(QMainWindow):
                 )
                 == False
             ):
-                Message.show_warning(
-                    "higher price must be grater than lower price!")
+                music.play_warn_music()
+                Message.show_warning("higher price must be grater than lower price!")
                 checkstr = False
                 return
         return checkstr
@@ -492,10 +497,12 @@ class Report_Page(QMainWindow):
         check_flag = True
         if self.price_checkbox.isChecked():
             if Valid.valid_amount(self.price_low.text()) == False:
+                music.play_warn_music()
                 Message.show_warning("Invalid input for lower price!")
                 check_flag = False
                 return check_flag
             if Valid.valid_amount(self.price_high.text()) == False:
+                music.play_warn_music()
                 Message.show_warning("Invalid input for higher price!")
                 check_flag = False
                 return check_flag
@@ -505,14 +512,21 @@ class Report_Page(QMainWindow):
                 )
                 == False
             ):
-                Message.show_warning(
-                    "higher price must be grater than lower price!")
+                music.play_warn_music()
+                Message.show_warning("higher price must be grater than lower price!")
                 check_flag = False
                 return check_flag
         return check_flag
 
     def report_text(
-            self, start_date=None, end_date=None, lower_price=None, higher_price=None, resource=None, item_type=None):
+        self,
+        start_date=None,
+        end_date=None,
+        lower_price=None,
+        higher_price=None,
+        resource=None,
+        item_type=None,
+    ):
         flag = self.get_report_clicked()
         res = ""
         if flag:
@@ -526,7 +540,7 @@ class Report_Page(QMainWindow):
                     lower_price=lower_price,
                     higher_price=higher_price,
                     resource=resource,
-                    item_type=item_type
+                    item_type=item_type,
                 )
             elif files == "cost":
                 res = dbcontroler.search_text(
@@ -536,7 +550,8 @@ class Report_Page(QMainWindow):
                     end_date=end_date,
                     lower_price=lower_price,
                     higher_price=higher_price,
-                    resource=resource, item_type=item_type
+                    resource=resource,
+                    item_type=item_type,
                 )
             elif files == "both" or files == "every":
                 res = dbcontroler.search_text(
@@ -546,6 +561,7 @@ class Report_Page(QMainWindow):
                     end_date=end_date,
                     lower_price=lower_price,
                     higher_price=higher_price,
-                    resource=resource, item_type=item_type
+                    resource=resource,
+                    item_type=item_type,
                 )
         return res

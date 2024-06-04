@@ -6,6 +6,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
+from Sound.back_sound import Sound
 import sys
 import os
 
@@ -14,6 +15,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 Message = Message_Box()
 db_controler = PDataBase()
+music = Sound()
 
 
 class forgot(QMainWindow):
@@ -44,10 +46,13 @@ class forgot(QMainWindow):
     def style(self):
         self.setWindowIcon(QIcon(r"Forgot_page\forgot_icon.jpg"))
         self.setStyleSheet("background: #2173FF;")
-        self.groupBox_forgot.setStyleSheet("""background: white;
-border-radius: 7px;""")
+        self.groupBox_forgot.setStyleSheet(
+            """background: white;
+border-radius: 7px;"""
+        )
         self.em_us_forgot_linedit.setStyleSheet(
-            "border: 0.5px solid black;padding-left: 5px;")
+            "border: 0.5px solid black;padding-left: 5px;"
+        )
         self.forgot_title.setStyleSheet("color: #000099;")
         self.kapcha.setStyleSheet(self.lineedit_padding_style)
         self.input_kapch_lineedit.setStyleSheet(self.lineedit_padding_style)
@@ -88,25 +93,31 @@ border-radius: 7px;""")
             if db_controler.return_username(self.em_us_forgot_linedit.text()):
                 if str(self.verification_code) == self.code_email_lineedit.text():
                     password = db_controler.get_password(
-                        self.em_us_forgot_linedit.text())
+                        self.em_us_forgot_linedit.text()
+                    )
+                    music.play_message_music()
                     Message.show_password(f"Your Password is {password}")
                     self.reset_forgot_page()
                     return True
                 else:
+                    music.play_warn_music()
                     Message.show_warning("You Entered Invalid Code Try Again")
                     self.reset_forgot_page()
                     return
             else:
+                music.play_warn_music()
                 Message.show_warning("There is no such person")
                 self.reset_forgot_page()
                 self.show_captcha()
                 return
         if flag_captcha == "no_input_captcha":
+            music.play_warn_music()
             Message.show_warning("You Didn't Entered Captcha!")
             self.show_captcha()
             self.input_kapch_lineedit.setText("")
             return
         if flag_captcha == "incorrect_captcha":
+            music.play_warn_music()
             Message.show_warning("You Entered Incorroct Captcha!")
             self.show_captcha()
             self.em_us_forgot_linedit.setText("")
@@ -125,8 +136,8 @@ border-radius: 7px;""")
                 message = f"Subject: Verification Code\n\nYour verification code is: {self.verification_code}"
                 connection.login(user=my_email, password=password)
                 connection.sendmail(my_email, user_email, message)
-            Message.show_message(
-                "Code Has Been Sent To Your Email Please Check")
+            music.play_message_music()
+            Message.show_message("Code Has Been Sent To Your Email Please Check")
 
     def reset_forgot_page(self):
         self.em_us_forgot_linedit.setText("")

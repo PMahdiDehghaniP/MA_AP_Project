@@ -14,12 +14,12 @@ class Setting_Page(QMainWindow):
         super().__init__()
         uic.loadUi(r"Setting_Page\mainwindow.ui", self)
         self.setFixedSize(872, 465)
-        self.setWindowIcon(QIcon(r"setting_icon.png"))
+        self.setWindowIcon(QIcon(r"Setting_Page\setting_icon.png"))
         self.setWindowTitle("Setting")
         self.style()
 
     def style(self):
-        self.btn_style = '''
+        self.btn_style = """
         QPushButton{
             background: qlineargradient(
             spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
@@ -38,14 +38,16 @@ class Setting_Page(QMainWindow):
             );
             color:#ffffff
         }
-        '''
-        self.setStyleSheet('''
+        """
+        self.setStyleSheet(
+            """
             background: qlineargradient(
             spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
             stop: 0 #EB3349,
             stop: 1 #F45C43
             );
-            ''')
+            """
+        )
         self.edit_profile_btn.setCursor(Qt.PointingHandCursor)
         self.delete_all_transaction.setCursor(Qt.PointingHandCursor)
         self.delete_user.setCursor(Qt.PointingHandCursor)

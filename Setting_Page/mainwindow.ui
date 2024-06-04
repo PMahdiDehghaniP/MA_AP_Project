@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>872</width>
-    <height>465</height>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -131,7 +131,7 @@
    <widget class="QLabel" name="buttonsound_label">
     <property name="geometry">
      <rect>
-      <x>65</x>
+      <x>57</x>
       <y>282</y>
       <width>131</width>
       <height>31</height>
@@ -150,8 +150,8 @@
    <widget class="QLabel" name="msg_sound_label">
     <property name="geometry">
      <rect>
-      <x>331</x>
-      <y>283</y>
+      <x>329</x>
+      <y>282</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -169,8 +169,8 @@
    <widget class="QLabel" name="backgroundsound_label">
     <property name="geometry">
      <rect>
-      <x>62</x>
-      <y>193</y>
+      <x>582</x>
+      <y>280</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -188,9 +188,9 @@
    <widget class="QPushButton" name="export_csv_btn">
     <property name="geometry">
      <rect>
-      <x>592</x>
-      <y>278</y>
-      <width>221</width>
+      <x>60</x>
+      <y>190</y>
+      <width>251</width>
       <height>41</height>
      </rect>
     </property>
@@ -207,7 +207,7 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>201</x>
+      <x>194</x>
       <y>282</y>
       <width>116</width>
       <height>31</height>
@@ -245,8 +245,8 @@
    <widget class="QWidget" name="gridLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>195</y>
+      <x>718</x>
+      <y>280</y>
       <width>116</width>
       <height>31</height>
      </rect>
@@ -283,8 +283,8 @@
    <widget class="QWidget" name="gridLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>441</x>
-      <y>285</y>
+      <x>444</x>
+      <y>281</y>
       <width>116</width>
       <height>31</height>
      </rect>
@@ -322,7 +322,7 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>367</y>
+      <y>346</y>
       <width>221</width>
       <height>41</height>
      </rect>
