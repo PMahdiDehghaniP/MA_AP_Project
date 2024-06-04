@@ -67,7 +67,8 @@ class PDataBase:
         self.Connector.commit()
 
     def migrate_category_table(self):
-        self.command.execute("ALTER TABLE UserCategories RENAME TO UserCategories_old")
+        self.command.execute(
+            "ALTER TABLE UserCategories RENAME TO UserCategories_old")
         self.create_category_table()
         self.command.execute(
             """
@@ -152,7 +153,8 @@ class PDataBase:
         return count == 0
 
     def isunique_email(self, email):
-        self.command.execute("SELECT COUNT(*) FROM UserInfo WHERE email=?", (email,))
+        self.command.execute(
+            "SELECT COUNT(*) FROM UserInfo WHERE email=?", (email,))
         count = self.command.fetchone()[0]
         return count == 0
 
@@ -220,13 +222,15 @@ class PDataBase:
 
     def search_text(
         self,
-        text,
         tables,
         username,
+        text="",
         start_date=None,
         end_date=None,
         lower_price=None,
         higher_price=None,
+        resource=None,
+        item_type=None,
     ):
         final = ""
         for table in tables:
@@ -240,13 +244,17 @@ class PDataBase:
                     query += " AND date BETWEEN ? AND ?"
                     params.extend([start_date, end_date])
 
-                if (
-                    lower_price is not None
-                    and higher_price is not None
-                    and "amount" in columns
-                ):
+                if lower_price is not None and higher_price is not None and "amount" in columns:
                     query += " AND amount BETWEEN ? AND ?"
                     params.extend([lower_price, higher_price])
+
+                if resource and "resource" in columns:
+                    query += " AND resource=?"
+                    params.append(resource)
+
+                if item_type and "type" in columns:
+                    query += " AND type=?"
+                    params.append(item_type)
 
                 self.command.execute(query, params)
                 results = self.command.fetchall()

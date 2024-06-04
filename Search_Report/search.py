@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt
 from validates.validate import *
 from MessageBox.messagebox import *
 from datacenter.projectdb import PDataBase
-
+from datetime import datetime, timedelta
 
 Valid = Validate()
 Message = Message_Box()
@@ -216,43 +216,43 @@ class Search_Page(QMainWindow):
             files = self.ischeckbox_file()
             if files == "income":
                 res = dbcontroler.search_text(
-                    text,
-                    ["UserIncome"],
-                    self.username,
-                    start_date,
-                    end_date,
-                    lower_price,
-                    higher_price,
+                    text=text,
+                    tables=["UserIncome"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
                 )
             elif files == "cost":
                 res = dbcontroler.search_text(
-                    text,
-                    ["UserCost"],
-                    self.username,
-                    start_date,
-                    end_date,
-                    lower_price,
-                    higher_price,
+                    text=text,
+                    tables=["UserCost"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
                 )
             elif files == "both":
                 res = dbcontroler.search_text(
-                    text,
-                    ["UserIncome", "UserCost"],
-                    self.username,
-                    start_date,
-                    end_date,
-                    lower_price,
-                    higher_price,
+                    text=text,
+                    tables=["UserIncome", "UserCost"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
                 )
             elif files == "every":
                 res = dbcontroler.search_text(
-                    text,
-                    ["UserIncome", "UserCost", "UserCategories"],
-                    self.username,
-                    start_date,
-                    end_date,
-                    lower_price,
-                    higher_price,
+                    text=text,
+                    tables=["UserIncome", "UserCost", "UserCategories"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
                 )
         return res
 
@@ -260,6 +260,7 @@ class Search_Page(QMainWindow):
 class Report_Page(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.username = ""
         self.setFixedSize(849, 660)
         uic.loadUi(r"Search_Report\mainwindow_report.ui", self)
         self.lineedit_style = """
@@ -328,6 +329,9 @@ class Report_Page(QMainWindow):
         )
         self.report_btn.setStyleSheet(self.btn_style)
         self.return_btn.setStyleSheet(self.btn_style)
+
+    def getusername(self, user_input):
+        self.username = user_input
 
     def Geometry_without_calender(self):
         self.setFixedSize(849, 415)
@@ -428,3 +432,130 @@ class Report_Page(QMainWindow):
 
     def hide_resource_lineedit(self):
         self.resource_lineedit.hide()
+
+    def format_date_calender(self):
+        end_date = datetime.today()
+        if self.yesterday_radio.isChecked():
+            start_date = end_date - timedelta(days=1)
+        elif self.lastweek_radio.isChecked():
+            start_date = end_date - timedelta(weeks=1)
+        elif self.lastmonth_radio.isChecked():
+            start_date = end_date - timedelta(days=30)
+        elif self.last3month_radio.isChecked():
+            start_date = end_date - timedelta(days=90)
+        elif self.custom_period_radio.isChecked():
+            start_date = self.calender_start.selectedDate()
+            end_date = self.calender_end.selectedDate()
+        if start_date and end_date:
+            formatted_start_date = start_date.toString("yyyy/MM/dd")
+            formatted_end_date = end_date.toString("yyyy/MM/dd")
+            return formatted_start_date, formatted_end_date
+        else:
+            return None, None
+
+    def income_checkbox_status(self):
+        return self.income_checkbox.isChecked()
+
+    def cost_checkbox_status(self):
+        return self.cost_checkbox.isChecked()
+
+    def ischeckbox_file(self):
+        if self.income_checkbox_status() and self.cost_checkbox_status():
+            return "both"
+        elif self.income_checkbox_status():
+            return "income"
+        elif self.cost_checkbox_status():
+            return "cost"
+        else:
+            return "every"
+
+    def ischecbox_price(self):
+        if self.price_checkbox.isChecked():
+            return self.price_low.text(), self.price_high.text()
+        else:
+            return None, None
+
+    def ischecbox_type(self):
+        if self.type_checkbox.isChecked():
+            return self.type_lineedit.text()
+        else:
+            return None
+
+    def ischecbox_resource(self):
+        if self.resource_checkbox.isChecked():
+            return self.resource_lineedit.text()
+        else:
+            return None
+
+    def get_report_clicked(self):
+        check_flag = True
+        if self.price_checkbox.isChecked():
+            if Valid.valid_amount(self.price_low.text()) == False:
+                Message.show_warning("Invalid input for lower price!")
+                check_flag = False
+                return check_flag
+            if Valid.valid_amount(self.price_high.text()) == False:
+                Message.show_warning("Invalid input for higher price!")
+                check_flag = False
+                return check_flag
+            if (
+                Valid.validate_limit_price(
+                    self.price_high.text(), self.price_low.text()
+                )
+                == False
+            ):
+                Message.show_warning(
+                    "higher price must be grater than lower price!")
+                check_flag = False
+                return check_flag
+        return check_flag
+
+    def report_text(
+            self, start_date=None, end_date=None, lower_price=None, higher_price=None, resource=None, item_type=None):
+        flag = self.get_report_clicked()
+        res = ""
+        if flag:
+            files = self.ischeckbox_file()
+            if files == "income":
+                res = dbcontroler.search_text(
+                    tables=["UserIncome"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
+                    resource=resource,
+                    item_type=item_type
+                )
+            elif files == "cost":
+                res = dbcontroler.search_text(
+                    tables=["UserCost"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
+                    resource=resource, item_type=item_type
+                )
+            elif files == "both":
+                res = dbcontroler.search_text(
+                    tables=["UserIncome", "UserCost"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
+                    resource=resource, item_type=item_type
+                )
+            elif files == "every":
+                res = dbcontroler.search_text(
+                    tables=["UserIncome", "UserCost"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
+                    resource=resource,
+                    item_type=item_type
+                )
+        return res

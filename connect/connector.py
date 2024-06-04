@@ -107,6 +107,8 @@ class Connector:
             self.report_page.resource_status)
         self.report_page.return_btn.clicked.connect(
             self.report_return_btn_clicked)
+        self.report_page.report_btn.clicked.connect(
+            self.get_report_btn_clicked)
 
     #############################################################################
 
@@ -301,6 +303,22 @@ first add at least 1 category to open cost form."""
     def show_report_page(self):
         self.main_page.hide()
         self.report_page.show()
+
+    def get_report_btn_clicked(self):
+        start_date, end_date = self.report_page.format_date_calender()
+        lower_price, higher_price = self.report_page.ischecbox_price()
+        item_type = self.report_page.ischecbox_type()
+        source = self.report_page.ischecbox_resource()
+        res = self.report_page.report_text(
+            start_date, end_date, lower_price, higher_price, source, item_type)
+        if len(res) == 0:
+            self.message.show_warning(f"We didn't find anything!")
+        else:
+            self.message.show_results(res)
+            self.report_page.price_high.setText("")
+            self.report_page.price_low.setText("")
+            self.report_page.type_lineedit.setText("")
+            self.report_page.type_lineedit.setText("")
 
     def report_return_btn_clicked(self):
         self.report_page.close()
