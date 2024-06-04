@@ -153,16 +153,16 @@ class Search_Page(QMainWindow):
         if len(self.search_lineedit.text()) == 0:
             Message.show_warning("Please Enter something to search!")
             checkstr = False
-            return checkstr
+            return
         if self.price_checkbox.isChecked():
             if Valid.valid_amount(self.price_low.text()) == False:
                 Message.show_warning("Invalid input for lower price!")
                 checkstr = False
-                return False
+                return
             if Valid.valid_amount(self.price_high.text()) == False:
                 Message.show_warning("Invalid input for higher price!")
                 checkstr = False
-                return checkstr
+                return
             if (
                 Valid.validate_limit_price(
                     self.price_high.text(), self.price_low.text()
@@ -172,7 +172,7 @@ class Search_Page(QMainWindow):
                 Message.show_warning(
                     "higher price must be grater than lower price!")
                 checkstr = False
-                return checkstr
+                return
         return checkstr
 
     def incomecheckbox_status(self):
@@ -435,7 +435,7 @@ class Report_Page(QMainWindow):
 
     def format_date_calender(self):
         end_date = datetime.today()
-        start_date=""
+        start_date = ""
         if self.yesterday_radio.isChecked():
             start_date = end_date - timedelta(days=1)
         elif self.lastweek_radio.isChecked():
