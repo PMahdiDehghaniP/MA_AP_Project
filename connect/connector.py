@@ -45,15 +45,11 @@ class Connector:
     def connect_signals(self):
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
         ###################
-        self.cost_page.exit_btn_cost.clicked.connect(
-            self.exit_cost_btn_clicked)
-        self.cost_page.submit_cost_page_btn.clicked.connect(
-            self.cost_submit_clicked)
+        self.cost_page.exit_btn_cost.clicked.connect(self.exit_cost_btn_clicked)
+        self.cost_page.submit_cost_page_btn.clicked.connect(self.cost_submit_clicked)
         # ###################
-        self.category_page.category_submit.clicked.connect(
-            self.category_submit_clicked)
-        self.category_page.category_exit.clicked.connect(
-            self.category_exit_clicked)
+        self.category_page.category_submit.clicked.connect(self.category_submit_clicked)
+        self.category_page.category_exit.clicked.connect(self.category_exit_clicked)
         ###################
         self.main_page.category_btn.clicked.connect(self.show_category_page)
         self.main_page.exit_mainpage_btn.clicked.connect(self.exit_main_page)
@@ -62,53 +58,45 @@ class Connector:
         self.main_page.search_btn.clicked.connect(self.show_search_page)
         self.main_page.report_btn.clicked.connect(self.show_report_page)
         ###################
-        self.income_page.exit_btn_income.clicked.connect(
-            self.exit_income_btn_clicked)
-        self.income_page.income_submit_btn.clicked.connect(
-            self.income_submit_clikced)
+        self.income_page.exit_btn_income.clicked.connect(self.exit_income_btn_clicked)
+        self.income_page.income_submit_btn.clicked.connect(self.income_submit_clikced)
         ###################
-        self.forgot_page.forgot_password_btn.clicked.connect(
-            self.my_pass_btn_clicked)
-        self.forgot_page.send_code_email.clicked.connect(
-            self.send_code_clicked)
+        self.forgot_page.forgot_password_btn.clicked.connect(self.my_pass_btn_clicked)
+        self.forgot_page.send_code_email.clicked.connect(self.send_code_clicked)
         ###################
-        self.welcome_window.signup_btn.clicked.connect(
-            self.welcome_signup_btn_clicked)
-        self.welcome_window.login_btn.clicked.connect(
-            self.welcome_login_btn_clicked)
+        self.welcome_window.signup_btn.clicked.connect(self.welcome_signup_btn_clicked)
+        self.welcome_window.login_btn.clicked.connect(self.welcome_login_btn_clicked)
         ###################
-        self.login_page.pass_forgot_login.clicked.connect(
-            self.pass_btn_login_clicked)
+        self.login_page.pass_forgot_login.clicked.connect(self.pass_btn_login_clicked)
         self.login_page.sign_in_login_btn.clicked.connect(
             self.login_sign_in_btn_clicked
         )
-        self.login_page.signup_btn_login.clicked.connect(
-            self.signup_btn_login_clicked)
+        self.login_page.signup_btn_login.clicked.connect(self.signup_btn_login_clicked)
         self.login_page.show_pass_login.stateChanged.connect(
             self.toggle_echo_mode_show_pass
         )
         ###################
-        self.search_page.return_btn.clicked.connect(
-            self.search_return_btn_clicked)
-        self.search_page.price_checkbox.stateChanged.connect(
-            self.price_checkbox_status)
+        self.search_page.return_btn.clicked.connect(self.search_return_btn_clicked)
+        self.search_page.price_checkbox.stateChanged.connect(self.price_checkbox_status)
         self.search_page.search_btn.clicked.connect(self.search_btn_clicked)
         self.search_page.custom_period_check.stateChanged.connect(
             self.search_page.change_Geometry
         )
         ###################
         self.report_page.custom_period_radio.toggled.connect(
-            self.report_page.change_Geometry)
+            self.report_page.change_Geometry
+        )
         self.report_page.price_checkbox.stateChanged.connect(
-            self.report_page.price_status)
+            self.report_page.price_status
+        )
         self.report_page.type_checkbox.stateChanged.connect(
-            self.report_page.type_status)
+            self.report_page.type_status
+        )
         self.report_page.resource_checkbox.stateChanged.connect(
-            self.report_page.resource_status)
-        self.report_page.return_btn.clicked.connect(
-            self.report_return_btn_clicked)
-        self.report_page.report_btn.clicked.connect(
-            self.get_report_btn_clicked)
+            self.report_page.resource_status
+        )
+        self.report_page.return_btn.clicked.connect(self.report_return_btn_clicked)
+        self.report_page.report_btn.clicked.connect(self.get_report_btn_clicked)
 
     #############################################################################
 
@@ -302,7 +290,9 @@ first add at least 1 category to open cost form."""
     # Report
     def show_report_page(self):
         self.main_page.hide()
+        self.report_page.yesterday_radio.setChecked(True)
         self.report_page.show()
+        self.report_page.getusername(self.login_page.username)
 
     def get_report_btn_clicked(self):
         start_date, end_date = self.report_page.format_date_calender()
@@ -310,7 +300,8 @@ first add at least 1 category to open cost form."""
         item_type = self.report_page.ischecbox_type()
         source = self.report_page.ischecbox_resource()
         res = self.report_page.report_text(
-            start_date, end_date, lower_price, higher_price, source, item_type)
+            start_date, end_date, lower_price, higher_price, source, item_type
+        )
         if len(res) == 0:
             self.message.show_warning(f"We didn't find anything!")
         else:
@@ -324,6 +315,7 @@ first add at least 1 category to open cost form."""
         self.report_page.close()
         self.report_page.reset_form()
         self.main_page.show()
+
     #############################################################################
 
     def run(self):

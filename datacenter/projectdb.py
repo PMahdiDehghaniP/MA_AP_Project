@@ -67,8 +67,7 @@ class PDataBase:
         self.Connector.commit()
 
     def migrate_category_table(self):
-        self.command.execute(
-            "ALTER TABLE UserCategories RENAME TO UserCategories_old")
+        self.command.execute("ALTER TABLE UserCategories RENAME TO UserCategories_old")
         self.create_category_table()
         self.command.execute(
             """
@@ -153,8 +152,7 @@ class PDataBase:
         return count == 0
 
     def isunique_email(self, email):
-        self.command.execute(
-            "SELECT COUNT(*) FROM UserInfo WHERE email=?", (email,))
+        self.command.execute("SELECT COUNT(*) FROM UserInfo WHERE email=?", (email,))
         count = self.command.fetchone()[0]
         return count == 0
 
@@ -239,12 +237,14 @@ class PDataBase:
             for column in columns:
                 query = f"SELECT * FROM {table} WHERE username=? AND {column} LIKE ?"
                 params = [username, "%" + text + "%"]
-
                 if start_date and end_date and "date" in columns:
                     query += " AND date BETWEEN ? AND ?"
                     params.extend([start_date, end_date])
-
-                if lower_price is not None and higher_price is not None and "amount" in columns:
+                if (
+                    lower_price is not None
+                    and higher_price is not None
+                    and "amount" in columns
+                ):
                     query += " AND amount BETWEEN ? AND ?"
                     params.extend([lower_price, higher_price])
 
@@ -258,7 +258,10 @@ class PDataBase:
 
                 self.command.execute(query, params)
                 results = self.command.fetchall()
+                temp = ""
                 if results:
                     for row in results:
-                        final += f"Results from {table} {column}\n{row}\n"
+                        temp += f"Results from {table}\n{row}\n"
+                if temp not in final:
+                    final += temp
         return final

@@ -435,6 +435,7 @@ class Report_Page(QMainWindow):
 
     def format_date_calender(self):
         end_date = datetime.today()
+        start_date=""
         if self.yesterday_radio.isChecked():
             start_date = end_date - timedelta(days=1)
         elif self.lastweek_radio.isChecked():
@@ -444,11 +445,11 @@ class Report_Page(QMainWindow):
         elif self.last3month_radio.isChecked():
             start_date = end_date - timedelta(days=90)
         elif self.custom_period_radio.isChecked():
-            start_date = self.calender_start.selectedDate()
-            end_date = self.calender_end.selectedDate()
+            start_date = self.calender_start.selectedDate().toPyDate()
+            end_date = self.calender_end.selectedDate().toPyDate()
         if start_date and end_date:
-            formatted_start_date = start_date.toString("yyyy/MM/dd")
-            formatted_end_date = end_date.toString("yyyy/MM/dd")
+            formatted_start_date = start_date.strftime("%Y/%m/%d")
+            formatted_end_date = end_date.strftime("%Y/%m/%d")
             return formatted_start_date, formatted_end_date
         else:
             return None, None
@@ -537,7 +538,7 @@ class Report_Page(QMainWindow):
                     higher_price=higher_price,
                     resource=resource, item_type=item_type
                 )
-            elif files == "both":
+            elif files == "both" or files == "every":
                 res = dbcontroler.search_text(
                     tables=["UserIncome", "UserCost"],
                     username=self.username,
@@ -546,16 +547,5 @@ class Report_Page(QMainWindow):
                     lower_price=lower_price,
                     higher_price=higher_price,
                     resource=resource, item_type=item_type
-                )
-            elif files == "every":
-                res = dbcontroler.search_text(
-                    tables=["UserIncome", "UserCost"],
-                    username=self.username,
-                    start_date=start_date,
-                    end_date=end_date,
-                    lower_price=lower_price,
-                    higher_price=higher_price,
-                    resource=resource,
-                    item_type=item_type
                 )
         return res
