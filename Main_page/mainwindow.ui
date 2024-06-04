@@ -37,20 +37,20 @@
      <rect>
       <x>110</x>
       <y>0</y>
-      <width>231</width>
+      <width>261</width>
       <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Times New Roman</family>
-      <pointsize>12</pointsize>
+      <pointsize>14</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
     <property name="text">
-     <string>به صفحه اصلی برنامه خوش آمدید</string>
+     <string>Welcome to the Main Page</string>
     </property>
    </widget>
    <widget class="QLabel" name="userfullname">
@@ -90,7 +90,7 @@
      </font>
     </property>
     <property name="text">
-     <string>ثبت درآمد</string>
+     <string>Record Income</string>
     </property>
    </widget>
    <widget class="QPushButton" name="category_btn">
@@ -109,7 +109,7 @@
      </font>
     </property>
     <property name="text">
-     <string>کتگوری ها</string>
+     <string>Categories</string>
     </property>
    </widget>
    <widget class="QPushButton" name="report_btn">
@@ -128,7 +128,7 @@
      </font>
     </property>
     <property name="text">
-     <string>گزارش گیری</string>
+     <string>Reports</string>
     </property>
    </widget>
    <widget class="QPushButton" name="record_cost_btn">
@@ -147,7 +147,7 @@
      </font>
     </property>
     <property name="text">
-     <string>ثبت هزینه</string>
+     <string>Record Cost</string>
     </property>
    </widget>
    <widget class="QPushButton" name="exit_mainpage_btn">
@@ -166,7 +166,7 @@
      </font>
     </property>
     <property name="text">
-     <string>خروج</string>
+     <string>Exit</string>
     </property>
    </widget>
    <widget class="QPushButton" name="search_btn">
@@ -185,7 +185,7 @@
      </font>
     </property>
     <property name="text">
-     <string>جستجو</string>
+     <string>Search</string>
     </property>
    </widget>
    <widget class="QPushButton" name="setting_btn">
@@ -204,7 +204,7 @@
      </font>
     </property>
     <property name="text">
-     <string>تنظیمات</string>
+     <string>Settings</string>
     </property>
    </widget>
   </widget>

@@ -4,8 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from datacenter.projectdb import PDataBase
 from validates.validate import Validate
-import sys
-from PyQt5.QtWidgets import QWidget
+
 
 category_validatation = Validate()
 db_control = PDataBase()

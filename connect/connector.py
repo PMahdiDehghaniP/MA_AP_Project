@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt, QTime, QUrl
-from PyQt5.QtWidgets import QLineEdit, QCheckBox
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QLineEdit
 from SignupPage.Signup_Gui import Signup
 from Welcome_Page.welcomGui import Welcome
 from Forgot_page.forgot import forgot
@@ -11,7 +11,6 @@ from Search_Report.search import Search_Page, Report_Page
 from MessageBox.messagebox import Message_Box
 from Income_page.income_page import Income
 from Cost_Page.cost_page import Cost_Form
-import user as uv
 from datacenter.projectdb import PDataBase
 from Sound.back_sound import Sound
 from Setting_Page.setting_p import Setting_Page

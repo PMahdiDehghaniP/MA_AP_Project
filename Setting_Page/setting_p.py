@@ -1,8 +1,7 @@
-from PyQt5.QtWidgets import QWidget
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import QTimer, Qt
+from PyQt5.QtCore import Qt
 import sys
 import os
 

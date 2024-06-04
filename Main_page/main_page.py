@@ -3,7 +3,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from Timer.timer import Timer_Calc
 from PyQt5 import uic
-import sys
 
 timer_main=Timer_Calc()
 class Main_Page(QMainWindow):

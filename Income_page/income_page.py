@@ -5,8 +5,6 @@ from PyQt5 import uic
 from datacenter.projectdb import PDataBase
 from MessageBox.messagebox import Message_Box
 from validates.validate import Validate
-import sys
-from PyQt5.QtWidgets import QWidget
 from Sound.back_sound import Sound
 
 

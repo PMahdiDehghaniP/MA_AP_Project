@@ -6,7 +6,6 @@ from validates.validate import *
 from MessageBox.messagebox import *
 from datacenter.projectdb import PDataBase
 from Sound.back_sound import Sound
-import re
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))

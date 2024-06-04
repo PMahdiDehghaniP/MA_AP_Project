@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QTimer, QTime
+from PyQt5.QtCore import QTime
 
 
 class Timer_Calc(QTime):
