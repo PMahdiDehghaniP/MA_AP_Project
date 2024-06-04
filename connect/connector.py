@@ -516,23 +516,23 @@ first add at least 1 category to open cost form."""
 
     def delete_trans(self):
         self.music.play_warn_music()
-        self.message.show_warning(
+        self.message.areyou_sure_message(
             "Are you sure you want to delete all of your transactions ?"
         )
 
     def delete_user(self):
         self.music.play_warn_music()
-        self.message.show_warning("Are you sure you want to delete yourself ?")
+        self.message.areyou_sure_message("Are you sure you want to delete yourself ?")
 
     def delete_income(self):
         self.music.play_warn_music()
-        self.message.show_warning(
+        self.message.areyou_sure_message(
             "Are you sure you want to delete all of your income transactions ?"
         )
 
     def delete_cost(self):
         self.music.play_warn_music()
-        self.message.show_warning(
+        self.message.areyou_sure_message(
             "Are you sure you want to delete all of your cost transactions ?"
         )
 

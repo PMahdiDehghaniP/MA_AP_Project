@@ -8,15 +8,10 @@ class Sound:
         self.off_on_message = True
         self.background_music_player = QMediaPlayer()
         self.click_sound_player = QMediaPlayer()
+        self.warning_sound_player = QMediaPlayer()  # Player for warning sound
+        self.message_sound_player = QMediaPlayer()  # Player for message sound
 
     def play_background_music(self):
-        # url = QUrl.fromLocalFile(r"Sound\bgsound.wav")
-        # content = QMediaContent(url)
-        # self.background_music_player.setMedia(content)
-        # self.background_music_player.setVolume(50)
-        # self.background_music_player.setPlaybackMode(QMediaPlaylist.Loop)
-        # self.background_music_player.setPlaybackRate(1.25)
-        # self.background_music_player.play()
         self.playlist = QMediaPlaylist()
         url = QUrl.fromLocalFile(r"Sound/bgsound.wav")
         self.playlist.addMedia(QMediaContent(url))
@@ -30,28 +25,28 @@ class Sound:
         self.background_music_player.stop()
 
     def play_click_music(self):
-        if self.off_on_click == True:
-            url = QUrl.fromLocalFile(r"Sound\clicksound.wav")
+        if self.off_on_click:
+            url = QUrl.fromLocalFile(r"Sound/clicksound.wav")
             content = QMediaContent(url)
             self.click_sound_player.setMedia(content)
             self.click_sound_player.setVolume(40)
             self.click_sound_player.play()
 
     def play_warn_music(self):
-        if self.off_on_message == True:
-            url = QUrl.fromLocalFile(r"Sound\warning.wav")
+        if self.off_on_message:
+            url = QUrl.fromLocalFile(r"Sound/warning.wav")
             content = QMediaContent(url)
-            self.background_music_player.setMedia(content)
-            self.background_music_player.setVolume(30)
-            self.background_music_player.play()
+            self.warning_sound_player.setMedia(content)
+            self.warning_sound_player.setVolume(30)
+            self.warning_sound_player.play()
 
     def play_message_music(self):
-        if self.off_on_message == True:
-            url = QUrl.fromLocalFile(r"Sound\message.wav")
+        if self.off_on_message:
+            url = QUrl.fromLocalFile(r"Sound/message.wav")
             content = QMediaContent(url)
-            self.background_music_player.setMedia(content)
-            self.background_music_player.setVolume(50)
-            self.background_music_player.play()
+            self.message_sound_player.setMedia(content)
+            self.message_sound_player.setVolume(50)
+            self.message_sound_player.play()
 
     def off_message_music(self):
         self.off_on_message = False

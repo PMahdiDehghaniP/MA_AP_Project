@@ -100,11 +100,11 @@ class Message_Box(QMainWindow):
         msg.setWindowIcon(QIcon(r"MessageBox\are_you_window_icon.png"))
         msg.setWindowTitle("Confirm")
         msg.setText(message)
-        # msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-        # msg.setDefaultButton(QMessageBox.No)
-        msg.exec_()
-        # reply = msg.exec_()
-        # if reply == QMessageBox.Yes:
-        #     return True
-        # else:
-        #     return False
+        msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        msg.setDefaultButton(QMessageBox.No)
+        # msg.exec_()
+        reply = msg.exec_()
+        if reply == QMessageBox.Yes:
+            return True
+        else:
+            return False
