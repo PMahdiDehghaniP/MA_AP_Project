@@ -238,6 +238,11 @@ class Connector:
         self.setting_page.btn_radio_off.toggled.connect(
             self.music.off_click_music)
 
+        self.setting_page.msg_radio_off.toggled.connect(
+            self.music.off_message_music)
+        self.setting_page.msg_radio_on.toggled.connect(
+            self.music.on_message_music)
+
         self.setting_page.edit_profile_btn.clicked.connect(
             self.music.play_click_music)
         self.setting_page.edit_profile_btn.clicked.connect(self.show_edit_form)
