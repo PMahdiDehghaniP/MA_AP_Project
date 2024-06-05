@@ -8,6 +8,7 @@ from datacenter.projectdb import PDataBase
 from Sound.back_sound import Sound
 import os
 import sys
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
@@ -23,6 +24,29 @@ class Signup(QMainWindow):
         super().__init__()
         uic.loadUi(r"SignupPage\mainwindow.ui", self)
         self.setWindowTitle("Sign UP")
+        self.style()
+
+    def style(self):
+        self.btn_style = """
+            QPushButton { 
+            border-radius:5px;
+            font-size:16px;
+            border:0.5px solid #38ef7d;
+            background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #38ef7d,
+                stop: 1 #11998e
+            );
+            }
+            QPushButton:hover {
+            background: qlineargradient(
+                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
+                stop: 0 #8E0E00,
+                stop: 1 #1F1C18);
+                border:none;
+                color:Yellow;
+                }
+                """
         self.lineedit_style = """border:1px solid #898989;
         border-radius:6px;
             background: qlineargradient(
@@ -52,28 +76,9 @@ background-repeat:no-repeat;                  """
         self.email_signup.setStyleSheet(self.lineedit_style)
         self.date_signup.setStyleSheet(self.lineedit_style)
         self.Submit_signup.setCursor(Qt.PointingHandCursor)
-        self.Submit_signup.setStyleSheet(
-            """
-            QPushButton { 
-            border-radius:5px;
-            font-size:16px;
-            border:0.5px solid #38ef7d;
-            background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #38ef7d,
-                stop: 1 #11998e
-            );
-            }
-            QPushButton:hover {
-            background: qlineargradient(
-                spread: pad, x1: 0, y1: 0, x2: 1, y2: 0,
-                stop: 0 #8E0E00,
-                stop: 1 #1F1C18);
-                border:none;
-                color:Yellow;
-                }
-                """
-        )
+        self.return_signup.setCursor(Qt.PointingHandCursor)
+        self.Submit_signup.setStyleSheet(self.btn_style)
+        self.return_signup.setStyleSheet(self.btn_style)
         self.cityOpthoin = [
             "yazd",
             "tehran",
@@ -92,10 +97,8 @@ background-repeat:no-repeat;                  """
 
     def submit_signup_clicked(self):
         user_uniqe = db_controler.isunique_username(self.username.text())
-        phone_uniqe = db_controler.isunique_phonenumber(
-            self.phone_signup.text())
-        email_uniqe = db_controler.isunique_email(
-            self.email_signup.text())
+        phone_uniqe = db_controler.isunique_phonenumber(self.phone_signup.text())
+        email_uniqe = db_controler.isunique_email(self.email_signup.text())
         is_user_valid = True
         if Valid.validate_name(self.fname_signup.text()) == False:
             music.play_warn_music()
@@ -117,8 +120,7 @@ background-repeat:no-repeat;                  """
             return is_user_valid
         if Valid.validate_username(self.username.text()) == False:
             music.play_warn_music()
-            Message.show_warning(
-                "You Entered Invalid Username\nOr Already Taken!")
+            Message.show_warning("You Entered Invalid Username\nOr Already Taken!")
             self.username.setText("")
             is_user_valid = False
             return is_user_valid
@@ -130,8 +132,7 @@ background-repeat:no-repeat;                  """
             return is_user_valid
         if self.repeatpasswprd_signup.text() != self.Password_signup.text():
             music.play_warn_music()
-            Message.show_warning(
-                "Repeat password does not match the password!")
+            Message.show_warning("Repeat password does not match the password!")
             self.repeatpasswprd_signup.setText("")
             is_user_valid = False
             return is_user_valid
@@ -155,8 +156,7 @@ background-repeat:no-repeat;                  """
             return is_user_valid
         if phone_uniqe == False:
             music.play_warn_music()
-            Message.show_warning(
-                "This mobile number has already been used.")
+            Message.show_warning("This mobile number has already been used.")
             self.phone_signup.setText("")
             is_user_valid = False
             return is_user_valid

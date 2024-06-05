@@ -1,6 +1,7 @@
 import sqlite3 as sql
 import pandas as pd
 import os
+import shutil
 
 
 class PDataBase:
@@ -409,3 +410,21 @@ class PDataBase:
         result = self.command.fetchone()
         count = result[0] if result is not None else 0
         return count
+
+    def delete_csv_file(self, username, table_name):
+        base_folder = "Users_Csv_Data"
+        user_folder = os.path.join(base_folder, f"{username}_Csv_Data")
+        file_path = os.path.join(user_folder, f"{table_name}_{username}.csv")
+
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            return True
+        return False
+
+    def delete_all_csv_file(self, username):
+        base_folder = "Users_Csv_Data"
+        user_folder = os.path.join(base_folder, f"{username}_Csv_Data")
+        if os.path.exists(user_folder):
+            shutil.rmtree(user_folder)
+            return True
+        return False

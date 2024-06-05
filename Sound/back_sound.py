@@ -13,12 +13,12 @@ class Sound:
 
     def play_background_music(self):
         self.playlist = QMediaPlaylist()
-        url = QUrl.fromLocalFile(r"Sound/bgsound.wav")
+        url = QUrl.fromLocalFile(r"Sound\bgsound.mp3")
         self.playlist.addMedia(QMediaContent(url))
         self.playlist.setPlaybackMode(QMediaPlaylist.Loop)
         self.background_music_player.setPlaylist(self.playlist)
-        self.background_music_player.setVolume(50)
-        self.background_music_player.setPlaybackRate(1.5)
+        self.background_music_player.setVolume(15)
+        self.background_music_player.setPlaybackRate(1)
         self.background_music_player.play()
 
     def stop_background_music(self):

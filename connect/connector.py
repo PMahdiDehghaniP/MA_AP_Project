@@ -557,6 +557,7 @@ first add at least 1 category to open cost form."""
                 ["UserIncome", "UserCost", "UserInfo", "UserCategories"],
                 self.login_page.username,
             )
+            self.database.delete_all_csv_file(self.login_page.username)
             self.setting_page.close()
             self.main_page.close()
             self.login_page.show()
@@ -570,6 +571,7 @@ first add at least 1 category to open cost form."""
             delete_flag = self.database.delete_user_data(
                 ["UserIncome"], self.login_page.username
             )
+            self.database.delete_csv_file(self.login_page.username, "UserIncome")
             if not delete_flag:
                 self.music.play_warn_music()
                 self.message.show_warning("You Dont Have Any Data In Your Income Info")
@@ -583,6 +585,7 @@ first add at least 1 category to open cost form."""
             delete_flag = self.database.delete_user_data(
                 ["UserCost"], self.login_page.username
             )
+            self.database.delete_csv_file(self.login_page.username, "UserCost")
             if not delete_flag:
                 self.music.play_warn_music()
                 self.message.show_warning("You Dont Have Any Data In Your Cost Info ")
