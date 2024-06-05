@@ -1,4 +1,6 @@
 import sqlite3 as sql
+import pandas as pd
+import os
 
 
 class PDataBase:
@@ -279,7 +281,7 @@ class PDataBase:
         self.Connector.commit()
         return True
 
-    def update_user_data(self,username, fname="", lname="", email="", phonenumber="", password="", city="", birthday=""):
+    def update_user_data(self, username, fname="", lname="", email="", phonenumber="", password="", city="", birthday=""):
         fields = []
         values = []
 
@@ -311,3 +313,33 @@ class PDataBase:
 
         self.command.execute(query, values)
         self.Connector.commit()
+
+    def export_csv_file(self, username):
+        try:
+            tables = pd.read_sql_query(
+                "SELECT name FROM sqlite_master WHERE type='table';", self.Connector)
+
+            base_folder = 'Users_Csv_Data'
+            user_folder = os.path.join(base_folder, f'{username}_Csv_Data')
+            if not os.path.exists(user_folder):
+                os.makedirs(user_folder)
+            for table_name in tables['name']:
+                df_columns = pd.read_sql_query(
+                    f"PRAGMA table_info({table_name});", self.Connector)
+                if 'username' in df_columns['name'].values:
+                    query = f"SELECT * FROM {table_name} WHERE username = ?"
+                    df = pd.read_sql_query(
+                        query, self.Connector, params=(username,))
+
+                    if not df.empty:
+                        csv_filename = os.path.join(
+                            user_folder, f'{table_name}_{username}.csv')
+
+                        if os.path.exists(csv_filename):
+                            os.remove(csv_filename)
+                        df.to_csv(csv_filename, index=False)
+
+            return True
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return False

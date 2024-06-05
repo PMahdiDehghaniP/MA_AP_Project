@@ -257,6 +257,7 @@ class Connector:
 
         self.setting_page.delete_cost_transaction.clicked.connect(
             self.delete_cost)
+        self.setting_page.export_csv_btn.clicked.connect(self.export_user_data)
 
         #############################################################################
         self.edit_form.fanme_checkbox.stateChanged.connect(
@@ -620,6 +621,15 @@ first add at least 1 category to open cost form."""
                 self.music.play_warn_music()
                 self.message.show_warning(
                     "You Dont Have Any Data In Your Cost Info ")
+
+    def export_user_data(self):
+        res = self.database.export_csv_file(self.login_page.username)
+        if res:
+            self.music.play_message_music()
+            self.message.show_message("Your Data Has Been Saved To Csv File!")
+        else:
+            self.music.play_warn_music()
+            self.message.show_warning("Cant Export Your Data To Csv!")
 
     #######################################################################################
     # edit form
