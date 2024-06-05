@@ -103,18 +103,13 @@ class Login(QMainWindow):
     Please check the details again.\n
     If you don't have an account, please sign up."""
                 )
+                if self.counter_try_login >= 3:
+                    self.block_login_button()
                 self.email_login.setText("")
                 self.password_login.setText("")
                 return
             else:
                 flag_user = True
-
-            if db_controler.get_password(input_user) == None:
-                self.counter_try_login += 1
-                music.play_warn_music()
-                show_message.show_warning("Incorrect Password!\nTry Again!")
-                self.password_login.setText("")
-                return
             if self.password_login.text() == db_controler.get_password(input_user):
                 flag_pass = True
             else:
@@ -126,10 +121,10 @@ class Login(QMainWindow):
             if flag_user == True and flag_pass == True:
                 self.counter_try_login = 0
                 music.play_message_music()
-                show_message.show_message(
-                    "You have successfully logged in. Welcome!")
+                show_message.show_message("You have successfully logged in. Welcome!")
                 self.username = db_controler.return_username(input_user)
                 return "OK"
+
         else:
             self.block_login_button()
 
@@ -154,16 +149,14 @@ class Login(QMainWindow):
 
     def start_timer(self):
         self.remaining_time = 60
-        self.time_rem_label.setText(
-            f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_timer)
         self.timer.start(900)
 
     def update_timer(self):
         self.remaining_time -= 1
-        self.time_rem_label.setText(
-            f"Remaining Time: {self.remaining_time} seconds")
+        self.time_rem_label.setText(f"Remaining Time: {self.remaining_time} seconds")
         if self.remaining_time == 0:
             self.timer.stop()
             self.enable_login_elems()

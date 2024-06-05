@@ -54,6 +54,8 @@ class Connector:
 
         self.signup_page.Submit_signup.clicked.connect(self.music.play_click_music)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
+
+        self.signup_page.return_signup.clicked.connect(self.return_signup_page)
         ###################
 
         self.cost_page.exit_btn_cost.clicked.connect(self.music.play_click_music)
@@ -516,6 +518,11 @@ first add at least 1 category to open cost form."""
             self.signup_page.reset_signup()
             self.signup_page.close()
             self.login_page.show()
+
+    def return_signup_page(self):
+        self.signup_page.close()
+        self.signup_page.reset_signup()
+        self.welcome_window.show()
 
     ########################################################################################
     # Setting
