@@ -565,3 +565,51 @@ class Report_Page(QMainWindow):
                     item_type=item_type,
                 )
         return res
+
+    def mat(
+        self,
+        start_date=None,
+        end_date=None,
+        lower_price=None,
+        higher_price=None,
+        resource=None,
+        item_type=None,
+    ):
+        flag = self.get_report_clicked()
+        res = ""
+        if flag:
+            files = self.ischeckbox_file()
+            if files == "income":
+                res = dbcontroler.get_filtered_row_counts(
+                    tables=["UserIncome"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
+                    resource=resource,
+                    item_type=item_type,
+                )
+            elif files == "cost":
+                res = dbcontroler.get_filtered_row_counts(
+                    tables=["UserCost"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
+                    resource=resource,
+                    item_type=item_type,
+                )
+            elif files == "both" or files == "every":
+                res = dbcontroler.get_filtered_row_counts(
+                    tables=["UserIncome", "UserCost"],
+                    username=self.username,
+                    start_date=start_date,
+                    end_date=end_date,
+                    lower_price=lower_price,
+                    higher_price=higher_price,
+                    resource=resource,
+                    item_type=item_type,
+                )
+        return res
