@@ -55,6 +55,7 @@ class Connector:
         self.signup_page.Submit_signup.clicked.connect(self.music.play_click_music)
         self.signup_page.Submit_signup.clicked.connect(self.user_object_making)
 
+        self.signup_page.return_signup.clicked.connect(self.music.play_click_music)
         self.signup_page.return_signup.clicked.connect(self.return_signup_page)
         ###################
 
