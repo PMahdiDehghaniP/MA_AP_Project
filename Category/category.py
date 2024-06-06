@@ -65,7 +65,7 @@ class Category_Page(QMainWindow):
     def add_category(self, category, user):
         if (
             category_validatation.validate_categoty(category) == True
-            and db_control.isunique_category(category, user) == True
+            and db_control.isunique_category(username=user, category_name=category) == True
         ):
             db_control.add_category(user, category)
             return True
