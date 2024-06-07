@@ -125,7 +125,8 @@ border-radius: 7px;"""
 
     def send_code(self):
         flag = db_controler.return_username(self.em_us_forgot_linedit.text())
-        user_email = db_controler.return_email(self.em_us_forgot_linedit.text())
+        user_email = db_controler.return_email(
+            self.em_us_forgot_linedit.text())
         if flag != False:
             my_email = "mahdi14dehghani@gmail.com"
             self.verification_code = random.randint(100000, 999999)
@@ -137,7 +138,13 @@ border-radius: 7px;"""
                 connection.login(user=my_email, password=password)
                 connection.sendmail(my_email, user_email, message)
             music.play_message_music()
-            Message.show_message("Code Has Been Sent To Your Email Please Check")
+            Message.show_message(
+                "Code Has Been Sent To Your Email Please Check")
+        else:
+            music.play_warn_music()
+            Message.show_warning("You Entered Invalid Email!")
+            self.reset_forgot_page()
+            return
 
     def reset_forgot_page(self):
         self.em_us_forgot_linedit.setText("")

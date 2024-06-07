@@ -236,7 +236,7 @@ class Connector:
         self.edit_form.submit_btn.clicked.connect(self.music.play_click_music)
         self.edit_form.submit_btn.clicked.connect(
             self.submit_edit_form_btn_clciked
-        )  # we'll completed later
+        )
 
         self.edit_form.return_btn_editform.clicked.connect(self.music.play_click_music)
         self.edit_form.return_btn_editform.clicked.connect(self.return_edit_form)
