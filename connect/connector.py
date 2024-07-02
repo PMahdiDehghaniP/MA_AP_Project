@@ -7,6 +7,7 @@ from Login_Page.login_form import Login
 from Main_page.main_page import Main_Page
 from Timer.timer import Timer_Calc
 from Category.category import Category_Page
+from Opinion_Page.feedback import Opinion_PageV
 from About_Page.aboutapp import AboutApp
 from Search_Report.search import Search_Page, Report_Page
 from MessageBox.messagebox import Message_Box
@@ -32,6 +33,7 @@ class Connector:
         self.music.play_background_music()
         self.setting_page = Setting_Page()
         self.about_page = AboutApp()
+        self.opinion_page = Opinion_PageV()
         self.edit_form = Edit_profile()
         self.database = PDataBase()
         self.login_page = Login()
@@ -113,6 +115,7 @@ class Connector:
 
         self.main_page.feedback_btn.clicked.connect(
             self.music.play_click_music)
+        self.main_page.feedback_btn.clicked.connect(self.show_opinion_page)
 
         self.main_page.setting_btn.clicked.connect(self.music.play_click_music)
         self.setting_page.bg_on_radio.setChecked(True)
@@ -309,6 +312,12 @@ class Connector:
         self.about_page.return_about_btn.clicked.connect(
             self.music.play_click_music)
         self.about_page.return_about_btn.clicked.connect(self.exit_about_page)
+    #############################################################################
+        self.opinion_page.returnbtn.clicked.connect(
+            self.music.play_click_music)
+        self.opinion_page.returnbtn.clicked.connect(self.exit_opinion_page)
+        self.opinion_page.submitbtn.clicked.connect(
+            self.music.play_click_music)
     #############################################################################
 
     def exit_main_page(self):
@@ -562,6 +571,16 @@ first add at least 1 category to open cost form."""
 
     def exit_about_page(self):
         self.about_page.close()
+        self.main_page.show()
+    #############################################################################
+    # Opinion
+
+    def show_opinion_page(self):
+        self.main_page.hide()
+        self.opinion_page.show()
+
+    def exit_opinion_page(self):
+        self.opinion_page.close()
         self.main_page.show()
     #############################################################################
 
