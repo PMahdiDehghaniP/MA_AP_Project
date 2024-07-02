@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>551</width>
+    <height>553</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="title">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>1</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>About Our App</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="developers_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>381</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Developers : Mahdi Dehghani - Amin Shirvani</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="features_label">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>110</y>
+      <width>381</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Features : </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="discription">
+    <property name="geometry">
+     <rect>
+      <x>35</x>
+      <y>122</y>
+      <width>481</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>1. Sending a code to the user's email for password recovery.
+2. Displaying a live timer on the main page.
+3. Showing the total time a user has spent on
+their panel after pressing the logout button.
+4. Implementing CAPTCHA in the forgot password form
+which changes after each incorrect attempt.
+5. Enabling the export of all data as a CSV file.
+6. Displaying a pie chart on the REPORT page.
+7. Allowing the sound to be turned on and off in the settings section.
+8. Having three types of sounds: one for successful operations,
+background sound, and button click sounds.
+9. Using auto-complete to fill in city names.
+10. Creating an executable (.exe) file from the project,
+hosting it on Mega, and making it downloadable
+and executable on all systems.</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="version">
+    <property name="geometry">
+     <rect>
+      <x>23</x>
+      <y>468</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Version : 2.6</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="return_about_btn">
+    <property name="geometry">
+     <rect>
+      <x>369</x>
+      <y>460</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Return Main Page</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>551</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

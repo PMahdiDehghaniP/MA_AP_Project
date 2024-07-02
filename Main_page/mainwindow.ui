@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>444</width>
-    <height>508</height>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -150,7 +150,7 @@
      <string>Record Cost</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="exit_mainpage_btn">
+   <widget class="QPushButton" name="feedback_btn">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -166,7 +166,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Exit</string>
+     <string>Reviews and opinions</string>
     </property>
    </widget>
    <widget class="QPushButton" name="search_btn">
@@ -205,6 +205,44 @@
     </property>
     <property name="text">
      <string>Settings</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="aboutapp_btn">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>462</y>
+      <width>251</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>About App</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit_mainpage_btn">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>512</y>
+      <width>251</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Exit</string>
     </property>
    </widget>
   </widget>

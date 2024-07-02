@@ -4,7 +4,9 @@ from PyQt5.QtWidgets import *
 from Timer.timer import Timer_Calc
 from PyQt5 import uic
 
-timer_main=Timer_Calc()
+timer_main = Timer_Calc()
+
+
 class Main_Page(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -19,7 +21,7 @@ class Main_Page(QMainWindow):
         self.show_time()
 
     def style(self):
-        self.setFixedSize(444, 508)
+        self.setFixedSize(444, 621)
         self.time_label.setStyleSheet("background : none ;")
         self.welcome_text.setStyleSheet("""background : none ;""")
         self.btn_style = """
@@ -62,6 +64,10 @@ class Main_Page(QMainWindow):
         self.record_income_btn.setStyleSheet(self.btn_style)
         self.exit_mainpage_btn.setCursor(Qt.PointingHandCursor)
         self.exit_mainpage_btn.setStyleSheet(self.btn_style)
+        self.feedback_btn.setStyleSheet(self.btn_style)
+        self.feedback_btn.setCursor(Qt.PointingHandCursor)
+        self.aboutapp_btn.setStyleSheet(self.btn_style)
+        self.aboutapp_btn.setCursor(Qt.PointingHandCursor)
 
     def set_user_info(self, emuser):
         self.userfullname.setText(f"User : {emuser}")
@@ -72,4 +78,4 @@ class Main_Page(QMainWindow):
         self.time_label.setText(time_display)
 
     def set_first_login_time(self):
-        self.first_time_login=timer_main.current_time()
+        self.first_time_login = timer_main.current_time()
