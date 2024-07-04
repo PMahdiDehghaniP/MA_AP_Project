@@ -7,7 +7,6 @@ from MessageBox.messagebox import Message_Box
 from Sound.back_sound import Sound
 
 
-
 class Feedback(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -51,4 +50,5 @@ class Feedback(QMainWindow):
         self.returnbtn.setCursor(Qt.PointingHandCursor)
         self.title.setStyleSheet("background:none;")
         self.feedbackbox.setStyleSheet("background:none;")
-
+    def reset(self):
+        self.feedbackbox.setText("")
